@@ -2,6 +2,8 @@ import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Bitter, Raleway } from 'next/font/google';
 
+import { ThemeProvider } from '@/components/theme-provider';
+
 import './globals.css';
 
 const bitter = Bitter({
@@ -20,15 +22,22 @@ export const metadata: Metadata = {
     'Aplikacja do śledzenia statystyk z przedsięwzięcia z branży bukmacherskiej',
 };
 
-interface RootLayoutProps {
-  children: ReactNode;
-}
+type RootLayoutProps = { children: ReactNode };
 
 export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
   return (
-    <html lang="en">
-      <body className={`${bitter.variable} ${raleway.variable} antialiased`}>
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${bitter.variable} ${raleway.variable} sm:grid sm:h-screen sm:grid-cols-[256px_1fr]`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
