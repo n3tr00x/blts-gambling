@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Bitter, Raleway } from 'next/font/google';
 
+import { Navigation } from '@/components/navigation';
 import { ThemeProvider } from '@/components/theme-provider';
 
 import './globals.css';
@@ -36,7 +37,8 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Navigation />
+          <main>{children}</main>
         </ThemeProvider>
       </body>
     </html>
