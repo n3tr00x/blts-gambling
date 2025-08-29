@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Bitter, Raleway } from 'next/font/google';
 
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     'Aplikacja do śledzenia statystyk z przedsięwzięcia z branży bukmacherskiej',
 };
 
-type RootLayoutProps = { children: ReactNode };
+type RootLayoutProps = { children: ReactNode; auth: ReactNode };
 
-export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
+export default function RootLayout({ auth, children }: Readonly<RootLayoutProps>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -39,6 +39,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
         >
           <Navigation />
           <main>{children}</main>
+          {auth}
         </ThemeProvider>
       </body>
     </html>
