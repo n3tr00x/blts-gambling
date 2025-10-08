@@ -3,7 +3,7 @@ CREATE TABLE public.picks (
   player_id INTEGER NOT NULL,
   season_id INTEGER NOT NULL,
   matchday_id INTEGER NOT NULL,
-  league_id INTEGER NOT NULL,
+  league_id INTEGER,
   odds NUMERIC NOT NULL,
   is_hit BOOLEAN NOT NULL,
   votes INTEGER NOT NULL DEFAULT 0,

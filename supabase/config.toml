@@ -54,11 +54,16 @@ enabled = true
 # Specifies an ordered list of schema files that describe your database.
 # Supports glob patterns relative to supabase directory: "./schemas/*.sql"
 schema_paths = [
-  './schemas/players.sql',
-  './schemas/seasons.sql',
-  './schemas/round_types.sql',
-  './schemas/matchdays.sql',
-  './schemas/*.sql',
+  "./schemas/players.sql", 
+  "./schemas/seasons.sql", 
+  "./schemas/leagues.sql",
+  "./schemas/coupons.sql",
+  "./schemas/round_types.sql",
+  "./schemas/matchdays.sql",
+  "./schemas/picks.sql",
+  "./schemas/votes.sql",
+  "./schemas/views/*.sql",
+  "./schemas/functions/*.sql"
 ]
 
 [db.seed]

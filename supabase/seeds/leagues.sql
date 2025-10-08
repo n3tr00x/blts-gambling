@@ -264,7 +264,9 @@ VALUES
     '1'
   ),
   ('148', 'Cymru Premier', 'Walia', '2'),
-  ('149', 'E-SPORT', 'Świat', '1');
+  ('149', 'E-SPORT', 'Świat', '1'),
+  ('150', 'League One', 'Anglia', '3'),
+  ('151', 'League Two', 'Anglia', '4');
 
 SELECT setval(
   pg_get_serial_sequence('leagues', 'id'),
