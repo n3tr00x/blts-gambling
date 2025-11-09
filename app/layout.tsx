@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Bitter, Raleway } from 'next/font/google';
 
-import { Navigation } from '@/components/navigation';
+import { Navigation } from '@/components/navigation/navigation';
 import { ThemeProvider } from '@/components/theme-provider';
 
 import './globals.css';
@@ -28,17 +28,17 @@ type RootLayoutProps = { children: ReactNode; auth: ReactNode };
 export default function RootLayout({ auth, children }: Readonly<RootLayoutProps>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${bitter.variable} ${raleway.variable} sm:grid sm:h-screen sm:grid-cols-[256px_1fr]`}
-      >
+      <body className={`${bitter.variable} ${raleway.variable}`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <Navigation />
-          <main>{children}</main>
+          <div className="flex flex-col md:flex-row">
+            <Navigation />
+            <main className="container mx-auto flex-1 px-4">{children}</main>
+          </div>
           {auth}
         </ThemeProvider>
       </body>
