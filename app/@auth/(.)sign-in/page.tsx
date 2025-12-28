@@ -1,9 +1,8 @@
 'use client';
 
-import { useActionState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useActionState, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import { signInAction } from '@/actions/auth';
 import { LoginForm } from '@/components/login-form';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,21 +12,37 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { signInAction } from '@/lib/supabase/actions/auth';
 
-const INITIAL_CREDENTIALS = { message: '' };
+const INITIAL_CREDENTIALS = { message: '', success: false };
 
 export default function SignInPage() {
-  const router = useRouter();
-  const pathname = usePathname();
+  const { replace, back } = useRouter();
+  const [open, setOpen] = useState(true);
   const [state, formAction, pending] = useActionState(signInAction, INITIAL_CREDENTIALS);
-  const isSignInPath = pathname.startsWith('/sign-in');
+
+  const openChangeHandler = (isOpen: boolean) => {
+    setOpen(isOpen);
+    if (!isOpen) {
+      back();
+    }
+  };
+
+  useEffect(() => {
+    if (state.success) {
+      setOpen(false);
+      replace('/rounds');
+    }
+  }, [state.success, replace]);
 
   return (
-    <Dialog open={isSignInPath} onOpenChange={open => !open && router.back()}>
+    <Dialog open={open} onOpenChange={openChangeHandler}>
       <DialogContent>
         <DialogHeader className="font-secondary">
           <DialogTitle className="text-2xl">Logowanie</DialogTitle>
-          {state.message && <p className="py-1 text-red-300">{state.message}</p>}
+          {state.message && !state.success && (
+            <p className="py-1 text-red-300">{state.message}</p>
+          )}
         </DialogHeader>
         <LoginForm formId="sign-in-form" formAction={formAction} />
         <DialogFooter>
