@@ -8,7 +8,7 @@ export async function updateSession(request: NextRequest) {
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {
@@ -39,17 +39,29 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (
-    !user
-    // !request.nextUrl.pathname.startsWith('/sign-in')
-    // !request.nextUrl.pathname.startsWith('/auth') &&
-    // !request.nextUrl.pathname.startsWith('/error')
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
-    // const url = request.nextUrl.clone();
-    // url.pathname = '/sign-in';
-    // return NextResponse.redirect(url);
+  if (!user && request.nextUrl.pathname.startsWith('/rounds/new')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/rounds';
+    return NextResponse.redirect(url);
   }
+
+  if (user && request.nextUrl.pathname.startsWith('/sign-in')) {
+    const url = request.nextUrl.clone();
+    url.pathname = '/';
+    return NextResponse.redirect(url);
+  }
+
+  // if (
+  //   !user
+  //   // !request.nextUrl.pathname.startsWith('/sign-in')
+  //   // !request.nextUrl.pathname.startsWith('/auth') &&
+  //   // !request.nextUrl.pathname.startsWith('/error')
+  // ) {
+  //   // no user, potentially respond by redirecting the user to the login page
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = '/';
+  //   return NextResponse.redirect(url);
+  // }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
   // If you're creating a new response object with NextResponse.next() make sure to:

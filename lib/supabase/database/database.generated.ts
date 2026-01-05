@@ -385,6 +385,18 @@ export type Database = {
           season_name: string;
         }[];
       };
+      get_round: {
+        Args: { matchday_id: number };
+        Returns: {
+          is_hit: boolean;
+          picks: Json;
+          round_date: string;
+          round_number: number;
+          round_type: string;
+          season: string;
+          votes: Json;
+        }[];
+      };
       player_ranking_by_month: {
         Args: { month: string };
         Returns: {
