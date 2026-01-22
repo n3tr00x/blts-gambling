@@ -7,7 +7,6 @@ CREATE TABLE public.ako_coupons (
   hit_count INTEGER NOT NULL,
   is_hit BOOLEAN NOT NULL,
   link TEXT,
-  CONSTRAINT ako_coupons_creator_id_fkey FOREIGN KEY (creator_id) REFERENCES public.players(id),
-  CONSTRAINT ako_coupons_season_id_fkey FOREIGN KEY (season_id) REFERENCES public.seasons(id)
+  CONSTRAINT ako_coupons_creator_id_fkey FOREIGN KEY (creator_id) REFERENCES public.players (id),
+  CONSTRAINT ako_coupons_season_id_fkey FOREIGN KEY (season_id) REFERENCES public.seasons (id)
 );
-

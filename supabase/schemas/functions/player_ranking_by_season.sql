@@ -1,15 +1,12 @@
-CREATE OR REPLACE FUNCTION player_ranking_by_season(season_id INT DEFAULT NULL)
-RETURNS TABLE (
-    "position" INTEGER,
-    username TEXT,
-    hit_picks INTEGER,
-    total_picks INTEGER,
-    effectiveness NUMERIC,
-    avg_odds NUMERIC,
-    total_votes INTEGER
-)
-LANGUAGE sql
-AS $$
+CREATE OR REPLACE FUNCTION player_ranking_by_season (season_id INT DEFAULT NULL) RETURNS TABLE (
+  "position" INTEGER,
+  username TEXT,
+  hit_picks INTEGER,
+  total_picks INTEGER,
+  effectiveness NUMERIC,
+  avg_odds NUMERIC,
+  total_votes INTEGER
+) LANGUAGE sql AS $$
     WITH selected_season AS (
         SELECT COALESCE(
             season_id, 
@@ -23,7 +20,7 @@ AS $$
             COUNT(pk.id) AS total_picks,
             SUM(CASE WHEN pk.is_hit THEN 1 ELSE 0 END) AS hit_picks,
             ROUND(AVG(CASE WHEN pk.is_hit THEN pk.odds END), 2) AS avg_odds_hit,
-            COALESCE(SUM(pk.votes), 0) AS total_votes
+             COALESCE(SUM(pk.votes), 0) AS total_votes
         FROM players p
         LEFT JOIN picks pk 
             ON pk.player_id = p.id
