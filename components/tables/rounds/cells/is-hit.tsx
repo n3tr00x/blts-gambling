@@ -5,7 +5,7 @@ import { RoundResult } from '@/lib/supabase/database';
 
 type RoundColumn = Omit<RoundResult, 'season_name'>;
 
-export function HitCell({ row }: { row: Row<RoundColumn> }) {
+export function IsHitCell({ row }: { row: Row<RoundColumn> }) {
   const { correct } = row.original;
 
   return <HitBadge isHit={correct} />;

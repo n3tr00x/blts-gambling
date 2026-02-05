@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { PlusIcon } from 'lucide-react';
 
-import { getPlayedRounds } from '@/actions/matches';
-import { RoundViewTable } from '@/components/tables/rounds/data-table';
+import { RoundViewTable } from '@/components/tables/rounds/round-view-table';
 import { RoundsPagination } from '@/components/tables/rounds/rounds-pagination';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,14 +11,15 @@ import {
   CardFooter,
   CardHeader,
 } from '@/components/ui/card';
+import { getPlayedRounds } from '@/lib/supabase/queries';
 import { getCurrentUser } from '@/lib/supabase/queries/auth';
 
 type RoundViewPageProps = {
-  searchParams?: Promise<{ page?: number }>;
+  searchParams: Promise<{ page?: number }>;
 };
 
 export default async function RoundsViewPage({ searchParams }: RoundViewPageProps) {
-  const { page } = (await searchParams) || {};
+  const { page } = await searchParams;
   const user = await getCurrentUser();
 
   const ROUNDS_PER_PAGE = 15;

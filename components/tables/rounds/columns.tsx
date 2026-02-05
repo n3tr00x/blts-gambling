@@ -1,36 +1,31 @@
 import { ColumnDef } from '@tanstack/react-table';
 
-import { ActionsCell } from '@/components/tables/rounds/cells/actions-cell';
-import { HitCell } from '@/components/tables/rounds/cells/hit-cell';
-import { RoundResult } from '@/lib/supabase/database';
+import { ActionsCell } from '@/components/tables/rounds/cells/actions';
+import { CouponMatchDateCell } from '@/components/tables/rounds/cells/coupon-match-date';
+import { IsHitCell } from '@/components/tables/rounds/cells/is-hit';
+import { PlayedRound } from '@/lib/supabase/database';
 
-type RoundColumn = Omit<RoundResult, 'season_name'>;
+type RoundColumn = PlayedRound;
 
 export function getColumns(isLoggedIn: boolean): ColumnDef<RoundColumn>[] {
   return [
+    { accessorKey: 'roundNumber', header: 'Runda' },
     {
-      accessorKey: 'round_number',
-      header: 'Runda',
-    },
-    {
-      accessorKey: 'match_date',
+      accessorKey: 'matchDate',
       header: 'Data rozegrana kuponu',
+      cell: ({ row }) => <CouponMatchDateCell row={row} />,
     },
-    {
-      accessorKey: 'round_type',
-      header: 'Typ rundy',
-    },
+    { accessorKey: 'seasonName', header: 'Sezon' },
+    { accessorKey: 'roundType', header: 'Typ rundy' },
     {
       accessorKey: 'correct',
       header: 'Czy trafione?',
-      cell: HitCell,
+      cell: ({ row }) => <IsHitCell row={row} />,
     },
     {
       accessorKey: 'actions',
       header: 'Akcje',
-      cell: ({ row }) => {
-        return <ActionsCell row={row} isLoggedIn={isLoggedIn} />;
-      },
+      cell: ({ row }) => <ActionsCell row={row} isLoggedIn={isLoggedIn} />,
     },
   ];
 }
