@@ -1,9 +1,6 @@
-import Link from 'next/link';
-import { PlusIcon } from 'lucide-react';
-
 import { RoundViewTable } from '@/components/tables/rounds/round-view-table';
 import { RoundsPagination } from '@/components/tables/rounds/rounds-pagination';
-import { Button } from '@/components/ui/button';
+import { AddRoundButton } from '@/components/ui/add-round-button';
 import {
   Card,
   CardAction,
@@ -33,16 +30,7 @@ export default async function RoundsViewPage({ searchParams }: RoundViewPageProp
   return (
     <Card>
       <CardHeader>
-        <CardAction>
-          {user && (
-            <Button variant="outline" asChild>
-              <Link href="/rounds/new">
-                <PlusIcon />
-                Dodaj nową rundę
-              </Link>
-            </Button>
-          )}
-        </CardAction>
+        <CardAction>{user && <AddRoundButton />}</CardAction>
       </CardHeader>
       <CardContent>
         <RoundViewTable isLoggedIn={!!user} rounds={rounds} />
