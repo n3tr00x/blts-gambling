@@ -13,7 +13,7 @@ export function RoundPicksInfo({ picks }: RoundPicksInfoProps) {
     <InfoSection
       icon={<VoteIcon />}
       title="Informacje o typach poszczególnych graczy"
-      className="col-span-1"
+      className="col-span-2 lg:col-span-1"
     >
       {picks.map(pick => (
         <RoundPlayerPick key={pick.player.id} pick={pick} />

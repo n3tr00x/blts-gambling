@@ -1,79 +1,80 @@
-create or replace function public.get_round (matchday_id int) returns table (
-  round_number int,
-  round_type text,
-  round_date date,
-  is_hit boolean,
-  season text,
-  picks jsonb,
-  votes jsonb
-) language sql security definer as $$
-select
-    m.round_number,
-    rt.name as round_type,
-    m.match_date as round_date,
-    m.correct as is_hit,
-    s.name as season,
-    (
-        select coalesce(
-            jsonb_agg(
-                jsonb_build_object(
-                    'player', jsonb_build_object(
-                        'id', pl.id,
-                        'username', pl.username
-                    ),
-                    'league', jsonb_build_object(
-                        'id', l.id,
-                        'name', l.name,
-                        'country', l.country
-                    ),
-                    'odd', p.odds,
-                    'is_chosen', p.is_chosen,
-                    'is_hit', p.is_hit
-                )
-                order by pl.username
-            ),
-            '[]'::jsonb
+CREATE OR REPLACE FUNCTION public.get_round (p_matchday_id INT) RETURNS TABLE (
+  round_number INT,
+  round_type TEXT,
+  round_date DATE,
+  is_hit BOOLEAN,
+  season TEXT,
+  related_matchday_id INT,
+  picks JSONB,
+  votes JSONB
+) LANGUAGE sql SECURITY DEFINER AS $$
+SELECT
+  m.round_number,
+  rt.name AS round_type,
+  m.match_date AS round_date,
+  m.correct AS is_hit,
+  s.name AS season,
+  m.related_matchday_id AS related_matchday_id,
+  (
+  SELECT COALESCE(
+    JSONB_AGG(
+      JSONB_BUILD_OBJECT(
+        'player', JSONB_BUILD_OBJECT(
+          'id', pl.id,
+          'username', pl.username
+        ),
+        'league', JSONB_BUILD_OBJECT(
+          'id', l.id,
+          'name', l.name,
+          'country', l.country
+        ),
+        'odd', p.odds,
+        'is_chosen', p.is_chosen,
+        'is_hit', p.is_hit
+      )
+      ORDER BY pl.username
+    ),
+    '[]'::JSONB
+  )
+  FROM public.picks p
+  JOIN public.players pl ON pl.id = p.player_id
+  JOIN public.leagues l ON l.id = p.league_id
+  WHERE p.matchday_id = m.id
+) AS picks,
+  (
+  SELECT COALESCE(
+    JSONB_AGG(
+      JSONB_BUILD_OBJECT(
+        'voter', JSONB_BUILD_OBJECT(
+          'id', pl.id,
+          'username', pl.username
+        ),
+        'votes_for', COALESCE(vf.players, '[]'::JSONB)
+      )
+      ORDER BY pl.username
+    ),
+    '[]'::JSONB
+  )
+  FROM public.players pl
+  LEFT JOIN (
+    SELECT
+      v.player_id AS voter_id,
+      JSONB_AGG(
+        JSONB_BUILD_OBJECT(
+          'id', p2.id,
+          'username', p2.username
         )
-        from public.picks p
-        join public.players pl on pl.id = p.player_id
-        join public.leagues l on l.id = p.league_id
-        where p.matchday_id = m.id
-    ) as picks,
-    (
-        select coalesce(
-            jsonb_agg(
-                jsonb_build_object(
-                    'voter', jsonb_build_object(
-                        'id', pl.id,
-                        'username', pl.username
-                    ),
-                    'votes_for', coalesce(vf.players, '[]'::jsonb)
-                )
-                order by pl.username
-            ),
-            '[]'::jsonb
-        )
-        from public.players pl
-        left join (
-            select
-                v.player_id as voter_id,
-                jsonb_agg(
-                    jsonb_build_object(
-                        'id', p2.id,
-                        'username', p2.username
-                    )
-                    order by p2.username
-                ) as players
-            from public.votes v
-            join public.picks pk on pk.id = v.pick_id
-            join public.players p2 on p2.id = pk.player_id
-            where pk.matchday_id = m.id
-            group by v.player_id
-        ) vf on vf.voter_id = pl.id
-    ) as votes
-
-from public.matchdays m
-join public.round_types rt on rt.id = m.round_type_id
-join public.seasons s on s.id = m.season_id
-where m.id = matchday_id;
+        ORDER BY p2.username
+      ) AS players
+    FROM public.votes v
+    JOIN public.picks pk ON pk.id = v.pick_id
+    JOIN public.players p2 ON p2.id = pk.player_id
+    WHERE pk.matchday_id = m.id
+    GROUP BY v.player_id
+  ) vf ON vf.voter_id = pl.id
+) AS votes
+FROM public.matchdays m
+JOIN public.round_types rt ON rt.id = m.round_type_id
+JOIN public.seasons s ON s.id = m.season_id
+WHERE m.id = p_matchday_id;
 $$;

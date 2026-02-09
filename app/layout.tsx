@@ -4,6 +4,7 @@ import { Bitter, Raleway } from 'next/font/google';
 
 import { Navigation } from '@/components/navigation/navigation';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 
 import './globals.css';
 
@@ -35,11 +36,12 @@ export default function RootLayout({ auth, children }: Readonly<RootLayoutProps>
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex flex-col md:flex-row">
+          <div className="flex flex-col lg:flex-row">
             <Navigation />
-            <main className="container mx-auto flex-1 px-4">{children}</main>
+            <main className="container mx-auto flex-1 p-4">{children}</main>
           </div>
           {auth}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
