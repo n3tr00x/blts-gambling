@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Tables } from '@/lib/supabase/database/database.generated';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utilities/shadcn';
 
 type LeaguesComboboxProps = {
   leagues: Tables<'leagues'>[];
