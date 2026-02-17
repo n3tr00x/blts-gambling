@@ -10,14 +10,17 @@ import {
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { ThemeButton } from '@/components/ui/theme-button';
+import { NAVIGATION, USER_ACTIONS } from '@/constants/navigation';
 
 type MobileNavigationProps = {
   user: User | null;
 };
 
 export function MobileNavigation({ user }: MobileNavigationProps) {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <nav className="flex max-h-screen flex-col justify-between gap-4 p-4 md:hidden">
+    <nav className="flex max-h-screen flex-col justify-between gap-4 p-4 lg:hidden">
       <div className="bg-card rounded-xl border-1 p-4">
         <Accordion type="single" collapsible>
           <AccordionItem value="menu">
@@ -26,31 +29,52 @@ export function MobileNavigation({ user }: MobileNavigationProps) {
             </AccordionTrigger>
             <AccordionContent className="mt-8">
               <div className="grid grid-cols-2 gap-3">
-                <Button variant="outline" asChild>
-                  <Link href="/leaderboard">Tabele</Link>
-                </Button>
-                <Button variant="outline" className="w-full" asChild>
-                  <Link href="/effectivity">Skuteczność</Link>
-                </Button>
+                {NAVIGATION.map((navLink, index) => (
+                  <Button
+                    key={index}
+                    variant="outline"
+                    className="w-full justify-start"
+                    asChild
+                  >
+                    <Link href={navLink.href!}>
+                      {navLink.icon} {navLink.label}
+                    </Link>
+                  </Button>
+                ))}
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-3">
                 {!user ? (
                   <Button variant="outline" className="col-span-2" asChild>
                     <Link href="/sign-in">Panel admina</Link>
                   </Button>
                 ) : (
                   <>
-                    <Button variant="outline" className="w-full">
-                      Dodaj nowe zdarzenie
-                    </Button>
-                    <AlertSignOutDialog>
-                      <Button variant="outline" className="w-full">
-                        Wyloguj
-                      </Button>
-                    </AlertSignOutDialog>
+                    {USER_ACTIONS.map((action, index) => (
+                      <div key={index}>
+                        {action.type === 'sign-out' ? (
+                          <AlertSignOutDialog>
+                            <Button variant="outline" className="w-full justify-start">
+                              {action.icon} {action.label}
+                            </Button>
+                          </AlertSignOutDialog>
+                        ) : (
+                          <Button
+                            variant="outline"
+                            className="w-full justify-start"
+                            asChild
+                          >
+                            <Link href={action.href!}>
+                              {action.icon} {action.label}
+                            </Link>
+                          </Button>
+                        )}
+                      </div>
+                    ))}
                   </>
                 )}
                 <ThemeButton className="just col-start-2 col-end-3 gap-y-0 justify-self-end" />
               </div>
-              <p className="text-center text-sm">© HW, {new Date().getFullYear()}</p>
+              <p className="text-center text-sm">© HW, {currentYear}</p>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
