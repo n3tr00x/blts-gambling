@@ -120,7 +120,6 @@ export type Database = {
           match_date: string
           related_matchday_id: number | null
           round_number: number
-          round_type: string
           round_type_id: number
           season_id: number | null
         }
@@ -130,7 +129,6 @@ export type Database = {
           match_date: string
           related_matchday_id?: number | null
           round_number: number
-          round_type: string
           round_type_id: number
           season_id?: number | null
         }
@@ -140,11 +138,17 @@ export type Database = {
           match_date?: string
           related_matchday_id?: number | null
           round_number?: number
-          round_type?: string
           round_type_id?: number
           season_id?: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "matchdays_related_matchday_id_fkey"
+            columns: ["related_matchday_id"]
+            isOneToOne: false
+            referencedRelation: "all_matchdays_for_selection"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "matchdays_related_matchday_id_fkey"
             columns: ["related_matchday_id"]
@@ -215,6 +219,13 @@ export type Database = {
             columns: ["league_id"]
             isOneToOne: false
             referencedRelation: "leagues"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "picks_matchday_id_fkey"
+            columns: ["matchday_id"]
+            isOneToOne: false
+            referencedRelation: "all_matchdays_for_selection"
             referencedColumns: ["id"]
           },
           {
@@ -333,6 +344,47 @@ export type Database = {
       }
     }
     Views: {
+      all_matchdays_for_selection: {
+        Row: {
+          correct: boolean | null
+          id: number | null
+          match_date: string | null
+          related_matchday_id: number | null
+          round_number: number | null
+          round_type: string | null
+          season_id: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "matchdays_related_matchday_id_fkey"
+            columns: ["related_matchday_id"]
+            isOneToOne: false
+            referencedRelation: "all_matchdays_for_selection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matchdays_related_matchday_id_fkey"
+            columns: ["related_matchday_id"]
+            isOneToOne: false
+            referencedRelation: "matchdays"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matchdays_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "seasons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matchdays_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "seasons_with_current"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       league_pick_stats_view: {
         Row: {
           country: string | null
@@ -379,12 +431,12 @@ export type Database = {
     Functions: {
       add_round: {
         Args: {
-          is_hit: boolean
-          picks_input: Json
-          related_matchday_id?: number
-          round_date: string
-          round_type_id: number
-          votes_input: Json
+          p_is_hit: boolean
+          p_picks: Json
+          p_related_matchday_id?: number
+          p_round_date: string
+          p_round_type_id: number
+          p_votes: Json
         }
         Returns: undefined
       }

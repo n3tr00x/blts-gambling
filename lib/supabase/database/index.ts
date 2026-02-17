@@ -12,36 +12,48 @@ export type SeasonWithCurrent = NonNullableProps<Tables<'seasons_with_current'>>
 
 export type MatchdayMonth = NonNullableProps<Tables<'matchday_months'>>;
 
+export type MatchdayForSelection = SnakeToCamelCase<
+  NonNullableProps<Tables<'all_matchdays_for_selection'>>
+>;
+
+export type RoundType = SnakeToCamelCase<Tables<'round_types'>>;
+
+export type League = SnakeToCamelCase<Tables<'leagues'>>;
+
+export type Player = SnakeToCamelCase<Tables<'players'>>;
+
 export type PlayedRound = SnakeToCamelCase<
   Database['public']['Functions']['get_played_rounds']['Returns'][0]
 >;
 
-// export type RoundDetails = {
-//   roundNumber: number;
-//   roundType: string;
-//   roundDate: string;
-//   isHit: boolean;
-//   season: string;
-//   relatedMatchdayId: number | null;
-//   picks: {
-//     isChosen: boolean;
-//     isHit: boolean;
-//     odd: number;
-//     player: { id: number; username: string };
-//     league: { id: number; name: string; country: string };
-//   }[];
-//   votes: {
-//     voter: { id: number; username: string };
-//     votesFor: { id: number; username: string }[];
-//   }[];
-// };
-
-export type EditableRound = {
-  roundTypeId: number;
-  roundDate: string;
+export type RoundResult = {
+  correct: boolean;
+  id: number;
+  matchDate: string;
   roundNumber: number;
-  isHit: boolean;
-  relatedMatchdayId: number | null;
+  roundType: string;
+  seasonName: string;
+};
+
+export type RoundDetails = SnakeToCamelCase<
+  Database['public']['Functions']['get_round']['Returns'][0]
+> & {
+  picks: {
+    odd: number;
+    isHit: boolean;
+    isChosen: boolean;
+    league: { id: number; name: string; country: string };
+    player: { id: number; username: string };
+  }[];
+  votes: {
+    voter: { id: number; username: string };
+    votesFor: { id: number; username: string }[];
+  }[];
+};
+
+export type EditableRound = SnakeToCamelCase<
+  Database['public']['Functions']['get_round_for_edit']['Returns'][0]
+> & {
   picks: {
     playerId: number;
     leagueId: number;
@@ -53,13 +65,4 @@ export type EditableRound = {
     voterId: number;
     votesFor: number[];
   }[];
-};
-
-export type RoundResult = {
-  correct: boolean;
-  id: number;
-  matchDate: string;
-  roundNumber: number;
-  roundType: string;
-  seasonName: string;
 };
