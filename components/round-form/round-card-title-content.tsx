@@ -1,4 +1,4 @@
-import { formatDateToPolishLong } from '@/utilities/date';
+import { formatDateToPolishLong } from '@/lib/utilities/date';
 
 type RoundCardTitleContentProps = {
   isEditMode: boolean;
@@ -12,17 +12,17 @@ export function RoundCardTitleContent({
   roundNumber,
 }: RoundCardTitleContentProps) {
   if (!isEditMode) {
-    return <>Dodaj nową rundę</>;
+    return <span>Dodaj nową rundę</span>;
   }
 
   return (
-    <>
+    <span>
       Edytuj rundę (#{roundNumber}){' '}
       {roundDate && (
         <span className="text-muted-foreground italic">
           {formatDateToPolishLong(roundDate)}
         </span>
       )}
-    </>
+    </span>
   );
 }

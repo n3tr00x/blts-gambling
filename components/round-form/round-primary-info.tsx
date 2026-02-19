@@ -1,33 +1,24 @@
 import { RoundDateField } from '@/components/round-form/fields/round-date-field';
 import { RoundHitField } from '@/components/round-form/fields/round-hit-field';
+import { RoundMatchdaysSelect } from '@/components/round-form/fields/round-matchdays-select';
 import { RoundTypeSelect } from '@/components/round-form/fields/round-type-select';
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLegend,
-  FieldSet,
-} from '@/components/ui/field';
-import { Tables } from '@/lib/supabase/database/database.generated';
+import { FieldDescription, FieldLegend, FieldSet } from '@/components/ui/field';
+import { MatchdayForSelection, RoundType } from '@/lib/supabase/database';
 
-type RoundPrimaryInfoProps = { roundTypes: Tables<'round_types'>[] };
+type RoundPrimaryInfoProps = {
+  roundTypes: RoundType[];
+  matchdays: MatchdayForSelection[];
+};
 
-export function RoundPrimaryInfo({ roundTypes }: RoundPrimaryInfoProps) {
+export function RoundPrimaryInfo({ roundTypes, matchdays }: RoundPrimaryInfoProps) {
   return (
     <FieldSet className="border p-4">
       <FieldLegend>Podstawowe informacje o nowej rundzie</FieldLegend>
       <FieldDescription>Wybierz typ oraz datę rozegrania kuponu</FieldDescription>
-      <FieldGroup>
-        <Field>
-          <RoundTypeSelect roundTypes={roundTypes} />
-        </Field>
-        <Field>
-          <RoundDateField />
-        </Field>
-        <Field>
-          <RoundHitField />
-        </Field>
-      </FieldGroup>
+      <RoundTypeSelect roundTypes={roundTypes} />
+      <RoundMatchdaysSelect matchdays={matchdays} />
+      <RoundDateField />
+      <RoundHitField />
     </FieldSet>
   );
 }

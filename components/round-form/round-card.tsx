@@ -13,20 +13,38 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { useRoundForm } from '@/hooks/useRoundForm';
-import { EditableRound } from '@/lib/supabase/database';
-import { Tables } from '@/lib/supabase/database/database.generated';
+import { useRoundForm } from '@/hooks/use-round-form';
+import {
+  EditableRound,
+  League,
+  MatchdayForSelection,
+  Player,
+  RoundType,
+} from '@/lib/supabase/database';
 
-type NewRoundCardProps = {
+type RoundCardProps = {
+  matchdayId?: string;
   round?: EditableRound;
-  latestRound?: Pick<Tables<'matchdays'>, 'round_number'> | null;
-  players: Tables<'players'>[];
-  leagues: Tables<'leagues'>[];
-  roundTypes: Tables<'round_types'>[];
+  matchdays: MatchdayForSelection[];
+  leagues: League[];
+  players: Player[];
+  roundTypes: RoundType[];
 };
 
-export function RoundCard({ round, leagues, players, roundTypes }: NewRoundCardProps) {
-  const { methods, isEditMode, isValid, isSubmitting } = useRoundForm({ round, players });
+export function RoundCard({
+  matchdayId,
+  round,
+  matchdays,
+  leagues,
+  players,
+  roundTypes,
+}: RoundCardProps) {
+  const { methods, isEditMode, isValid, isSubmitting, isDirty } = useRoundForm({
+    round,
+    players,
+  });
+
+  const disabled = !isValid || isSubmitting || (isEditMode && !isDirty);
 
   return (
     <FormProvider {...methods}>
@@ -40,18 +58,25 @@ export function RoundCard({ round, leagues, players, roundTypes }: NewRoundCardP
             />
           </CardTitle>
           <CardAction>
-            <Button type="submit" id="new-round-form" disabled={!isValid || isSubmitting}>
+            <Button type="submit" form="new-round-form" disabled={disabled}>
               {isEditMode ? 'Zapisz zmiany' : 'Dodaj rundę'}
             </Button>
           </CardAction>
           <CardDescription>
-            {isEditMode
-              ? 'Edytujesz istniejącą rundę.'
-              : 'Tutaj możesz dodać nową rundę.'}
+            {isEditMode ?
+              'Edytujesz istniejącą rundę.'
+            : 'Tutaj możesz dodać nową rundę.'}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <RoundForm players={players} leagues={leagues} roundTypes={roundTypes} />
+          <RoundForm
+            matchdayId={matchdayId}
+            isEdit={isEditMode}
+            matchdays={matchdays}
+            players={players}
+            leagues={leagues}
+            roundTypes={roundTypes}
+          />
         </CardContent>
       </Card>
     </FormProvider>

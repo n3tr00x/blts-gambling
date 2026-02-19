@@ -1,61 +1,82 @@
 import { createClient } from '@/lib/supabase/server';
 import { convertKeysToCamel } from '@/lib/utilities/snake-to-camel';
-import { EditableRound, PlayedRound } from '@/lib/supabase/database';
+import {
+  EditableRound,
+  League,
+  MatchdayForSelection,
+  PlayedRound,
+  Player,
+  RoundDetails,
+  RoundType,
+} from '@/lib/supabase/database';
 
 export const getLatestRound = async () => {
   const supabase = await createClient();
 
-  const { data: latestRound } = await supabase
+  const { data: latestRound, error } = await supabase
     .from('matchdays')
     .select('*')
     .order('round_number', { ascending: false })
     .limit(1)
     .single();
 
-  return latestRound;
+  if (error) {
+    throw error;
+  }
+
+  return convertKeysToCamel(latestRound);
 };
 
 export const getRoundTypes = async () => {
   const supabase = await createClient();
 
-  const { data: roundTypes } = await supabase.from('round_types').select('*');
+  const { data: roundTypes, error } = await supabase.from('round_types').select('*');
 
-  return roundTypes ?? [];
+  if (error) {
+    throw error;
+  }
+
+  return convertKeysToCamel(roundTypes) as RoundType[];
 };
 
 export const getLeagues = async () => {
   const supabase = await createClient();
 
-  const { data: leagues } = await supabase.from('leagues').select('*');
+  const { data: leagues, error } = await supabase.from('leagues').select('*');
 
-  return leagues ?? [];
+  if (error) {
+    throw error;
+  }
+
+  return convertKeysToCamel(leagues) as League[];
 };
 
 export const getPlayers = async () => {
   const supabase = await createClient();
 
-  const { data: players } = await supabase.from('players').select('*');
+  const { data: players, error } = await supabase.from('players').select('*');
 
-  return players ?? [];
+  if (error) {
+    throw error;
+  }
+
+  return convertKeysToCamel(players) as Player[];
 };
 
-export const getMatchdays = async () => {
+export const getMatchdaysForSelection = async () => {
   const supabase = await createClient();
 
-  const { data: matchdays } = await supabase
-    .from('matchdays')
-    .select(
-      `
-        id,   
-        round_number,
-        match_date,        
-        round_types (id, name)
-      `,
-    )
+  const { data: matchdays, error } = await supabase
+    .from('all_matchdays_for_selection')
+    .select('*')
     .is('related_matchday_id', null)
     .order('round_number', { ascending: false });
 
-  return matchdays ?? [];
+  if (error) {
+    throw error;
+  }
+
+  return convertKeysToCamel(matchdays) as MatchdayForSelection[];
 };
 
 export const getPlayedRounds = async ({
@@ -100,7 +121,6 @@ export const getRoundByMatchdayId = async (matchdayId: string) => {
     .select('*')
     .limit(1)
     .single();
-  // .overrideTypes<RoundDetails>();
 
   if (error) {
     if (error.code === 'PGRST116') {
@@ -110,7 +130,7 @@ export const getRoundByMatchdayId = async (matchdayId: string) => {
     throw new Error(error.message);
   }
 
-  return round;
+  return convertKeysToCamel(round) as RoundDetails;
 };
 
 export const getRoundForEdit = async (matchdayId: string) => {
@@ -120,8 +140,7 @@ export const getRoundForEdit = async (matchdayId: string) => {
     .rpc('get_round_for_edit', { p_matchday_id: +matchdayId })
     .select('*')
     .limit(1)
-    .single()
-    .overrideTypes<EditableRound>();
+    .single();
 
   if (error) {
     if (error.code === 'PGRST116') {
@@ -131,5 +150,5 @@ export const getRoundForEdit = async (matchdayId: string) => {
     throw new Error(error.message);
   }
 
-  return round;
+  return convertKeysToCamel(round) as EditableRound;
 };

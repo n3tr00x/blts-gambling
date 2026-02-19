@@ -1,22 +1,22 @@
-import { NewRoundCard } from '@/components/new-round/new-round-card';
+import { RoundCard } from '@/components/round-form/round-card';
 import {
-  getLatestRound,
   getLeagues,
+  getMatchdaysForSelection,
   getPlayers,
   getRoundTypes,
 } from '@/lib/supabase/queries';
 
 export default async function NewRoundPage() {
-  const latestRound = await getLatestRound();
-  const [leagues, roundTypes, players] = await Promise.all([
+  const [leagues, roundTypes, players, matchdays] = await Promise.all([
     getLeagues(),
     getRoundTypes(),
     getPlayers(),
+    getMatchdaysForSelection(),
   ]);
 
   return (
-    <NewRoundCard
-      latestRound={latestRound}
+    <RoundCard
+      matchdays={matchdays}
       players={players}
       leagues={leagues}
       roundTypes={roundTypes}
