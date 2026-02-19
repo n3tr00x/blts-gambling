@@ -1,16 +1,12 @@
-CREATE UNIQUE INDEX uniq_pick_per_player_per_round ON public.picks USING btree (player_id, matchday_id);
+drop function if exists "public"."update_round"(matchday_id integer, round_type_id integer, round_date date, is_hit boolean, picks_input jsonb, votes_input jsonb);
 
-SET
-  check_function_bodies = off;
+set check_function_bodies = off;
 
-CREATE OR REPLACE FUNCTION public.update_round (
-  matchday_id integer,
-  round_type_id integer,
-  round_date date,
-  is_hit boolean,
-  picks_input jsonb,
-  votes_input jsonb
-) RETURNS void LANGUAGE plpgsql SECURITY DEFINER AS $function$
+CREATE OR REPLACE FUNCTION public.update_round(p_matchday_id integer, p_round_type_id integer, p_round_date date, p_is_hit boolean, p_picks jsonb, p_votes jsonb)
+ RETURNS void
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+AS $function$
 declare
     detected_season_id integer;
     pick_record jsonb;
@@ -22,26 +18,26 @@ begin
     select season_id
     into detected_season_id
     from public.matchdays
-    where id = update_round.matchday_id;
+    where id = p_matchday_id;
 
     if detected_season_id is null then
-        raise exception 'Matchday % nie istnieje', update_round.matchday_id;
+        raise exception 'Matchday % nie istnieje', p_matchday_id;
     end if;
 
     update public.matchdays
     set
-        round_type_id = update_round.round_type_id,
-        match_date = update_round.round_date,
-        correct = update_round.is_hit
-    where id = update_round.matchday_id;
+        round_type_id = p_round_type_id,
+        match_date = p_round_date,
+        correct = p_is_hit
+    where id = p_matchday_id;
 
     delete from public.votes v
     using public.picks p
     where p.id = v.pick_id
-      and p.matchday_id = update_round.matchday_id;
+      and p.matchday_id = p_matchday_id;
 
     for pick_record in
-        select * from jsonb_array_elements(update_round.picks_input)
+        select * from jsonb_array_elements(p_picks)
     loop
         insert into public.picks (
             player_id,
@@ -55,7 +51,7 @@ begin
         values (
             (pick_record->>'playerId')::int,
             detected_season_id,
-            update_round.matchday_id,
+            p_matchday_id,
             (pick_record->>'leagueId')::int,
             (pick_record->>'odd')::numeric,
             (pick_record->>'isHit')::bool,
@@ -76,14 +72,14 @@ begin
     end loop;
 
     delete from public.picks
-    where matchday_id = update_round.matchday_id
+    where matchday_id = p_matchday_id
       and player_id not in (
           select (p->>'playerId')::int
-          from jsonb_array_elements(update_round.picks_input) p
+          from jsonb_array_elements(p_picks) p
       );
 
     for vote_record in
-        select * from jsonb_array_elements(update_round.votes_input)
+        select * from jsonb_array_elements(p_votes)
     loop
         declare
             voter_id int := (vote_record->>'voterId')::int;
@@ -104,4 +100,7 @@ begin
     end loop;
 
 end;
-$function$;
+$function$
+;
+
+

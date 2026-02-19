@@ -1,61 +1,63 @@
-create or replace function public.get_round_for_edit (p_matchday_id integer) returns table (
-  "roundTypeId" integer,
-  "roundDate" date,
-  "roundNumber" integer,
-  "isHit" boolean,
-  picks jsonb,
-  votes jsonb
-) language plpgsql security definer as $$
-begin
-  return query
-    select
-      m.round_type_id       as "roundTypeId",
-      m.match_date          as "roundDate",
-      m.round_number        as "roundNumber",
-      m.correct             as "isHit",
+CREATE OR REPLACE FUNCTION public.get_round_for_edit (p_matchday_id INTEGER) RETURNS TABLE (
+  round_type_id INTEGER,
+  round_date DATE,
+  round_number INTEGER,
+  is_hit BOOLEAN,
+  related_matchday_id INTEGER,
+  picks JSONB,
+  votes JSONB
+) LANGUAGE plpgsql SECURITY DEFINER AS $$
+BEGIN
+  RETURN QUERY
+    SELECT
+      m.round_type_id,
+      m.match_date,
+      m.round_number,
+      m.correct,
+      m.related_matchday_id,
       (
-        select coalesce(
-          jsonb_agg(
-            jsonb_build_object(
-              'playerId', p.player_id,
-              'leagueId', p.league_id,
+        SELECT COALESCE(
+          JSONB_AGG(
+            JSONB_BUILD_OBJECT(
+              'player_id', p.player_id,
+              'league_id', p.league_id,
               'odd', p.odds,
-              'isChosen', p.is_chosen,
-              'isHit', p.is_hit
+              'is_chosen', p.is_chosen,
+              'is_hit', p.is_hit
             )
-            order by p.player_id
+            ORDER BY p.player_id
           ),
-          '[]'::jsonb
+          '[]'::JSONB
         )
-        from public.picks p
-        where p.matchday_id = m.id
-      ) as picks,
+        FROM public.picks p
+        WHERE p.matchday_id = m.id
+      ) AS picks,
       (
-        select coalesce(
-          jsonb_agg(
-            jsonb_build_object(
-              'voterId', v.player_id,
-              'votesFor', v.votes_for
+        SELECT COALESCE(
+          JSONB_AGG(
+            JSONB_BUILD_OBJECT(
+              'voter_id', v.player_id,
+              'votes_for', v.votes_for
             )
-            order by v.player_id
+            ORDER BY v.player_id
           ),
-          '[]'::jsonb
+          '[]'::JSONB
         )
-        from (
-            select
-              vt.player_id,
-              jsonb_agg(pk.player_id order by pk.player_id) as votes_for
-            from public.votes vt
-            join public.picks pk on pk.id = vt.pick_id
-            where pk.matchday_id = m.id
-            group by vt.player_id
+        FROM (
+          SELECT
+            vt.player_id,
+            JSONB_AGG(pk.player_id ORDER BY pk.player_id) AS votes_for
+          FROM public.votes vt
+          JOIN public.picks pk ON pk.id = vt.pick_id
+          WHERE pk.matchday_id = m.id
+          GROUP BY vt.player_id
         ) v
-      ) as votes
-    from public.matchdays m
-    where m.id = p_matchday_id;
+      ) AS votes
+    FROM public.matchdays m
+    WHERE m.id = p_matchday_id;
 
-    if not found then
-        raise exception 'Matchday % nie istnieje', p_matchday_id;
-    end if;
-end;
+    IF NOT FOUND THEN
+      RAISE EXCEPTION 'Matchday % nie istnieje', p_matchday_id;
+    END IF;
+END;
 $$;

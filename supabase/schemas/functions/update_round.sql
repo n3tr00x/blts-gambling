@@ -1,102 +1,104 @@
-create or replace function public.update_round (
-  matchday_id integer,
-  round_type_id integer,
-  round_date date,
-  is_hit boolean,
-  picks_input jsonb,
-  votes_input jsonb
-) returns void language plpgsql security definer as $$
-declare
-    detected_season_id integer;
-    pick_record jsonb;
-    vote_record jsonb;
-    created_pick_id integer;
-    pick_map jsonb := '{}'::jsonb;
+CREATE OR REPLACE FUNCTION public.update_round (
+  p_matchday_id INTEGER,
+  p_round_type_id INTEGER,
+  p_round_date DATE,
+  p_is_hit BOOLEAN,
+  p_picks JSONB,
+  p_votes JSONB,
+  p_related_matchday_id INTEGER DEFAULT NULL
+) RETURNS VOID LANGUAGE plpgsql SECURITY DEFINER AS $$
+DECLARE
+  detected_season_id INTEGER;
+  pick_record JSONB;
+  vote_record JSONB;
+  created_pick_id INTEGER;
+  pick_map JSONB := '{}'::JSONB;
 
-begin
-    select season_id
-    into detected_season_id
-    from public.matchdays
-    where id = update_round.matchday_id;
+BEGIN
+  SELECT season_id
+  INTO detected_season_id
+  FROM public.matchdays
+  WHERE id = p_matchday_id;
 
-    if detected_season_id is null then
-        raise exception 'Matchday % nie istnieje', update_round.matchday_id;
-    end if;
+  IF detected_season_id IS NULL THEN
+    RAISE EXCEPTION 'Matchday % nie istnieje', p_matchday_id;
+  END IF;
 
-    update public.matchdays
-    set
-        round_type_id = update_round.round_type_id,
-        match_date = update_round.round_date,
-        correct = update_round.is_hit
-    where id = update_round.matchday_id;
+  UPDATE public.matchdays
+  SET
+    round_type_id = p_round_type_id,
+    match_date = p_round_date,
+    correct = p_is_hit,
+    related_matchday_id = p_related_matchday_id
+  WHERE id = p_matchday_id;
 
-    delete from public.votes v
-    using public.picks p
-    where p.id = v.pick_id
-      and p.matchday_id = update_round.matchday_id;
+  DELETE FROM public.votes v
+  USING public.picks p
+  WHERE p.id = v.pick_id
+    AND p.matchday_id = p_matchday_id;
 
-    for pick_record in
-        select * from jsonb_array_elements(update_round.picks_input)
-    loop
-        insert into public.picks (
-            player_id,
-            season_id,
-            matchday_id,
-            league_id,
-            odds,
-            is_hit,
-            is_chosen
-        )
-        values (
-            (pick_record->>'playerId')::int,
-            detected_season_id,
-            update_round.matchday_id,
-            (pick_record->>'leagueId')::int,
-            (pick_record->>'odd')::numeric,
-            (pick_record->>'isHit')::bool,
-            (pick_record->>'isChosen')::bool
-        )
-        on conflict (player_id, matchday_id)
-        do update set
-            league_id = excluded.league_id,
-            odds = excluded.odds,
-            is_hit = excluded.is_hit,
-            is_chosen = excluded.is_chosen
-        returning id into created_pick_id;
+  FOR pick_record IN
+    SELECT * FROM jsonb_array_elements(p_picks)
+  LOOP
+    INSERT INTO public.picks (
+      player_id,
+      season_id,
+      matchday_id,
+      league_id,
+      odds,
+      is_hit,
+      is_chosen
+    )
+    VALUES (
+      (pick_record->>'playerId')::INT,
+      detected_season_id,
+      p_matchday_id,
+      (pick_record->>'leagueId')::INT,
+      (pick_record->>'odd')::NUMERIC,
+      (pick_record->>'isHit')::BOOL,
+      (pick_record->>'isChosen')::BOOL
+    )
+    ON CONFLICT (player_id, matchday_id)
+    DO UPDATE SET
+      league_id = excluded.league_id,
+      odds = excluded.odds,
+      is_hit = excluded.is_hit,
+      is_chosen = excluded.is_chosen
+    RETURNING id INTO created_pick_id;
 
-        pick_map := pick_map || jsonb_build_object(
-            pick_record->>'playerId',
-            created_pick_id
-        );
-    end loop;
+    pick_map := pick_map || jsonb_build_object(
+      pick_record->>'playerId',
+      created_pick_id
+    );
+  END LOOP;
 
-    delete from public.picks
-    where matchday_id = update_round.matchday_id
-      and player_id not in (
-          select (p->>'playerId')::int
-          from jsonb_array_elements(update_round.picks_input) p
-      );
+  DELETE FROM public.picks
+  WHERE matchday_id = p_matchday_id
+    AND player_id NOT IN (
+      SELECT (p->>'playerId')::INT
+      FROM jsonb_array_elements(p_picks) p
+    );
 
-    for vote_record in
-        select * from jsonb_array_elements(update_round.votes_input)
-    loop
-        declare
-            voter_id int := (vote_record->>'voterId')::int;
-            voted_player_id_text text;
-            voted_pick_id int;
-        begin
-            for voted_player_id_text in
-                select jsonb_array_elements_text(vote_record->'votesFor')
-            loop
-                voted_pick_id := (pick_map ->> voted_player_id_text)::int;
+  FOR vote_record IN
+    SELECT * FROM jsonb_array_elements(p_votes)
+  LOOP
+    DECLARE
+      voter_id INT := (vote_record->>'voterId')::INT;
+      voted_player_id_text TEXT;
+      voted_pick_id INT;
+    BEGIN
+      FOR voted_player_id_text IN
+        SELECT jsonb_array_elements_text(vote_record->'votesFor')
+      LOOP
+        voted_pick_id := (pick_map ->> voted_player_id_text)::INT;
 
-                if voted_pick_id is not null then
-                    insert into public.votes (player_id, pick_id)
-                    values (voter_id, voted_pick_id);
-                end if;
-            end loop;
-        end;
-    end loop;
+        IF voted_pick_id IS NOT NULL THEN
+          INSERT INTO public.votes (player_id, pick_id)
+          VALUES (voter_id, voted_pick_id);
+        END IF;
+      END LOOP;
+    END;
+  END LOOP;
 
-end;
+END;
 $$;
