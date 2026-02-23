@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
 import { NewRoundValues, newRoundValues } from '@/schemas';
 import { formatDateToISO } from '@/lib/utilities/date';
+import { ActionState } from '@/types';
 
 export const createRound = async (values: NewRoundValues) => {
   const supabase = await createClient();
@@ -80,4 +81,25 @@ export const updateRound = async (matchdayId: string, values: NewRoundValues) =>
     status: 'success',
     message: 'Pomyślnie zaktualizowano rundę',
   };
+};
+
+export const removeRound = async (matchdayId: number) => {
+  const supabase = await createClient();
+  const { error } = await supabase.rpc('delete_round', {
+    p_matchday_id: matchdayId,
+  });
+
+  if (error) {
+    return {
+      status: 'error',
+      message: 'Nie można usunąć rundy, która jest powiązana z innymi danymi',
+    } as ActionState;
+  }
+
+  revalidatePath('/rounds');
+
+  return {
+    status: 'success',
+    message: 'Pomyślnie usunięto rundę',
+  } as ActionState;
 };

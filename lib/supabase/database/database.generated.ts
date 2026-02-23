@@ -440,6 +440,7 @@ export type Database = {
         }
         Returns: undefined
       }
+      delete_round: { Args: { p_matchday_id: number }; Returns: undefined }
       get_played_rounds: {
         Args: never
         Returns: {

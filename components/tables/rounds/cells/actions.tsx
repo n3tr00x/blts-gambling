@@ -1,7 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import { Row } from '@tanstack/react-table';
 import { EyeIcon, PencilIcon } from 'lucide-react';
 
+import { RemoveRoundDialog } from '@/components/round-form/remove-round-dialog';
 import { Button } from '@/components/ui/button';
 import { RoundResult } from '@/lib/supabase/database';
 
@@ -17,20 +20,20 @@ export function ActionsCell({ row, isLoggedIn }: ActionsCellProps) {
 
   return (
     <div className="flex gap-2">
-      {/* PODGLĄD – zawsze */}
       <Button asChild variant="outline">
         <Link href={`/rounds/${id}`}>
           <EyeIcon /> Podgląd
         </Link>
       </Button>
-
-      {/* EDYTUJ – tylko zalogowany */}
       {isLoggedIn && (
-        <Button asChild variant="outline">
-          <Link href={`/rounds/${id}/edit`}>
-            <PencilIcon /> Edytuj
-          </Link>
-        </Button>
+        <>
+          <Button asChild variant="outline">
+            <Link href={`/rounds/${id}/edit`}>
+              <PencilIcon /> Edytuj
+            </Link>
+          </Button>
+          <RemoveRoundDialog matchdayId={id} />
+        </>
       )}
     </div>
   );
