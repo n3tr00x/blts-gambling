@@ -1,4 +1,5 @@
 import { toast } from 'sonner';
+
 import { ActionState } from '@/types';
 
 type ToastPromiseParams<T> = Parameters<typeof toast.promise<T>>[1];

@@ -1,5 +1,3 @@
-import { createClient } from '@/lib/supabase/server';
-import { convertKeysToCamel } from '@/lib/utilities/snake-to-camel';
 import {
   EditableRound,
   League,
@@ -9,6 +7,8 @@ import {
   RoundDetails,
   RoundType,
 } from '@/lib/supabase/database';
+import { createClient } from '@/lib/supabase/server';
+import { convertKeysToCamel } from '@/lib/utilities/snake-to-camel';
 
 export const getLatestRound = async () => {
   const supabase = await createClient();
