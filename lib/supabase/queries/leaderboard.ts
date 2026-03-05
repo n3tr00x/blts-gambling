@@ -1,5 +1,10 @@
+import {
+  RankingByMonth,
+  RankingBySeason,
+  SeasonWithCurrent,
+} from '@/lib/supabase/database';
 import { createClient } from '@/lib/supabase/server';
-import { SeasonWithCurrent } from '@/lib/supabase/database';
+import { convertKeysToCamel } from '@/lib/utilities/snake-to-camel';
 
 export const getRankingBySeason = async (seasonId: number) => {
   const supabase = await createClient();
@@ -13,7 +18,7 @@ export const getRankingBySeason = async (seasonId: number) => {
     throw error;
   }
 
-  return ranking ?? [];
+  return convertKeysToCamel(ranking) as RankingBySeason[];
 };
 
 export const getRankingByMonth = async (month: string) => {
@@ -28,7 +33,7 @@ export const getRankingByMonth = async (month: string) => {
     throw error;
   }
 
-  return ranking ?? [];
+  return convertKeysToCamel(ranking) as RankingByMonth[];
 };
 
 export const getAllSeasons = async () => {
@@ -43,5 +48,16 @@ export const getAllSeasons = async () => {
     throw error;
   }
 
-  return seasons ?? [];
+  return convertKeysToCamel(seasons) as SeasonWithCurrent[];
+};
+
+export const getMatchdayMonths = async () => {
+  const supabase = await createClient();
+  const { data: months, error } = await supabase.from('matchday_months').select('*');
+
+  if (error) {
+    throw error;
+  }
+
+  return convertKeysToCamel(months) as { monthKey: string; matchdaysCount: number }[];
 };

@@ -24,7 +24,7 @@ export function SeasonSelector({
   const router = useRouter();
   const pathname = usePathname();
 
-  const currentSeason = seasons.find(season => season.is_current);
+  const currentSeason = seasons.find(season => season.isCurrent);
 
   const seasonSelectorChange = (value: string) => {
     const params = new URLSearchParams(searchParams);

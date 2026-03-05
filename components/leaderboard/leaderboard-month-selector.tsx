@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { MatchdayMonth } from '@/lib/supabase/database';
-import { formatDateString } from '@/utilities/formatDateString';
+import { formatToLongMonthYear } from '@/lib/utilities/date';
 
 type LeaderboardMonthSelectorProps = {
   searchedMonth?: string;
@@ -34,7 +34,7 @@ export function LeaderboardMonthSelector({
 
   return (
     <Select
-      defaultValue={searchedMonth || months[0].month_key || ''}
+      defaultValue={searchedMonth || months[0].monthKey || ''}
       onValueChange={monthSelectorChange}
     >
       <SelectTrigger className="mb-2 w-[180px]">
@@ -42,8 +42,8 @@ export function LeaderboardMonthSelector({
       </SelectTrigger>
       <SelectContent>
         {months?.map(month => (
-          <SelectItem key={month.month_key} value={month.month_key || ''}>
-            {formatDateString(month.month_key || '')}
+          <SelectItem key={month.monthKey} value={month.monthKey || ''}>
+            {formatToLongMonthYear(month.monthKey)}
           </SelectItem>
         ))}
       </SelectContent>

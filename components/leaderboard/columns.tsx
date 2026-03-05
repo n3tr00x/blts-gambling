@@ -3,16 +3,19 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { HeaderButton } from '@/components/leaderboard/header-button';
+import { RankingByMonth } from '@/lib/supabase/database';
 
-export type LeaderboardColumn = {
-  position: number;
-  username: string;
-  hit_picks: number;
-  total_picks: number;
-  effectiveness: number;
-  avg_odds: number;
-  total_votes: number;
-};
+// export type LeaderboardColumn = {
+//   position: number;
+//   username: string;
+//   hit_picks: number;
+//   total_picks: number;
+//   effectiveness: number;
+//   avg_odds: number;
+//   total_votes: number;
+// };
+
+export type LeaderboardColumn = RankingByMonth;
 
 export const columns: ColumnDef<LeaderboardColumn>[] = [
   {
@@ -27,11 +30,11 @@ export const columns: ColumnDef<LeaderboardColumn>[] = [
     header: 'Gracz',
   },
   {
-    accessorKey: 'hit_picks',
+    accessorKey: 'hitPicks',
     header: 'Trafione',
   },
   {
-    accessorKey: 'total_picks',
+    accessorKey: 'totalPicks',
     header: 'Typy',
   },
   {
@@ -43,14 +46,14 @@ export const columns: ColumnDef<LeaderboardColumn>[] = [
     ),
   },
   {
-    accessorKey: 'avg_odds',
+    accessorKey: 'avgOdds',
     // prettier-ignore
     header: ({ column }) => (
       <HeaderButton column={column}>Średni kurs</HeaderButton>
     ),
   },
   {
-    accessorKey: 'total_votes',
+    accessorKey: 'totalVotes',
     // prettier-ignore
     header: ({ column }) => (
       <HeaderButton column={column}>Głosy</HeaderButton>

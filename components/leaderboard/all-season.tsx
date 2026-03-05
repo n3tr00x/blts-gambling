@@ -26,7 +26,7 @@ export async function AllSeasonLeaderboard({
       <CardHeader>
         <CardTitle className="text-xl">Ranking sezonu</CardTitle>
         <CardDescription>
-          od {seasons[0].start_date} do {seasons[0].end_date}
+          od {seasons[0].startDate} do {seasons[0].endDate}
         </CardDescription>
         <CardAction>
           <SeasonSelector seasons={seasons} searchedSeason={searchedSeason} />
