@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { User } from '@supabase/supabase-js';
+import { UserIcon } from 'lucide-react';
 
 import { AlertSignOutDialog } from '@/components/alert-dialog';
 import {
@@ -45,7 +46,9 @@ export function MobileNavigation({ user }: MobileNavigationProps) {
               <div className="mt-4 grid grid-cols-2 gap-3">
                 {!user ? (
                   <Button variant="outline" className="col-span-2" asChild>
-                    <Link href="/sign-in">Panel admina</Link>
+                    <Link href="/sign-in">
+                      <UserIcon /> Panel admina
+                    </Link>
                   </Button>
                 ) : (
                   <>

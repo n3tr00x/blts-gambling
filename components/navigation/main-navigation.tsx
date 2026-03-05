@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { User } from '@supabase/supabase-js';
+import { UserIcon } from 'lucide-react';
 
 import { AlertSignOutDialog } from '@/components/alert-dialog';
 import { Button } from '@/components/ui/button';
@@ -34,7 +35,9 @@ export function MainNavigation({ user }: MainNavigationProps) {
         <div className="flex flex-col gap-2">
           {!user ? (
             <Button variant="outline" className="w-full" asChild>
-              <Link href="/sign-in">Panel admina</Link>
+              <Link href="/sign-in">
+                <UserIcon /> Panel admina
+              </Link>
             </Button>
           ) : (
             <>
