@@ -821,3 +821,14 @@ VALUES
     '1',
     'TURCJA 1'
   );
+
+SELECT
+  setval(
+    pg_get_serial_sequence('leagues', 'id'),
+    (
+      SELECT
+        MAX(id)
+      FROM
+        leagues
+    )
+  );
