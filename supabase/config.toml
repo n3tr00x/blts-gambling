@@ -62,8 +62,8 @@ schema_paths = [
   "./schemas/matchdays.sql",
   "./schemas/picks.sql",
   "./schemas/votes.sql",
-  "./schemas/views/*.sql",
-  "./schemas/functions/*.sql"
+  "./schemas/functions/*.sql",
+  "./schemas/views/*.sql"
 ]
 
 [db.seed]
