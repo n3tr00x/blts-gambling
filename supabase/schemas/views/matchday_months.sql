@@ -1,4 +1,6 @@
-CREATE OR REPLACE VIEW matchday_months AS
+CREATE OR REPLACE VIEW matchday_months
+WITH
+  (security_invoker = ON) AS
 SELECT
   TO_CHAR(DATE_TRUNC('month', match_date), 'MM-YYYY') AS month_key,
   COUNT(*) AS matchdays_count

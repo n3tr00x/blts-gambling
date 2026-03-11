@@ -15,3 +15,21 @@ CREATE TABLE public.picks (
 );
 
 CREATE UNIQUE INDEX uniq_pick_per_player_per_round ON picks (player_id, matchday_id);
+
+ALTER TABLE public.picks ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Picks are viewable by everyone" ON public.picks FOR
+SELECT
+  USING (TRUE);
+
+CREATE POLICY "Only authenticated users can insert picks" ON public.picks FOR INSERT
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can update picks" ON public.picks
+FOR UPDATE
+  USING (auth.uid () IS NOT NULL)
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can delete picks" ON public.picks FOR DELETE USING (auth.uid () IS NOT NULL);

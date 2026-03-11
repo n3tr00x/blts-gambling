@@ -10,3 +10,21 @@ CREATE TABLE public.ako_coupons (
   CONSTRAINT ako_coupons_creator_id_fkey FOREIGN KEY (creator_id) REFERENCES public.players (id),
   CONSTRAINT ako_coupons_season_id_fkey FOREIGN KEY (season_id) REFERENCES public.seasons (id)
 );
+
+ALTER TABLE public.ako_coupons ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "AKO coupons are viewable by everyone" ON public.ako_coupons FOR
+SELECT
+  USING (TRUE);
+
+CREATE POLICY "Only authenticated users can insert AKO coupons" ON public.ako_coupons FOR INSERT
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can update AKO coupons" ON public.ako_coupons
+FOR UPDATE
+  USING (auth.uid () IS NOT NULL)
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can delete AKO coupons" ON public.ako_coupons FOR DELETE USING (auth.uid () IS NOT NULL);

@@ -1,4 +1,6 @@
-CREATE OR REPLACE VIEW league_pick_stats_view AS
+CREATE OR REPLACE VIEW league_pick_stats_view
+WITH
+  (security_invoker = ON) AS
 WITH
   league_stats AS (
     SELECT

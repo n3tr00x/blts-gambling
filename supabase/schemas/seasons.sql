@@ -4,3 +4,21 @@ CREATE TABLE public.seasons (
   start_date DATE NOT NULL,
   end_date DATE NOT NULL
 );
+
+ALTER TABLE public.seasons ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Seasons are viewable by everyone" ON public.seasons FOR
+SELECT
+  USING (TRUE);
+
+CREATE POLICY "Only authenticated users can insert seasons" ON public.seasons FOR INSERT
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can update seasons" ON public.seasons
+FOR UPDATE
+  USING (auth.uid () IS NOT NULL)
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can delete seasons" ON public.seasons FOR DELETE USING (auth.uid () IS NOT NULL);

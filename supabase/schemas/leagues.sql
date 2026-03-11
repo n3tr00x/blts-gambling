@@ -5,3 +5,21 @@ CREATE TABLE public.leagues (
   code TEXT,
   level INTEGER NOT NULL
 );
+
+ALTER TABLE public.leagues ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Leagues are viewable by everyone" ON public.leagues FOR
+SELECT
+  USING (TRUE);
+
+CREATE POLICY "Only authenticated users can insert leagues" ON public.leagues FOR INSERT
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can update leagues" ON public.leagues
+FOR UPDATE
+  USING (auth.uid () IS NOT NULL)
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can delete leagues" ON public.leagues FOR DELETE USING (auth.uid () IS NOT NULL);

@@ -5,8 +5,26 @@ CREATE TABLE public.matchdays (
   round_type_id INTEGER NOT NULL,
   round_number INTEGER NOT NULL,
   match_date DATE NOT NULL,
-  correct BOOLEAN NOT NULL DEFAULT FALSE ,
-  CONSTRAINT matchdays_season_id_fkey FOREIGN KEY (season_id) REFERENCES public.seasons(id),
-  CONSTRAINT matchdays_related_matchday_id_fkey FOREIGN KEY (related_matchday_id) REFERENCES public.matchdays(id),
-  CONSTRAINT matchdays_round_type_id_fkey FOREIGN KEY (round_type_id) REFERENCES public.round_types(id)
+  correct BOOLEAN NOT NULL DEFAULT FALSE,
+  CONSTRAINT matchdays_season_id_fkey FOREIGN KEY (season_id) REFERENCES public.seasons (id),
+  CONSTRAINT matchdays_related_matchday_id_fkey FOREIGN KEY (related_matchday_id) REFERENCES public.matchdays (id),
+  CONSTRAINT matchdays_round_type_id_fkey FOREIGN KEY (round_type_id) REFERENCES public.round_types (id)
 );
+
+ALTER TABLE public.matchdays ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Matchdays are viewable by everyone" ON public.matchdays FOR
+SELECT
+  USING (TRUE);
+
+CREATE POLICY "Only authenticated users can insert matchdays" ON public.matchdays FOR INSERT
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can update matchdays" ON public.matchdays
+FOR UPDATE
+  USING (auth.uid () IS NOT NULL)
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can delete matchdays" ON public.matchdays FOR DELETE USING (auth.uid () IS NOT NULL);

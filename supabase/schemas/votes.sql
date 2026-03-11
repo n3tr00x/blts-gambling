@@ -5,3 +5,21 @@ CREATE TABLE public.votes (
   CONSTRAINT votes_pick_id_fkey FOREIGN KEY (pick_id) REFERENCES public.picks (id) ON DELETE CASCADE,
   CONSTRAINT votes_player_id_fkey FOREIGN KEY (player_id) REFERENCES public.players (id)
 );
+
+ALTER TABLE public.votes ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Votes are viewable by everyone" ON public.votes FOR
+SELECT
+  USING (TRUE);
+
+CREATE POLICY "Only authenticated users can insert votes" ON public.votes FOR INSERT
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can update votes" ON public.votes
+FOR UPDATE
+  USING (auth.uid () IS NOT NULL)
+WITH
+  CHECK (auth.uid () IS NOT NULL);
+
+CREATE POLICY "Only authenticated users can delete votes" ON public.votes FOR DELETE USING (auth.uid () IS NOT NULL);

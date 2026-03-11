@@ -1,4 +1,6 @@
-CREATE VIEW all_matchdays_for_selection AS
+CREATE VIEW all_matchdays_for_selection
+WITH
+  (security_invoker = ON) AS
 SELECT
   m.id,
   m.season_id,
