@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 import { Column } from '@tanstack/react-table';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 
-import { LeaderboardPick } from '@/components/leaderboard/columns';
+import { LeaderboardColumn } from '@/components/leaderboard/columns';
 import { Button } from '@/components/ui/button';
 
 type HeaderButtonProps = {
   children: ReactNode;
-  column: Column<LeaderboardPick, unknown>;
+  column: Column<LeaderboardColumn, unknown>;
 };
 
 export function HeaderButton({ children, column }: HeaderButtonProps) {

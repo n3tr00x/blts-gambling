@@ -5,16 +5,6 @@ import { ColumnDef } from '@tanstack/react-table';
 import { HeaderButton } from '@/components/leaderboard/header-button';
 import { RankingByMonth } from '@/lib/supabase/database';
 
-// export type LeaderboardColumn = {
-//   position: number;
-//   username: string;
-//   hit_picks: number;
-//   total_picks: number;
-//   effectiveness: number;
-//   avg_odds: number;
-//   total_votes: number;
-// };
-
 export type LeaderboardColumn = RankingByMonth;
 
 export const columns: ColumnDef<LeaderboardColumn>[] = [
