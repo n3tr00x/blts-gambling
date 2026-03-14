@@ -7,6 +7,7 @@ import { ChevronDownIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { formatDateToISO } from '@/lib/utilities';
 import { NewRoundValues } from '@/schemas';
 
 type CalendarInputProps = { field: ControllerRenderProps<NewRoundValues, 'roundDate'> };
@@ -15,6 +16,9 @@ export function CalendarInput({ field }: CalendarInputProps) {
   const [open, setOpen] = useState(false);
 
   const parsedDate = field.value ? new Date(field.value) : undefined;
+
+  console.log('calendar input render', parsedDate);
+  console.log('formatted date', formatDateToISO(new Date(field.value)));
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
