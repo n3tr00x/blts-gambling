@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
+import { TZDate } from 'react-day-picker';
 import { DefaultValues, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { EditableRound } from '@/lib/supabase/database';
 import { Tables } from '@/lib/supabase/database/database.generated';
 import { NewRoundValues, newRoundValues } from '@/schemas';
-import { TZDate } from 'react-day-picker';
 
 const getDefaultValues = (
   players: Tables<'players'>[],
@@ -36,7 +36,6 @@ const getDefaultValues = (
   return {
     roundTypeId: roundTypeId ?? undefined,
     roundDate: roundDate ? new TZDate(roundDate, 'UTC') : undefined,
-    // roundDate: roundDate ? new Date(roundDate) : undefined,
     isHit: isHit ?? false,
     votes: editableVotes ?? defaultVotesValue,
     picks: picks ?? defaultPicksValue,

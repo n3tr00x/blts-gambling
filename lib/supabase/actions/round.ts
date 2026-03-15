@@ -59,9 +59,6 @@ export const updateRound = async (matchdayId: string, values: NewRoundValues) =>
   const { roundTypeId, roundDate, isHit, picks, votes } = result.data;
   const parsedDate = formatDateToISO(roundDate);
 
-  console.log('round date', roundDate);
-  console.log('parsed date', parsedDate);
-
   const { error } = await supabase.rpc('update_round', {
     p_matchday_id: +matchdayId,
     p_round_type_id: roundTypeId,

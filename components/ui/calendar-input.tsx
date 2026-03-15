@@ -3,24 +3,19 @@
 import { useState } from 'react';
 import { TZDate } from 'react-day-picker';
 import { ControllerRenderProps } from 'react-hook-form';
+import { pl } from 'date-fns/locale';
 import { ChevronDownIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { formatDateToISO } from '@/lib/utilities';
 import { NewRoundValues } from '@/schemas';
 
 type CalendarInputProps = { field: ControllerRenderProps<NewRoundValues, 'roundDate'> };
 
 export function CalendarInput({ field }: CalendarInputProps) {
   const [open, setOpen] = useState(false);
-
-  // const parsedDate = field.value ? new Date(field.value) : undefined;
   const parsedDate = field.value ? new TZDate(field.value, 'UTC') : undefined;
-
-  console.log('calendar input render', parsedDate);
-  console.log('formatted date', formatDateToISO(new Date(field.value)));
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -42,19 +37,12 @@ export function CalendarInput({ field }: CalendarInputProps) {
           timeZone="UTC"
           mode="single"
           captionLayout="dropdown"
+          locale={pl}
           disabled={{ after: new Date() }}
           selected={field.value}
           onSelect={date => {
             field.onChange(date);
             setOpen(false);
-
-            // if (date) {
-            //   const dateNoonUtc = new Date(
-            //     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0),
-            //   );
-            //   field.onChange(dateNoonUtc);
-            //   setOpen(false);
-            // }
           }}
         />
       </PopoverContent>

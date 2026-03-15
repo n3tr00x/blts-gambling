@@ -28,9 +28,7 @@ export function RoundForm({
   matchdays,
   roundTypes,
 }: NewRoundContainerProps) {
-  const { handleSubmit, watch } = useFormContext<NewRoundValues>();
-
-  console.log('form state', watch());
+  const { handleSubmit } = useFormContext<NewRoundValues>();
 
   const submitHandler = async (data: NewRoundValues) => {
     const shouldUpdate = isEdit && matchdayId;
