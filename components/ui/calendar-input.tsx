@@ -37,13 +37,22 @@ export function CalendarInput({ field }: CalendarInputProps) {
       <PopoverContent className="w-auto overflow-hidden p-0" align="start">
         <Calendar
           {...field}
+          timeZone="UTC"
           mode="single"
           captionLayout="dropdown"
           disabled={{ after: new Date() }}
           selected={field.value}
           onSelect={date => {
-            field.onChange(date);
-            setOpen(false);
+            // field.onChange(date);
+            // setOpen(false);
+
+            if (date) {
+              const dateNoonUtc = new Date(
+                Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0),
+              );
+              field.onChange(dateNoonUtc);
+              setOpen(false);
+            }
           }}
         />
       </PopoverContent>
