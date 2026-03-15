@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { TZDate } from 'react-day-picker';
 import { ControllerRenderProps } from 'react-hook-form';
 import { ChevronDownIcon } from 'lucide-react';
 
@@ -15,7 +16,8 @@ type CalendarInputProps = { field: ControllerRenderProps<NewRoundValues, 'roundD
 export function CalendarInput({ field }: CalendarInputProps) {
   const [open, setOpen] = useState(false);
 
-  const parsedDate = field.value ? new Date(field.value) : undefined;
+  // const parsedDate = field.value ? new Date(field.value) : undefined;
+  const parsedDate = field.value ? new TZDate(field.value, 'UTC') : undefined;
 
   console.log('calendar input render', parsedDate);
   console.log('formatted date', formatDateToISO(new Date(field.value)));
@@ -43,16 +45,16 @@ export function CalendarInput({ field }: CalendarInputProps) {
           disabled={{ after: new Date() }}
           selected={field.value}
           onSelect={date => {
-            // field.onChange(date);
-            // setOpen(false);
+            field.onChange(date);
+            setOpen(false);
 
-            if (date) {
-              const dateNoonUtc = new Date(
-                Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0),
-              );
-              field.onChange(dateNoonUtc);
-              setOpen(false);
-            }
+            // if (date) {
+            //   const dateNoonUtc = new Date(
+            //     Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0),
+            //   );
+            //   field.onChange(dateNoonUtc);
+            //   setOpen(false);
+            // }
           }}
         />
       </PopoverContent>
