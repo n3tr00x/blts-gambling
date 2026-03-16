@@ -66,7 +66,6 @@ export function PlayersEffectivenessProgressChart({
   );
   const config = generateConfig(players);
   const yAxisDomain = calculateYAxisDomain(data, players);
-  console.log(yAxisDomain);
 
   return (
     <Card>
