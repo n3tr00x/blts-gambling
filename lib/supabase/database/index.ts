@@ -105,8 +105,8 @@ export type PlayerStatsSummary = DbFunction<'player_stats_by_season'>[0];
 
 export type LeagueEffectiveness = DbTableWithNonNullable<'league_pick_stats_view'>;
 
-export type RankingBySeason = DbFunction<'player_ranking_by_season'>[0];
+export type RankingBySeason = DbFunction<'get_player_ranking_by_season'>[0];
 
-export type RankingByMonth = DbFunction<'player_ranking_by_month'>[0];
+export type RankingByMonth = DbFunction<'get_player_ranking_by_month'>[0];
 
 export type Season = DbTableWithNonNullable<'seasons_with_current'>;
