@@ -452,6 +452,30 @@ export type Database = {
           season_name: string
         }[]
       }
+      get_player_ranking_by_month: {
+        Args: { month: string }
+        Returns: {
+          avg_odds: number
+          effectiveness: number
+          hit_picks: number
+          position: number
+          total_picks: number
+          total_votes: number
+          username: string
+        }[]
+      }
+      get_player_ranking_by_season: {
+        Args: { season_id?: number }
+        Returns: {
+          avg_odds: number
+          effectiveness: number
+          hit_picks: number
+          position: number
+          total_picks: number
+          total_votes: number
+          username: string
+        }[]
+      }
       get_round: {
         Args: { p_matchday_id: number }
         Returns: {
@@ -475,30 +499,6 @@ export type Database = {
           round_number: number
           round_type_id: number
           votes: Json
-        }[]
-      }
-      player_ranking_by_month: {
-        Args: { month: string }
-        Returns: {
-          avg_odds: number
-          effectiveness: number
-          hit_picks: number
-          position: number
-          total_picks: number
-          total_votes: number
-          username: string
-        }[]
-      }
-      player_ranking_by_season: {
-        Args: { season_id?: number }
-        Returns: {
-          avg_odds: number
-          effectiveness: number
-          hit_picks: number
-          position: number
-          total_picks: number
-          total_votes: number
-          username: string
         }[]
       }
       player_stats_by_season: {

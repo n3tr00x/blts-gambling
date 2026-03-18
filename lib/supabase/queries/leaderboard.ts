@@ -10,7 +10,7 @@ export const getRankingBySeason = async (seasonId: number) => {
   const supabase = await createClient();
 
   const { data: ranking, error } = await supabase.rpc(
-    'player_ranking_by_season',
+    'get_player_ranking_by_season',
     seasonId ? { season_id: seasonId } : undefined,
   );
 
@@ -25,9 +25,11 @@ export const getRankingByMonth = async (month: string) => {
   const supabase = await createClient();
 
   const { data: ranking, error } = await supabase.rpc(
-    'player_ranking_by_month',
+    'get_player_ranking_by_month',
     month ? { month } : undefined,
   );
+
+  console.log(ranking);
 
   if (error) {
     throw error;

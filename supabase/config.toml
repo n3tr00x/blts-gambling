@@ -62,8 +62,8 @@ schema_paths = [
   "./schemas/matchdays.sql",
   "./schemas/picks.sql",
   "./schemas/votes.sql",
-  "./schemas/functions/*.sql",
-  "./schemas/views/*.sql"
+  "./schemas/views/*.sql",
+  "./schemas/functions/*.sql"
 ]
 
 [db.seed]
@@ -77,9 +77,9 @@ sql_paths = [
   "./seeds/leagues.sql",
   "./seeds/coupons.sql",
   "./seeds/round_types.sql",
-  "./seeds/matchdays.sql",
-  "./seeds/picks.sql",
-  "./seeds/votes.sql"
+  # "./seeds/matchdays.sql",
+  # "./seeds/picks.sql",
+  # "./seeds/votes.sql"
 ]
 
 [db.network_restrictions]
