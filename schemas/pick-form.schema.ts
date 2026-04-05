@@ -12,7 +12,7 @@ export const pickFormSchema = z.object({
       }),
     )
     .min(1, 'Musisz dodać przynajmniej 1 gracza.')
-    .max(5, 'Możesz dodać maksymalnie 5 graczy.'),
+    .max(6, 'Możesz dodać maksymalnie 6 graczy.'),
 });
 
 export type PickFormValues = z.infer<typeof pickFormSchema>;
