@@ -1,3 +1,7 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
+
 import {
   Pagination,
   PaginationContent,
@@ -16,37 +20,52 @@ type RoundsPaginationProps = {
 };
 
 export function RoundsPagination({ page, count, roundsPerPage }: RoundsPaginationProps) {
+  const searchParams = useSearchParams();
+
   const currentPage = Number(page) || 1;
   const totalPages = Math.ceil(count / roundsPerPage);
   const visiblePages = getVisiblePages(currentPage, totalPages);
+
+  const changePageHandler = (pageNumber: number) => {
+    if (pageNumber < 1 || pageNumber > totalPages) {
+      return '/rounds?page=1';
+    }
+
+    const currentSearchParams = new URLSearchParams(searchParams);
+    currentSearchParams.set('page', pageNumber.toString());
+
+    return `/rounds?${currentSearchParams.toString()}`;
+  };
 
   return (
     <Pagination>
       <PaginationContent>
         {currentPage !== 1 && (
           <PaginationItem>
-            <PaginationPrevious href={`/rounds?page=${currentPage - 1}`} />
+            <PaginationPrevious href={changePageHandler(currentPage - 1)} />
           </PaginationItem>
         )}
-        {visiblePages.map((page, i) =>
-          page === '...' ? (
-            <PaginationItem key={`ellipsis-${i}`}>
+        {visiblePages.map((pageNumber, index) =>
+          pageNumber === '...' ? (
+            <PaginationItem key={`ellipsis-${index}`}>
               <PaginationEllipsis />
             </PaginationItem>
           ) : (
-            <PaginationItem key={page}>
+            <PaginationItem key={pageNumber}>
               <PaginationLink
-                href={`/rounds?page=${page}`}
-                isActive={currentPage === page}
+                href={changePageHandler(pageNumber)}
+                isActive={currentPage === pageNumber}
               >
-                {page}
+                {pageNumber}
               </PaginationLink>
             </PaginationItem>
           ),
         )}
-        <PaginationItem>
-          <PaginationNext href={`/rounds?page=${currentPage + 1}`} />
-        </PaginationItem>
+        {currentPage !== totalPages && (
+          <PaginationItem>
+            <PaginationNext href={changePageHandler(currentPage + 1)} />
+          </PaginationItem>
+        )}
       </PaginationContent>
     </Pagination>
   );
