@@ -9,6 +9,7 @@ import {
 } from '@/lib/supabase/database';
 import { createClient } from '@/lib/supabase/server';
 import { convertKeysToCamel } from '@/lib/utilities/snake-to-camel';
+import { RoundsFilters } from '@/types';
 
 export const getLatestRound = async () => {
   const supabase = await createClient();
@@ -82,32 +83,48 @@ export const getMatchdaysForSelection = async () => {
 export const getPlayedRounds = async ({
   page,
   roundsPerPage,
+  filters = {},
 }: {
   page: number;
   roundsPerPage: number;
+  filters?: RoundsFilters;
 }) => {
   const supabase = await createClient();
-
   const from = (page - 1) * roundsPerPage;
   const to = from + roundsPerPage - 1;
 
-  const {
-    data: rounds,
-    error,
-    count,
-  } = await supabase
-    .rpc('get_played_rounds', undefined, { count: 'exact' })
-    .select('*')
+  let query = supabase.rpc('get_played_rounds', undefined, { count: 'exact' });
+
+  if (filters.seasonId !== undefined) {
+    query = query.eq('season_id', filters.seasonId);
+  }
+
+  if (filters.correct !== undefined) {
+    query = query.eq('correct', filters.correct);
+  }
+
+  if (filters.roundTypeId !== undefined) {
+    query = query.eq('round_type_id', filters.roundTypeId);
+  }
+
+  if (filters.roundNumbers !== undefined && filters.roundNumbers.length > 0) {
+    query = query.in('round_number', filters.roundNumbers);
+  }
+
+  const { data: rounds, count } = await query
     .order('round_number', { ascending: false })
     .range(from, to);
 
-  if (error) {
-    throw error;
+  if (!rounds) {
+    return {
+      data: null,
+      count: null,
+    };
   }
 
   return {
-    data: convertKeysToCamel(rounds) as PlayedRound[],
-    count: count ?? 0,
+    data: (convertKeysToCamel(rounds) as PlayedRound[]) || [],
+    count: count || 0,
   };
 };
 

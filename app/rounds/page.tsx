@@ -1,43 +1,30 @@
-import { RoundViewTable } from '@/components/tables/rounds/round-view-table';
-import { RoundsPagination } from '@/components/tables/rounds/rounds-pagination';
-import { AddRoundButton } from '@/components/ui/add-round-button';
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from '@/components/ui/card';
-import { getPlayedRounds } from '@/lib/supabase/queries';
-import { getCurrentUser } from '@/lib/supabase/queries/auth';
+import { Suspense } from 'react';
+
+import { RoundTableContainer } from '@/components/tables/rounds/round-table-container';
+import { RoundsTableFallback } from '@/components/tables/rounds/rounds-table-fallback';
+
+type SearchParams = {
+  page?: string;
+  correct?: string;
+  roundNumbers?: string;
+  roundTypeId?: string;
+  seasonId?: string;
+};
 
 type RoundViewPageProps = {
-  searchParams: Promise<{ page?: number }>;
+  searchParams: Promise<SearchParams>;
 };
 
 export default async function RoundsViewPage({ searchParams }: RoundViewPageProps) {
-  const { page } = await searchParams;
-  const user = await getCurrentUser();
-
   const ROUNDS_PER_PAGE = 15;
-  const currentPage = Number(page) || 1;
-
-  const { data: rounds, count } = await getPlayedRounds({
-    page: currentPage,
-    roundsPerPage: ROUNDS_PER_PAGE,
-  });
+  const searchQueryParams = await searchParams;
 
   return (
-    <Card>
-      <CardHeader>
-        <CardAction>{user && <AddRoundButton />}</CardAction>
-      </CardHeader>
-      <CardContent>
-        <RoundViewTable isLoggedIn={!!user} rounds={rounds} />
-      </CardContent>
-      <CardFooter>
-        <RoundsPagination page={page} count={count} roundsPerPage={ROUNDS_PER_PAGE} />
-      </CardFooter>
-    </Card>
+    <Suspense key={JSON.stringify(searchQueryParams)} fallback={<RoundsTableFallback />}>
+      <RoundTableContainer
+        searchQueryParams={searchQueryParams}
+        roundsPerPage={ROUNDS_PER_PAGE}
+      />
+    </Suspense>
   );
 }
