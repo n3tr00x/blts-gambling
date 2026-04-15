@@ -49,11 +49,11 @@ CREATE OR REPLACE FUNCTION get_player_ranking_by_season (season_id INT DEFAULT N
   SELECT
     RANK() OVER (
       ORDER BY
+        hit_picks DESC,
         CASE
           WHEN total_picks > 0 THEN (hit_picks::numeric / total_picks)
           ELSE 0
         END DESC,
-        hit_picks DESC,
         total_picks DESC,
         username ASC
     ) AS "position",
@@ -67,5 +67,5 @@ CREATE OR REPLACE FUNCTION get_player_ranking_by_season (season_id INT DEFAULT N
     avg_odds_hit AS avg_odds,
     total_votes
   FROM player_stats
-  ORDER BY "position", username;
+  ORDER BY hit_picks DESC, effectiveness DESC, total_picks DESC, username ASC;
 $$;
