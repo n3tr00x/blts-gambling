@@ -24,6 +24,7 @@ const generateConfig = (players: string[]) => {
     'var(--color-chart-3)',
     'var(--color-chart-4)',
     'var(--color-chart-5)',
+    'var(--color-chart-6)',
   ];
 
   return players.reduce((config, key, index) => {
@@ -61,11 +62,11 @@ type PlayersEffectivenessProgressChartProps = {
 export function PlayersEffectivenessProgressChart({
   data,
 }: PlayersEffectivenessProgressChartProps) {
-  const players = Object.keys(data[0]).filter(
+  const players = Object.keys(data[data.length - 1]).filter(
     key => key !== 'round_number' && key !== 'roundNumber',
   );
   const config = generateConfig(players);
-  const yAxisDomain = calculateYAxisDomain(data, players);
+  // const yAxisDomain = calculateYAxisDomain(data, players);
 
   return (
     <Card>
@@ -105,7 +106,8 @@ export function PlayersEffectivenessProgressChart({
                 key={player}
                 dataKey={player}
                 type="monotone"
-                stroke={`var(--color-${player})`}
+                // stroke={`var(--color-${player})`}
+                stroke={config[player].color}
                 strokeWidth={3}
                 dot={false}
               />

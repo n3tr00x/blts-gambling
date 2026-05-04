@@ -4,9 +4,23 @@ import {
   PlayersEffectivenessProgress,
   PlayerStatsSummary,
   TopPickedLeague,
+  TopPickedLeaguesByPlayers,
 } from '@/lib/supabase/database';
 import { createClient } from '@/lib/supabase/server';
 import { convertKeysToCamel } from '@/lib/utilities';
+
+export async function getTopLeagueByPlayers(seasonId?: number) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .rpc('get_top_picked_leagues_by_players', { season_id: seasonId })
+    .select('*');
+
+  if (error) {
+    throw error;
+  }
+
+  return convertKeysToCamel(data) as TopPickedLeaguesByPlayers[];
+}
 
 export const getPlayersOddsByRound = async (limit: number) => {
   const supabase = await createClient();

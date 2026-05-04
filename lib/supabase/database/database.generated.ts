@@ -449,6 +449,8 @@ export type Database = {
           match_date: string
           round_number: number
           round_type: string
+          round_type_id: number
+          season_id: number
           season_name: string
         }[]
       }
@@ -499,6 +501,16 @@ export type Database = {
           round_number: number
           round_type_id: number
           votes: Json
+        }[]
+      }
+      get_top_picked_leagues_by_players: {
+        Args: { season_id?: number }
+        Returns: {
+          country: string
+          league: string
+          league_pick_count: number
+          player: string
+          total_picks: number
         }[]
       }
       player_stats_by_season: {

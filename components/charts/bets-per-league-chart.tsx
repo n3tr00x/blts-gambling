@@ -47,12 +47,12 @@ export function BetsPerLeagueChart({ data }: BetsPerLeagueChartProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[350px] w-full pr-12">
+        <ChartContainer config={chartConfig} className="min-h-[550px] w-full pr-12">
           <BarChart
             accessibilityLayer
             data={data}
             layout="vertical"
-            barSize={48}
+            barSize={64}
             margin={{ right: 32 }}
           >
             <CartesianGrid horizontal={false} />
