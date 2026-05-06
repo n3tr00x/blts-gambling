@@ -441,6 +441,16 @@ export type Database = {
         Returns: undefined
       }
       delete_round: { Args: { p_matchday_id: number }; Returns: undefined }
+      get_highest_hit_rate_leagues_by_players: {
+        Args: { min_picks?: number; season_id?: number }
+        Returns: {
+          country: string
+          hit_picks: number
+          league: string
+          pick_count: number
+          player: string
+        }[]
+      }
       get_played_rounds: {
         Args: never
         Returns: {

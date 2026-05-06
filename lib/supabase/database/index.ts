@@ -112,4 +112,6 @@ export type RankingByMonth = DbFunction<'get_player_ranking_by_month'>[0];
 export type TopPickedLeaguesByPlayers =
   DbFunction<'get_top_picked_leagues_by_players'>[0];
 
+export type TopLeaguePerPlayer = DbFunction<'get_highest_hit_rate_leagues_by_players'>[0];
+
 export type Season = DbTableWithNonNullable<'seasons_with_current'>;

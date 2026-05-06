@@ -6,6 +6,7 @@ type ChartsLayoutProps = {
   children: ReactNode;
   playersEffectivenessProgress: ReactNode;
   topPickedLeaguesByPlayers: ReactNode;
+  topLeaguePerPlayer: ReactNode;
   top10Leagues: ReactNode;
   playersOddsByRound: ReactNode;
   leagueEffectiveness: ReactNode;
@@ -15,6 +16,7 @@ type ChartsLayoutProps = {
 export default function ChartsLayout({
   playersEffectivenessProgress,
   top10Leagues,
+  topLeaguePerPlayer,
   // playersOddsByRound,
   leagueEffectiveness,
   // riskIndex,
@@ -25,11 +27,15 @@ export default function ChartsLayout({
       <Suspense fallback={<Skeleton className="col-span-full min-h-96 rounded-xl" />}>
         <div className="col-span-full">{playersEffectivenessProgress}</div>
       </Suspense>
+
       <Suspense fallback={<Skeleton className="col-span-1 min-h-96 rounded-xl" />}>
-        <div className="col-span-1">{top10Leagues}</div>
+        <div className="col-span-1">{topLeaguePerPlayer}</div>
       </Suspense>
       <Suspense fallback={<Skeleton className="col-span-1 min-h-96 rounded-xl" />}>
         <div className="col-span-1">{topPickedLeaguesByPlayers}</div>
+      </Suspense>
+      <Suspense fallback={<Skeleton className="col-span-1 min-h-96 rounded-xl" />}>
+        <div className="col-span-1">{top10Leagues}</div>
       </Suspense>
       <Suspense fallback={<Skeleton className="col-span-1 min-h-96 rounded-xl" />}>
         <div className="col-span-1">{leagueEffectiveness}</div>
