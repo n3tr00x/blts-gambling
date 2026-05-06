@@ -27,5 +27,5 @@ CREATE OR REPLACE FUNCTION get_highest_hit_rate_leagues_by_players (
   WHERE pk.season_id = (SELECT season_to_use FROM selected_season)
   GROUP BY p.id, p.username, l.id, l.name, l.country
   HAVING COUNT(*) >= min_picks
-  ORDER BY p.id DESC;
+  ORDER BY p.id, (COUNT(CASE WHEN pk.is_hit THEN 1 END)::NUMERIC / COUNT(*)::NUMERIC) DESC;
 $$;
