@@ -451,6 +451,17 @@ export type Database = {
           player: string
         }[]
       }
+      get_league_pick_stats: {
+        Args: { season_id?: number }
+        Returns: {
+          country: string
+          hit_count: number
+          league_name: string
+          level: number
+          pick_count: number
+          total_picks: number
+        }[]
+      }
       get_played_rounds: {
         Args: never
         Returns: {

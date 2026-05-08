@@ -2,12 +2,7 @@ import { LeagueEffectivenessChart } from '@/components/charts/league-effectivene
 import { getLeagueEffectiveness } from '@/lib/supabase/queries';
 
 export default async function EffectivityPage() {
-  const leagues = await getLeagueEffectiveness(10);
-  const sortedData = [...leagues].sort((a, b) => {
-    const effectivenessA = (a.hitCount / a.pickCount) * 100;
-    const effectivenessB = (b.hitCount / b.pickCount) * 100;
-    return effectivenessB - effectivenessA;
-  });
+  const leagues = await getLeagueEffectiveness(10, 10);
 
-  return <LeagueEffectivenessChart data={sortedData} />;
+  return <LeagueEffectivenessChart data={leagues} />;
 }

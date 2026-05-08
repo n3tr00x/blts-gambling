@@ -95,13 +95,20 @@ export async function getPlayerStatsSummary() {
   return convertKeysToCamel(data) as PlayerStatsSummary[];
 }
 
-export async function getLeagueEffectiveness(limit: number) {
+export async function getLeagueEffectiveness(
+  minPickCount: number,
+  limit: number,
+  seasonId?: number,
+) {
   const supabase = await createClient();
+
   const { data, error } = await supabase
-    .from('league_pick_stats_view')
-    .select('*')
-    .gte('pick_count', 10)
-    .limit(limit);
+    .rpc('get_league_pick_stats', {
+      season_id: seasonId,
+    })
+    .gte('pick_count', minPickCount)
+    .limit(limit)
+    .select('*');
 
   if (error) {
     throw error;
