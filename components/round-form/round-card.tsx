@@ -63,9 +63,9 @@ export function RoundCard({
             </Button>
           </CardAction>
           <CardDescription>
-            {isEditMode ?
-              'Edytujesz istniejącą rundę.'
-            : 'Tutaj możesz dodać nową rundę.'}
+            {isEditMode
+              ? 'Edytujesz istniejącą rundę.'
+              : 'Tutaj możesz dodać nową rundę.'}
           </CardDescription>
         </CardHeader>
         <CardContent>
