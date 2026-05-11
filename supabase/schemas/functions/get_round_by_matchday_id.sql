@@ -5,6 +5,7 @@ CREATE OR REPLACE FUNCTION public.get_round (p_matchday_id INT) RETURNS TABLE (
   is_hit BOOLEAN,
   season TEXT,
   related_matchday_id INT,
+  coupon_url TEXT,
   picks JSONB,
   votes JSONB
 ) LANGUAGE sql SECURITY DEFINER AS $$
@@ -15,6 +16,7 @@ SELECT
   m.correct AS is_hit,
   s.name AS season,
   m.related_matchday_id AS related_matchday_id,
+  m.coupon_url AS coupon_url,
   (
   SELECT COALESCE(
     JSONB_AGG(

@@ -4,6 +4,7 @@ CREATE OR REPLACE FUNCTION public.add_round (
   p_is_hit BOOLEAN,
   p_picks JSONB,
   p_votes JSONB,
+  p_coupon_url TEXT DEFAULT NULL,
   p_related_matchday_id INTEGER DEFAULT NULL
 ) RETURNS VOID LANGUAGE plpgsql SECURITY DEFINER AS $$
 DECLARE
@@ -39,7 +40,8 @@ BEGIN
         round_type_id,
         round_number,
         match_date,
-        correct
+        correct,
+        coupon_url
     )
     VALUES (
         detected_season_id,
@@ -47,7 +49,8 @@ BEGIN
         add_round.p_round_type_id,
         next_round_number,
         add_round.p_round_date,
-        add_round.p_is_hit
+        add_round.p_is_hit,
+        add_round.p_coupon_url
     )
     RETURNING id INTO new_matchday_id;
 

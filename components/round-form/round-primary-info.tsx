@@ -1,3 +1,4 @@
+import { RoundCouponUrlField } from '@/components/round-form/fields/round-coupon-url';
 import { RoundDateField } from '@/components/round-form/fields/round-date-field';
 import { RoundHitField } from '@/components/round-form/fields/round-hit-field';
 import { RoundMatchdaysSelect } from '@/components/round-form/fields/round-matchdays-select';
@@ -18,6 +19,7 @@ export function RoundPrimaryInfo({ roundTypes, matchdays }: RoundPrimaryInfoProp
       <RoundTypeSelect roundTypes={roundTypes} />
       <RoundMatchdaysSelect matchdays={matchdays} />
       <RoundDateField />
+      <RoundCouponUrlField />
       <RoundHitField />
     </FieldSet>
   );

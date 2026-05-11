@@ -28,6 +28,7 @@ export const createRound = async (values: NewRoundValues) => {
     p_is_hit: round.isHit,
     p_picks: round.picks,
     p_votes: round.votes,
+    p_coupon_url: round.couponUrl,
   });
 
   if (error) {

@@ -5,7 +5,8 @@ CREATE OR REPLACE FUNCTION public.update_round (
   p_is_hit BOOLEAN,
   p_picks JSONB,
   p_votes JSONB,
-  p_related_matchday_id INTEGER DEFAULT NULL
+  p_related_matchday_id INTEGER DEFAULT NULL,
+  p_coupon_url TEXT DEFAULT NULL
 ) RETURNS VOID LANGUAGE plpgsql SECURITY DEFINER AS $$
 DECLARE
   detected_season_id INTEGER;
@@ -29,7 +30,8 @@ BEGIN
     round_type_id = p_round_type_id,
     match_date = p_round_date,
     correct = p_is_hit,
-    related_matchday_id = p_related_matchday_id
+    related_matchday_id = p_related_matchday_id,
+    coupon_url = p_coupon_url
   WHERE id = p_matchday_id;
 
   DELETE FROM public.votes v

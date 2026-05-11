@@ -11,7 +11,8 @@ const getDefaultValues = (
   players: Tables<'players'>[],
   editableRound?: EditableRound,
 ): DefaultValues<NewRoundValues> => {
-  const { roundTypeId, roundDate, isHit, picks, votes } = editableRound || {};
+  const { roundTypeId, roundDate, isHit, picks, votes, relatedMatchdayId, couponUrl } =
+    editableRound || {};
 
   const defaultVotesValue = players.map(player => ({
     voterId: player.id,
@@ -35,10 +36,12 @@ const getDefaultValues = (
 
   return {
     roundTypeId: roundTypeId ?? undefined,
+    relatedMatchdayId: relatedMatchdayId ?? undefined,
     roundDate: roundDate ? new TZDate(roundDate, 'UTC') : undefined,
     isHit: isHit ?? false,
     votes: editableVotes ?? defaultVotesValue,
     picks: picks ?? defaultPicksValue,
+    couponUrl: couponUrl ?? undefined,
   };
 };
 

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import Link from 'next/link';
 import { InfoIcon } from 'lucide-react';
 
 import { InfoSection } from '@/components/round-details/info-section';
@@ -9,6 +10,7 @@ type RoundBasicInfoProps = {
   roundType: string;
   roundDate: string;
   isHit: boolean;
+  couponUrl?: string;
 };
 
 type InfoItem = {
@@ -16,12 +18,33 @@ type InfoItem = {
   value: ReactNode;
 };
 
-export function RoundBasicInfo({ roundType, roundDate, isHit }: RoundBasicInfoProps) {
+export function RoundBasicInfo({
+  roundType,
+  roundDate,
+  isHit,
+  couponUrl,
+}: RoundBasicInfoProps) {
   const infoItems: InfoItem[] = [
     { label: 'Typ kuponu', value: roundType },
     { label: 'Data kuponu', value: formatDateToPolishLong(roundDate) },
     { label: 'Czy trafione?', value: <HitBadge isHit={isHit} /> },
   ];
+
+  if (couponUrl) {
+    infoItems.push({
+      label: 'URL kuponu',
+      value: (
+        <Link
+          href={couponUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 hover:underline"
+        >
+          Link do kuponu
+        </Link>
+      ),
+    });
+  }
 
   return (
     <InfoSection title="Podstawowe informacje" icon={<InfoIcon />} className="col-span-2">

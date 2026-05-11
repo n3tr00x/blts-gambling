@@ -116,6 +116,7 @@ export type Database = {
       matchdays: {
         Row: {
           correct: boolean
+          coupon_url: string | null
           id: number
           match_date: string
           related_matchday_id: number | null
@@ -125,6 +126,7 @@ export type Database = {
         }
         Insert: {
           correct?: boolean
+          coupon_url?: string | null
           id?: number
           match_date: string
           related_matchday_id?: number | null
@@ -134,6 +136,7 @@ export type Database = {
         }
         Update: {
           correct?: boolean
+          coupon_url?: string | null
           id?: number
           match_date?: string
           related_matchday_id?: number | null
@@ -431,6 +434,7 @@ export type Database = {
     Functions: {
       add_round: {
         Args: {
+          p_coupon_url?: string
           p_is_hit: boolean
           p_picks: Json
           p_related_matchday_id?: number
@@ -502,6 +506,7 @@ export type Database = {
       get_round: {
         Args: { p_matchday_id: number }
         Returns: {
+          coupon_url: string
           is_hit: boolean
           picks: Json
           related_matchday_id: number
@@ -515,6 +520,7 @@ export type Database = {
       get_round_for_edit: {
         Args: { p_matchday_id: number }
         Returns: {
+          coupon_url: string
           is_hit: boolean
           picks: Json
           related_matchday_id: number
@@ -559,6 +565,7 @@ export type Database = {
       }
       update_round: {
         Args: {
+          p_coupon_url?: string
           p_is_hit: boolean
           p_matchday_id: number
           p_picks: Json

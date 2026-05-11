@@ -4,6 +4,7 @@ CREATE OR REPLACE FUNCTION public.get_round_for_edit (p_matchday_id INTEGER) RET
   round_number INTEGER,
   is_hit BOOLEAN,
   related_matchday_id INTEGER,
+  coupon_url TEXT,
   picks JSONB,
   votes JSONB
 ) LANGUAGE plpgsql SECURITY DEFINER AS $$
@@ -15,6 +16,7 @@ BEGIN
       m.round_number,
       m.correct,
       m.related_matchday_id,
+      m.coupon_url,
       (
         SELECT COALESCE(
           JSONB_AGG(

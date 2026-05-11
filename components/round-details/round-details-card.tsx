@@ -8,16 +8,25 @@ import { RoundDetails } from '@/lib/supabase/database';
 type RoundDetailsCardProps = { round: RoundDetails };
 
 export function RoundDetailsCard({ round }: RoundDetailsCardProps) {
-  const { roundNumber, isHit, roundType, roundDate, picks, votes } = round;
+  const { roundNumber, isHit, roundType, roundDate, picks, votes, couponUrl } = round;
 
   return (
     <Card>
       <CardHeader>
-        <RoundDetailsTitle roundNumber={roundNumber} isHit={isHit} />
+        <RoundDetailsTitle
+          roundNumber={roundNumber}
+          isHit={isHit}
+          couponUrl={couponUrl}
+        />
       </CardHeader>
       <CardContent className="mx-auto w-full max-w-7xl">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-          <RoundBasicInfo roundType={roundType} roundDate={roundDate} isHit={isHit} />
+          <RoundBasicInfo
+            roundType={roundType}
+            roundDate={roundDate}
+            isHit={isHit}
+            couponUrl={couponUrl}
+          />
           <RoundPicksInfo picks={picks} />
           <RoundVotesTable votes={votes} />
         </div>

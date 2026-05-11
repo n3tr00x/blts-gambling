@@ -7,6 +7,7 @@ export const roundPrimarySchema = z.object({
     .date()
     .refine(val => val instanceof Date || !isNaN(Date.parse(val)), 'Podaj poprawną datę'),
   isHit: z.boolean(),
+  couponUrl: z.union([z.url(), z.literal('')]).optional(),
 });
 
 export type RoundPrimarySchema = z.infer<typeof roundPrimarySchema>;
