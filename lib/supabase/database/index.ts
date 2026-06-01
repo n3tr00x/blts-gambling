@@ -88,7 +88,9 @@ export type OddsByRound = Merge<
 
 export type FlattenedOddsByRound = Flatten<OddsByRound, 'data', 'roundNumber'>;
 
-export type TopPickedLeague = DbTableWithNonNullable<'league_pick_stats_view'>;
+// export type TopPickedLeague = DbTableWithNonNullable<'league_pick_stats_view'>;
+
+export type TopPickedLeague = DbFunction<'get_top_picked_leagues'>[0];
 
 export type PlayersEffectivenessProgress = Merge<
   DbFunction<'players_effectiveness_progress'>[0],
