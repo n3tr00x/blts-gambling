@@ -112,7 +112,7 @@ export const getPlayedRounds = async ({
   }
 
   const { data: rounds, count } = await query
-    .order('round_number', { ascending: false })
+    .order('match_date', { ascending: false })
     .range(from, to);
 
   if (!rounds) {
