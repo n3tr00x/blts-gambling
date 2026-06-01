@@ -33,28 +33,6 @@ const generateConfig = (players: string[]) => {
   }, {} as ChartConfig);
 };
 
-const calculateYAxisDomain = (
-  data: FlattenedPlayersEffectivenessProgress[],
-  players: string[],
-) => {
-  let min = 100;
-  let max = 0;
-
-  data.forEach(round => {
-    players.forEach(player => {
-      const value = round[player];
-      if (value < min) min = value;
-      if (value > max) max = value;
-    });
-  });
-
-  const padding = 5;
-  return [
-    Math.max(0, Math.floor(min - padding)),
-    Math.min(100, Math.ceil(max + padding)),
-  ];
-};
-
 type PlayersEffectivenessProgressChartProps = {
   data: FlattenedPlayersEffectivenessProgress[];
 };
