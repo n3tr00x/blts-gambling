@@ -26,7 +26,7 @@ CREATE OR REPLACE FUNCTION get_top_picked_leagues (season_id INT DEFAULT NULL) R
       ) AS hit_count
     FROM
       leagues l
-      LEFT JOIN picks p ON p.league_id = l.id
+      JOIN picks p ON p.league_id = l.id
         AND p.season_id = (SELECT season_to_use FROM selected_season)
     GROUP BY
       l.id,

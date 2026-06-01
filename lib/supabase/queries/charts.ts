@@ -54,21 +54,6 @@ export const getPlayersOddsByRound = async (limit: number) => {
   return convertKeysToCamel(data) as OddsByRound[];
 };
 
-// export async function getTopPickedLeagues(limit: number) {
-//   const supabase = await createClient();
-//   const { data: leagues, error } = await supabase
-//     .from('league_pick_stats_view')
-//     .select('*')
-//     .order('pick_count', { ascending: false })
-//     .limit(limit);
-
-//   if (error) {
-//     throw error;
-//   }
-
-//   return convertKeysToCamel(leagues) as TopPickedLeague[];
-// }
-
 export async function getTopPickedLeagues(limit: number, seasonId?: number) {
   const supabase = await createClient();
   const { data: leagues, error } = await supabase
