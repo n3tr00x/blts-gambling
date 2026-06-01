@@ -395,9 +395,25 @@ export type Database = {
           league_name: string | null
           level: number | null
           pick_count: number | null
+          season_id: number | null
           total_picks: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "picks_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "seasons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "picks_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "seasons_with_current"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       matchday_months: {
         Row: {
@@ -528,6 +544,17 @@ export type Database = {
           round_number: number
           round_type_id: number
           votes: Json
+        }[]
+      }
+      get_top_picked_leagues: {
+        Args: { season_id?: number }
+        Returns: {
+          country: string
+          hit_count: number
+          league_name: string
+          level: number
+          pick_count: number
+          total_picks: number
         }[]
       }
       get_top_picked_leagues_by_players: {

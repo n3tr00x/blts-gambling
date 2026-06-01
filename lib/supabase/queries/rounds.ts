@@ -112,6 +112,7 @@ export const getPlayedRounds = async ({
   }
 
   const { data: rounds, count } = await query
+    .order('season_id', { ascending: false })
     .order('round_number', { ascending: false })
     .range(from, to);
 
