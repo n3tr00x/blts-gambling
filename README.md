@@ -86,9 +86,10 @@ Before you begin, ensure you have the following installed:
    yarn install
    ```
 
-3. **Install Supabase CLI** (if not already installed)
+3. **Supabase CLI**
    ```bash
-   npm install -g supabase
+   # Use the project-local CLI (installed via devDependencies)
+   npx supabase --version
    ```
 
 ## 🔐 Environment Setup
@@ -339,8 +340,8 @@ blts-gambling/
 
 - Keep all migrations in `supabase/migrations/`
 - Create new migration: `supabase migration new migration_name`
-- Apply migrations: `npm run db:reset` (dev only) or `npm run db:types` then deploy to production
-- Use TypeScript types from generated types file for all database operations
+- Apply migrations locally: `npm run db:reset` (dev only)
+- For production, apply migrations with Supabase (e.g. `npx supabase db push` / CI) and then regenerate types: `npm run db:types`
 
 ### Server Actions
 
