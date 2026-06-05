@@ -507,6 +507,18 @@ export type Database = {
           username: string
         }[]
       }
+      get_player_ranking_by_month2: {
+        Args: { month: string }
+        Returns: {
+          avg_odds: number
+          effectiveness: number
+          hit_picks: number
+          points: number
+          total_picks: number
+          total_votes: number
+          username: string
+        }[]
+      }
       get_player_ranking_by_season: {
         Args: { season_id?: number }
         Returns: {
@@ -514,6 +526,18 @@ export type Database = {
           effectiveness: number
           hit_picks: number
           position: number
+          total_picks: number
+          total_votes: number
+          username: string
+        }[]
+      }
+      get_player_ranking_by_season2: {
+        Args: { season_id?: number }
+        Returns: {
+          avg_odds: number
+          effectiveness: number
+          hit_picks: number
+          points: number
           total_picks: number
           total_votes: number
           username: string

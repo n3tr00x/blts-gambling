@@ -9,10 +9,10 @@ import { convertKeysToCamel } from '@/lib/utilities/snake-to-camel';
 export const getRankingBySeason = async (seasonId: number) => {
   const supabase = await createClient();
 
-  const { data: ranking, error } = await supabase.rpc(
-    'get_player_ranking_by_season',
-    seasonId ? { season_id: seasonId } : undefined,
-  );
+  const { data: ranking, error } = await supabase
+    .rpc('get_player_ranking_by_season', seasonId ? { season_id: seasonId } : undefined)
+    .order('hit_picks', { ascending: false })
+    .order('points', { ascending: false });
 
   if (error) {
     throw error;
@@ -24,12 +24,10 @@ export const getRankingBySeason = async (seasonId: number) => {
 export const getRankingByMonth = async (month: string) => {
   const supabase = await createClient();
 
-  const { data: ranking, error } = await supabase.rpc(
-    'get_player_ranking_by_month',
-    month ? { month } : undefined,
-  );
-
-  console.log(ranking);
+  const { data: ranking, error } = await supabase
+    .rpc('get_player_ranking_by_month', month ? { month } : undefined)
+    .order('hit_picks', { ascending: false })
+    .order('points', { ascending: false });
 
   if (error) {
     throw error;

@@ -13,7 +13,9 @@ export const columns: ColumnDef<LeaderboardColumn>[] = [
     // prettier-ignore
     header: ({ column }) => (
       <HeaderButton column={column}>Pozycja</HeaderButton>
+    
     ),
+    cell: info => parseInt(info.row.id) + 1,
   },
   {
     accessorKey: 'username',
@@ -21,7 +23,8 @@ export const columns: ColumnDef<LeaderboardColumn>[] = [
   },
   {
     accessorKey: 'hitPicks',
-    header: 'Trafione',
+    // header: 'Trafione',
+    header: ({ column }) => <HeaderButton column={column}>Trafione</HeaderButton>,
   },
   {
     accessorKey: 'totalPicks',
@@ -47,6 +50,13 @@ export const columns: ColumnDef<LeaderboardColumn>[] = [
     // prettier-ignore
     header: ({ column }) => (
       <HeaderButton column={column}>Głosy</HeaderButton>
+    ),
+  },
+  {
+    accessorKey: 'points',
+    // prettier-ignore
+    header: ({ column }) => (
+      <HeaderButton column={column}>Punkty</HeaderButton>
     ),
   },
 ];
