@@ -3,12 +3,12 @@ import { TZDate } from 'react-day-picker';
 import { DefaultValues, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { EditableRound } from '@/lib/supabase/database';
+import { EditableRound, Player } from '@/lib/supabase/database';
 import { Tables } from '@/lib/supabase/database/database.generated';
 import { NewRoundValues, newRoundValues } from '@/schemas';
 
 const getDefaultValues = (
-  players: Tables<'players'>[],
+  players: Player[],
   editableRound?: EditableRound,
 ): DefaultValues<NewRoundValues> => {
   const { roundTypeId, roundDate, isHit, picks, votes, relatedMatchdayId, couponUrl } =
@@ -26,7 +26,7 @@ const getDefaultValues = (
 
   const defaultPicksValue = [
     {
-      player_id: undefined,
+      playerId: undefined,
       leagueId: undefined,
       odd: 1,
       isChosen: false,
@@ -47,7 +47,7 @@ const getDefaultValues = (
 
 type UseRoundFormArgs = {
   round?: EditableRound;
-  players: Tables<'players'>[];
+  players: Player[];
 };
 
 export const useRoundForm = ({ round, players }: UseRoundFormArgs) => {
