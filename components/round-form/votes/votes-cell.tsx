@@ -7,12 +7,12 @@ import clsx from 'clsx';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { TableCell } from '@/components/ui/table';
-import { Tables } from '@/lib/supabase/database/database.generated';
+import { Player } from '@/lib/supabase/database';
 import { VotesTableFormValues } from '@/schemas/votes-form.schema';
 
 type VotesCellTableProps = {
   voterId: number;
-  target: Tables<'players'>;
+  target: Player;
   rowIndex: number;
   columnIndex: number;
   votesFor: number[];

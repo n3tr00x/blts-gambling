@@ -8,12 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Tables } from '@/lib/supabase/database/database.generated';
+import { Player } from '@/lib/supabase/database';
 
 import { VotesRowTable } from './votes-row';
 
 type VotesTableProps = {
-  players: Tables<'players'>[];
+  players: Player[];
 };
 
 export function VotesFormTable({ players }: VotesTableProps) {
