@@ -21,12 +21,16 @@ export async function AllSeasonLeaderboard({
   const seasons = await getAllSeasons();
   const ranking = await getRankingBySeason(+searchedSeason);
 
+  const firstSeason = seasons.find(season => season.id === 1);
+  const isFirstSeason = firstSeason && firstSeason.id === +searchedSeason;
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-xl">Ranking sezonu</CardTitle>
         <CardDescription>
           od {seasons[0].startDate} do {seasons[0].endDate}
+          {isFirstSeason && ' (ranking oparty tylko na trafionych typach)'}
         </CardDescription>
         <CardAction>
           <SeasonSelector seasons={seasons} searchedSeason={searchedSeason} />

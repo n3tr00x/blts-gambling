@@ -25,11 +25,6 @@ CREATE OR REPLACE FUNCTION get_player_ranking_by_season (season_id INT DEFAULT N
     WHERE pk.season_id = (SELECT season_to_use FROM selected_season)
     GROUP BY pk.player_id
   ),
-  season_matchdays_count AS (
-    SELECT COUNT(*) AS matchdays_in_season
-    FROM matchdays m
-    WHERE m.season_id = (SELECT season_to_use FROM selected_season)
-  ),
   votes_stats AS (
     SELECT
       pk.player_id,
@@ -44,12 +39,18 @@ CREATE OR REPLACE FUNCTION get_player_ranking_by_season (season_id INT DEFAULT N
     SELECT
       p.id AS player_id,
       p.username,
+      p.created_at,
       COALESCE(ps.hit_picks, 0) AS hit_picks,
       COALESCE(ps.total_picks, 0) AS total_picks,
       ps.avg_odds_hit AS avg_odds_hit,
       ps.sum_odds_hit AS sum_odds_hit,
       COALESCE(vs.total_votes, 0) AS total_votes,
-      (SELECT matchdays_in_season FROM season_matchdays_count) AS matchdays_count
+      -- Liczysz matchdays TYLKO od daty stworzenia gracza
+      (SELECT COUNT(*) 
+       FROM matchdays m
+       WHERE m.season_id = (SELECT season_to_use FROM selected_season)
+         AND m.match_date >= p.created_at
+      ) AS matchdays_count
     FROM players p
     LEFT JOIN picks_stats ps ON ps.player_id = p.id
     LEFT JOIN votes_stats vs ON vs.player_id = p.id

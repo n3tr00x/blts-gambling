@@ -9,10 +9,24 @@ import { convertKeysToCamel } from '@/lib/utilities/snake-to-camel';
 export const getRankingBySeason = async (seasonId: number) => {
   const supabase = await createClient();
 
-  const { data: ranking, error } = await supabase
-    .rpc('get_player_ranking_by_season', seasonId ? { season_id: seasonId } : undefined)
-    .order('hit_picks', { ascending: false })
-    .order('points', { ascending: false });
+  let query = supabase.rpc(
+    'get_player_ranking_by_season',
+    seasonId ? { season_id: seasonId } : undefined,
+  );
+
+  // Dla sezonu 1 sortuj po hit_picks, dla sezonu 2+ sortuj najpierw po points
+  if (seasonId === 1) {
+    query = query
+      .order('hit_picks', { ascending: false })
+      .order('avg_odds', { ascending: false });
+  } else {
+    query = query
+      .order('points', { ascending: false })
+      .order('hit_picks', { ascending: false })
+      .order('avg_odds', { ascending: false });
+  }
+
+  const { data: ranking, error } = await query;
 
   if (error) {
     throw error;
@@ -24,10 +38,40 @@ export const getRankingBySeason = async (seasonId: number) => {
 export const getRankingByMonth = async (month: string) => {
   const supabase = await createClient();
 
-  const { data: ranking, error } = await supabase
-    .rpc('get_player_ranking_by_month', month ? { month } : undefined)
-    .order('hit_picks', { ascending: false })
-    .order('points', { ascending: false });
+  const parsedDate = new Date(`${month.split('-')[1]}-${month.split('-')[0]}-01`)
+    .toISOString()
+    .split('T')[0];
+
+  const { data: searchedSeason, error: searchedSeasonError } = await supabase
+    .from('seasons')
+    .select('id')
+    .lte('start_date', parsedDate)
+    .gte('end_date', parsedDate)
+    .limit(1)
+    .single();
+
+  if (searchedSeasonError || !searchedSeason) {
+    console.error(
+      'Błąd podczas wyszukiwania sezonu dla miesiąca:',
+      searchedSeasonError.message,
+    );
+    throw searchedSeasonError;
+  }
+
+  let query = supabase.rpc('get_player_ranking_by_month', month ? { month } : undefined);
+
+  if (searchedSeason.id === 1) {
+    query = query
+      .order('hit_picks', { ascending: false })
+      .order('avg_odds', { ascending: false });
+  } else {
+    query = query
+      .order('points', { ascending: false })
+      .order('hit_picks', { ascending: false })
+      .order('avg_odds', { ascending: false });
+  }
+
+  const { data: ranking, error } = await query;
 
   if (error) {
     throw error;

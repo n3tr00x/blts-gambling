@@ -26,12 +26,6 @@ CREATE OR REPLACE FUNCTION get_player_ranking_by_month (MONTH TEXT) RETURNS TABL
                           AND (SELECT month_end   FROM month_data)
     GROUP BY pk.player_id
   ),
-  month_matchdays_count AS (
-    SELECT COUNT(*) AS matchdays_in_month
-    FROM matchdays m
-    WHERE m.match_date BETWEEN (SELECT month_start FROM month_data)
-                          AND (SELECT month_end FROM month_data)
-  ),
   votes_stats AS (
     SELECT
       pk.player_id,
@@ -49,12 +43,19 @@ CREATE OR REPLACE FUNCTION get_player_ranking_by_month (MONTH TEXT) RETURNS TABL
     SELECT
       p.id AS player_id,
       p.username,
+      p.created_at,
       COALESCE(ps.hit_picks, 0) AS hit_picks,
       COALESCE(ps.total_picks, 0) AS total_picks,
       ps.avg_odds_hit AS avg_odds_hit,
       ps.sum_odds_hit AS sum_odds_hit,
       COALESCE(vs.total_votes, 0) AS total_votes,
-      (SELECT matchdays_in_month FROM month_matchdays_count) AS matchdays_count
+      -- Liczysz matchdays w miesiącu, ale TYLKO od daty stworzenia gracza
+      (SELECT COUNT(*) 
+       FROM matchdays m
+       WHERE m.match_date BETWEEN (SELECT month_start FROM month_data)
+                             AND (SELECT month_end FROM month_data)
+         AND m.match_date >= p.created_at
+      ) AS matchdays_count
     FROM players p
     LEFT JOIN picks_stats ps ON ps.player_id = p.id
     LEFT JOIN votes_stats vs ON vs.player_id = p.id
