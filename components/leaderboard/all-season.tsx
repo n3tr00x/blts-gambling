@@ -27,8 +27,11 @@ export async function AllSeasonLeaderboard({
   }));
 
   const selectedSeason =
-    seasons.find(season => season.id === +searchedSeason) ?? seasons[0];
-  const isFirstSeason = selectedSeason?.id === 1;
+    seasons.find(season => season.id === +searchedSeason) ??
+    seasons.find(season => season.isCurrent === true) ??
+    seasons[0];
+
+  const isFirstSeason = selectedSeason.id === 1;
 
   return (
     <Card>
