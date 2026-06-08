@@ -20,6 +20,11 @@ export async function MonthLeaderboard({ searchedMonth }: MonthLeaderboardProps)
   const months = await getMatchdayMonths();
   const ranking = await getRankingByMonth(searchedMonth || months[0].monthKey || '');
 
+  const rankingWithPosition = ranking.map((player, index) => ({
+    ...player,
+    position: index + 1,
+  }));
+
   const monthLabel = formatToLongMonthYear(
     searchedMonth || months[0].monthKey || '',
   ).toLowerCase();
@@ -34,7 +39,7 @@ export async function MonthLeaderboard({ searchedMonth }: MonthLeaderboardProps)
         </CardAction>
       </CardHeader>
       <CardContent>
-        <DataTable columns={columns} data={ranking} />
+        <DataTable columns={columns} data={rankingWithPosition} />
       </CardContent>
     </Card>
   );

@@ -5,7 +5,9 @@ import { ColumnDef } from '@tanstack/react-table';
 import { HeaderButton } from '@/components/leaderboard/header-button';
 import { RankingByMonth } from '@/lib/supabase/database';
 
-export type LeaderboardColumn = RankingByMonth;
+export type LeaderboardColumn = RankingByMonth & {
+  position: number;
+};
 
 export const columns: ColumnDef<LeaderboardColumn>[] = [
   {
@@ -13,6 +15,7 @@ export const columns: ColumnDef<LeaderboardColumn>[] = [
     // prettier-ignore
     header: ({ column }) => (
       <HeaderButton column={column}>Pozycja</HeaderButton>
+    
     ),
   },
   {
@@ -21,7 +24,8 @@ export const columns: ColumnDef<LeaderboardColumn>[] = [
   },
   {
     accessorKey: 'hitPicks',
-    header: 'Trafione',
+    // header: 'Trafione',
+    header: ({ column }) => <HeaderButton column={column}>Trafione</HeaderButton>,
   },
   {
     accessorKey: 'totalPicks',
@@ -47,6 +51,13 @@ export const columns: ColumnDef<LeaderboardColumn>[] = [
     // prettier-ignore
     header: ({ column }) => (
       <HeaderButton column={column}>Głosy</HeaderButton>
+    ),
+  },
+  {
+    accessorKey: 'points',
+    // prettier-ignore
+    header: ({ column }) => (
+      <HeaderButton column={column}>Punkty</HeaderButton>
     ),
   },
 ];
