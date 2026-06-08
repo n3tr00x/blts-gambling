@@ -54,7 +54,7 @@ CREATE OR REPLACE FUNCTION get_player_ranking_by_month (MONTH TEXT) RETURNS TABL
        FROM matchdays m
        WHERE m.match_date BETWEEN (SELECT month_start FROM month_data)
                              AND (SELECT month_end FROM month_data)
-         AND m.match_date >= p.created_at
+         AND m.match_date >= p.created_at::date
       ) AS matchdays_count
     FROM players p
     LEFT JOIN picks_stats ps ON ps.player_id = p.id

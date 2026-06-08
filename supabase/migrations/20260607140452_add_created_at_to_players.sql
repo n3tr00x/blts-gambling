@@ -1,28 +1,41 @@
-drop view if exists "public"."all_matchdays_for_selection";
+DROP VIEW if EXISTS "public"."all_matchdays_for_selection";
 
-drop view if exists "public"."league_pick_stats_view";
+DROP VIEW if EXISTS "public"."league_pick_stats_view";
 
-drop view if exists "public"."matchday_months";
+DROP VIEW if EXISTS "public"."matchday_months";
 
-alter table "public"."players" add column "created_at" timestamp with time zone default CURRENT_TIMESTAMP;
+ALTER TABLE "public"."players"
+ADD COLUMN "created_at" timestamp with time zone DEFAULT CURRENT_TIMESTAMP;
 
-set check_function_bodies = off;
+SET
+  check_function_bodies = off;
 
-create or replace view "public"."all_matchdays_for_selection" as  SELECT m.id,
-    m.season_id,
-    m.round_number,
-    m.match_date,
-    m.correct,
-    m.related_matchday_id,
-    rt.name AS round_type
-   FROM (public.matchdays m
-     JOIN public.round_types rt ON ((rt.id = m.round_type_id)));
+CREATE OR REPLACE VIEW "public"."all_matchdays_for_selection"
+WITH
+  (security_invoker = ON) AS
+SELECT
+  m.id,
+  m.season_id,
+  m.round_number,
+  m.match_date,
+  m.correct,
+  m.related_matchday_id,
+  rt.name AS round_type
+FROM
+  (
+    public.matchdays m
+    JOIN public.round_types rt ON ((rt.id = m.round_type_id))
+  );
 
-
-CREATE OR REPLACE FUNCTION public.get_player_ranking_by_month(month text)
- RETURNS TABLE(username text, hit_picks integer, total_picks integer, effectiveness numeric, avg_odds numeric, total_votes integer, points numeric)
- LANGUAGE sql
-AS $function$
+CREATE OR REPLACE FUNCTION public.get_player_ranking_by_month (MONTH text) RETURNS TABLE (
+  username text,
+  hit_picks integer,
+  total_picks integer,
+  effectiveness numeric,
+  avg_odds numeric,
+  total_votes integer,
+  points numeric
+) LANGUAGE sql AS $function$
   WITH month_data AS (
     SELECT
       TO_DATE(month, 'MM-YYYY') AS month_start,
@@ -70,7 +83,7 @@ AS $function$
        FROM matchdays m
        WHERE m.match_date BETWEEN (SELECT month_start FROM month_data)
                              AND (SELECT month_end FROM month_data)
-         AND m.match_date >= p.created_at
+         AND m.match_date >= p.created_at::date
       ) AS matchdays_count
     FROM players p
     LEFT JOIN picks_stats ps ON ps.player_id = p.id
@@ -88,13 +101,17 @@ AS $function$
     total_votes,
     ROUND(COALESCE(sum_odds_hit, 0) + COALESCE(total_picks, 0) - matchdays_count, 2) AS points
   FROM player_stats;
-$function$
-;
+$function$;
 
-CREATE OR REPLACE FUNCTION public.get_player_ranking_by_season(season_id integer DEFAULT NULL::integer)
- RETURNS TABLE(username text, hit_picks integer, total_picks integer, effectiveness numeric, avg_odds numeric, total_votes integer, points numeric)
- LANGUAGE sql
-AS $function$
+CREATE OR REPLACE FUNCTION public.get_player_ranking_by_season (season_id integer DEFAULT NULL::integer) RETURNS TABLE (
+  username text,
+  hit_picks integer,
+  total_picks integer,
+  effectiveness numeric,
+  avg_odds numeric,
+  total_votes integer,
+  points numeric
+) LANGUAGE sql AS $function$
   WITH selected_season AS (
     SELECT COALESCE(
       season_id,
@@ -137,7 +154,7 @@ AS $function$
       (SELECT COUNT(*) 
        FROM matchdays m
        WHERE m.season_id = (SELECT season_to_use FROM selected_season)
-         AND m.match_date >= p.created_at
+         AND m.match_date >= p.created_at::date
       ) AS matchdays_count
     FROM players p
     LEFT JOIN picks_stats ps ON ps.player_id = p.id
@@ -155,46 +172,94 @@ AS $function$
     total_votes,
     ROUND(COALESCE(sum_odds_hit, 0) + COALESCE(total_picks, 0) - matchdays_count, 2) AS points
   FROM player_stats;
-$function$
-;
+$function$;
 
-create or replace view "public"."league_pick_stats_view" as  WITH league_stats AS (
-         SELECT p.season_id,
-            s.name AS season_name,
-            l.id,
-            l.name AS league_name,
-            l.country,
-            l.level,
-            count(p.id) AS pick_count,
-            count(*) FILTER (WHERE (p.is_hit = true)) AS hit_count
-           FROM ((public.leagues l
-             JOIN public.picks p ON ((p.league_id = l.id)))
-             JOIN public.seasons s ON ((s.id = p.season_id)))
-          GROUP BY p.season_id, s.name, l.id, l.name, l.country, l.level
-        ), total AS (
-         SELECT league_stats.season_id,
-            sum(league_stats.pick_count) AS total_picks
-           FROM league_stats
-          GROUP BY league_stats.season_id
+CREATE OR REPLACE VIEW "public"."league_pick_stats_view"
+WITH
+  (security_invoker = ON) AS
+WITH
+  league_stats AS (
+    SELECT
+      p.season_id,
+      s.name AS season_name,
+      l.id,
+      l.name AS league_name,
+      l.country,
+      l.level,
+      count(p.id) AS pick_count,
+      count(*) FILTER (
+        WHERE
+          (p.is_hit = TRUE)
+      ) AS hit_count
+    FROM
+      (
+        (
+          public.leagues l
+          JOIN public.picks p ON ((p.league_id = l.id))
         )
- SELECT ls.season_id,
-    ls.league_name,
-    ls.country,
-    ls.level,
-    ls.pick_count,
-    ls.hit_count,
-    t.total_picks
-   FROM (league_stats ls
-     JOIN total t ON ((t.season_id = ls.season_id)))
-  WHERE (ls.pick_count > 0)
-  ORDER BY ls.season_id DESC, ls.pick_count DESC;
+        JOIN public.seasons s ON ((s.id = p.season_id))
+      )
+    GROUP BY
+      p.season_id,
+      s.name,
+      l.id,
+      l.name,
+      l.country,
+      l.level
+  ),
+  total AS (
+    SELECT
+      league_stats.season_id,
+      sum(league_stats.pick_count) AS total_picks
+    FROM
+      league_stats
+    GROUP BY
+      league_stats.season_id
+  )
+SELECT
+  ls.season_id,
+  ls.league_name,
+  ls.country,
+  ls.level,
+  ls.pick_count,
+  ls.hit_count,
+  t.total_picks
+FROM
+  (
+    league_stats ls
+    JOIN total t ON ((t.season_id = ls.season_id))
+  )
+WHERE
+  (ls.pick_count > 0)
+ORDER BY
+  ls.season_id DESC,
+  ls.pick_count DESC;
 
-
-create or replace view "public"."matchday_months" as  SELECT to_char(date_trunc('month'::text, (match_date)::timestamp with time zone), 'MM-YYYY'::text) AS month_key,
-    count(*) AS matchdays_count
-   FROM public.matchdays
-  GROUP BY (date_trunc('month'::text, (match_date)::timestamp with time zone))
-  ORDER BY (date_trunc('month'::text, (match_date)::timestamp with time zone)) DESC;
-
-
-
+CREATE OR REPLACE VIEW "public"."matchday_months"
+WITH
+  (security_invoker = ON) AS
+SELECT
+  to_char(
+    date_trunc(
+      'month'::text,
+      (match_date)::timestamp with time zone
+    ),
+    'MM-YYYY'::text
+  ) AS month_key,
+  count(*) AS matchdays_count
+FROM
+  public.matchdays
+GROUP BY
+  (
+    date_trunc(
+      'month'::text,
+      (match_date)::timestamp with time zone
+    )
+  )
+ORDER BY
+  (
+    date_trunc(
+      'month'::text,
+      (match_date)::timestamp with time zone
+    )
+  ) DESC;

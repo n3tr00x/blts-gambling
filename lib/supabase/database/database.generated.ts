@@ -263,17 +263,17 @@ export type Database = {
       }
       players: {
         Row: {
-          created_at: string
+          created_at: string | null
           id: number
           username: string
         }
         Insert: {
-          created_at?: string
+          created_at?: string | null
           id?: number
           username: string
         }
         Update: {
-          created_at?: string
+          created_at?: string | null
           id?: number
           username?: string
         }
@@ -510,31 +510,7 @@ export type Database = {
           username: string
         }[]
       }
-      get_player_ranking_by_month_test: {
-        Args: { month: string }
-        Returns: {
-          avg_odds: number
-          effectiveness: number
-          hit_picks: number
-          points: number
-          total_picks: number
-          total_votes: number
-          username: string
-        }[]
-      }
       get_player_ranking_by_season: {
-        Args: { season_id?: number }
-        Returns: {
-          avg_odds: number
-          effectiveness: number
-          hit_picks: number
-          points: number
-          total_picks: number
-          total_votes: number
-          username: string
-        }[]
-      }
-      get_player_ranking_by_season_test: {
         Args: { season_id?: number }
         Returns: {
           avg_odds: number

@@ -49,7 +49,7 @@ CREATE OR REPLACE FUNCTION get_player_ranking_by_season (season_id INT DEFAULT N
       (SELECT COUNT(*) 
        FROM matchdays m
        WHERE m.season_id = (SELECT season_to_use FROM selected_season)
-         AND m.match_date >= p.created_at
+         AND m.match_date >= p.created_at::date
       ) AS matchdays_count
     FROM players p
     LEFT JOIN picks_stats ps ON ps.player_id = p.id

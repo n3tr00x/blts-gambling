@@ -5,7 +5,9 @@ import { ColumnDef } from '@tanstack/react-table';
 import { HeaderButton } from '@/components/leaderboard/header-button';
 import { RankingByMonth } from '@/lib/supabase/database';
 
-export type LeaderboardColumn = RankingByMonth;
+export type LeaderboardColumn = RankingByMonth & {
+  position: number;
+};
 
 export const columns: ColumnDef<LeaderboardColumn>[] = [
   {
@@ -15,7 +17,6 @@ export const columns: ColumnDef<LeaderboardColumn>[] = [
       <HeaderButton column={column}>Pozycja</HeaderButton>
     
     ),
-    cell: info => parseInt(info.row.id) + 1,
   },
   {
     accessorKey: 'username',

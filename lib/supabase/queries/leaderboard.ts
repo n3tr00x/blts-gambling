@@ -38,10 +38,13 @@ export const getRankingBySeason = async (seasonId: number) => {
 export const getRankingByMonth = async (month: string) => {
   const supabase = await createClient();
 
+  if (!month) {
+    return [] as RankingByMonth[];
+  }
+
   const parsedDate = new Date(`${month.split('-')[1]}-${month.split('-')[0]}-01`)
     .toISOString()
     .split('T')[0];
-
   const { data: searchedSeason, error: searchedSeasonError } = await supabase
     .from('seasons')
     .select('id')
