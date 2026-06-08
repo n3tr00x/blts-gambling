@@ -15,11 +15,12 @@ import {
   FieldLegend,
   FieldSet,
 } from '@/components/ui/field';
+import { Player } from '@/lib/supabase/database';
 import { Tables } from '@/lib/supabase/database/database.generated';
 import { NewRoundValues } from '@/schemas';
 
 type AddPicksFormProps = {
-  players: Tables<'players'>[];
+  players: Player[];
   leagues: Tables<'leagues'>[];
 };
 

@@ -263,14 +263,17 @@ export type Database = {
       }
       players: {
         Row: {
+          created_at: string | null
           id: number
           username: string
         }
         Insert: {
+          created_at?: string | null
           id?: number
           username: string
         }
         Update: {
+          created_at?: string | null
           id?: number
           username?: string
         }
@@ -501,7 +504,7 @@ export type Database = {
           avg_odds: number
           effectiveness: number
           hit_picks: number
-          position: number
+          points: number
           total_picks: number
           total_votes: number
           username: string
@@ -513,7 +516,7 @@ export type Database = {
           avg_odds: number
           effectiveness: number
           hit_picks: number
-          position: number
+          points: number
           total_picks: number
           total_votes: number
           username: string

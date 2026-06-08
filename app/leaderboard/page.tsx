@@ -13,7 +13,7 @@ export default async function LeaderboardPage({ searchParams }: LeaderboardPageP
   const { month: searchedMonth = '', season: searchedSeason = '' } = await searchParams;
 
   return (
-    <section className="container mx-auto max-w-4xl py-4">
+    <section className="container mx-auto max-w-5xl py-4">
       <Tabs defaultValue="by-season">
         <TabsList>
           <TabsTrigger value="by-season">Ranking sezonu</TabsTrigger>
