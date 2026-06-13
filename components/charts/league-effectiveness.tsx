@@ -22,11 +22,11 @@ import { LeagueEffectiveness } from '@/lib/supabase/database';
 const chartConfig = {
   hitPercent: {
     label: 'Trafione (%)',
-    color: 'var(--chart-1)',
+    color: 'var(--color-chart-bar-primary)',
   },
   missPercent: {
     label: 'Nietrafione (%)',
-    color: 'var(--chart-2)',
+    color: 'var(--color-chart-bar-secondary)',
   },
   label: {
     color: 'var(--color-foreground)',
