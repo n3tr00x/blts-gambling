@@ -74,7 +74,7 @@ export function BetsPerLeagueChart({ data }: BetsPerLeagueChartProps) {
               width={144}
               tick={{ fontSize: 12, textAnchor: 'end' }}
             />
-            <XAxis dataKey="pickCount" type="number" hide allowDataOverflow />
+            <XAxis dataKey="pickCount" type="number" hide domain={[0, sumOfPicks]} />
             <ChartTooltip
               content={
                 <ChartTooltipContent
