@@ -92,7 +92,7 @@ export function BetsPerLeagueChart({ data }: BetsPerLeagueChartProps) {
               radius={[4, 0, 0, 4]}
             />
             <Bar
-              dataKey="totalPicks"
+              dataKey="remainingPicks"
               layout="vertical"
               stackId="a"
               fill="var(--color-remainingPicks)"
