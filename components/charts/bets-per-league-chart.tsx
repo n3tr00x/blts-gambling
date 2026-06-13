@@ -24,8 +24,8 @@ const chartConfig = {
     label: 'Ilość danego typu',
     color: 'var(--color-chart-bar-primary)',
   },
-  totalPicks: {
-    label: 'Wszystkie typy',
+  remainingPicks: {
+    label: 'Pozostałe typy',
     color: 'var(--color-chart-bar-secondary)',
   },
   label: {
@@ -39,6 +39,11 @@ type BetsPerLeagueChartProps = {
 
 export function BetsPerLeagueChart({ data }: BetsPerLeagueChartProps) {
   const sumOfPicks = data[0].totalPicks;
+
+  const transformedData = data.map(item => ({
+    ...item,
+    remainingPicks: item.totalPicks - item.pickCount,
+  }));
 
   return (
     <Card>
@@ -55,7 +60,7 @@ export function BetsPerLeagueChart({ data }: BetsPerLeagueChartProps) {
         <ChartContainer config={chartConfig} className="min-h-[550px] w-full">
           <BarChart
             accessibilityLayer
-            data={data}
+            data={transformedData}
             layout="vertical"
             margin={{ right: 64 }}
             maxBarSize={Infinity}
@@ -87,10 +92,10 @@ export function BetsPerLeagueChart({ data }: BetsPerLeagueChartProps) {
               radius={[4, 0, 0, 4]}
             />
             <Bar
-              dataKey="totalPicks"
+              dataKey="remainingPicks"
               layout="vertical"
               stackId="a"
-              fill="var(--color-totalPicks)"
+              fill="var(--color-remainingPicks)"
               radius={[0, 4, 4, 0]}
             >
               <LabelList
