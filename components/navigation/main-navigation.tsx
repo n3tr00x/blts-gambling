@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { User } from '@supabase/supabase-js';
 import { UserIcon } from 'lucide-react';
@@ -14,8 +15,8 @@ export function MainNavigation({ user }: MainNavigationProps) {
 
   return (
     <nav className="sticky top-0 left-0 hidden h-screen flex-col justify-between gap-4 p-4 lg:flex">
-      <div className="bg-card rounded-xl border-1 p-6">
-        <h1 className="font-secondary text-xl font-bold">💸 BLTS Gambling</h1>
+      <div className="bg-card flex justify-center gap-2 rounded-xl border-1">
+        <Image src="/logo.png" width={232} height={232} alt="BLTS Gambling" />
       </div>
       <div className="bg-card flex flex-1 flex-col justify-between rounded-xl border-1 p-6">
         <div className="flex flex-col gap-3">

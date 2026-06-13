@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { User } from '@supabase/supabase-js';
 import { UserIcon } from 'lucide-react';
@@ -25,8 +26,9 @@ export function MobileNavigation({ user }: MobileNavigationProps) {
       <div className="bg-card rounded-xl border-1 p-4">
         <Accordion type="single" collapsible>
           <AccordionItem value="menu">
-            <AccordionTrigger className="items-center hover:no-underline">
-              <h1 className="font-secondary text-xl font-bold">💸 BLTS Gambling</h1>
+            <AccordionTrigger className="items-center justify-around hover:no-underline">
+              <Image src="/logo.png" alt="BLTS Gambling Logo" width={116} height={116} />
+              <h1 className="font-secondary text-xl font-bold">BLTS Gambling</h1>
             </AccordionTrigger>
             <AccordionContent className="mt-8">
               <div className="grid grid-cols-2 gap-3">
