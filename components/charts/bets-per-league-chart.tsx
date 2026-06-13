@@ -1,8 +1,7 @@
 'use client';
 
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, LabelList, XAxis, YAxis } from 'recharts';
 
-import { BetPerLeagueTooltip } from '@/components/charts/bets-per-league-tooltip';
 import {
   Card,
   CardContent,
@@ -13,15 +12,21 @@ import {
 import {
   ChartConfig,
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { TopPickedLeague } from '@/lib/supabase/database';
 
 const chartConfig = {
-  total: {
-    label: 'Ilość',
-    color: 'var(--color-chart-2)',
+  pickCount: {
+    label: 'Ilość danego typu',
+    color: 'var(--color-chart-bar-primary)',
+  },
+  remainingPicks: {
+    label: 'Pozostałe typy',
+    color: 'var(--color-chart-bar-secondary)',
   },
   label: {
     color: 'var(--color-foreground)',
@@ -35,6 +40,11 @@ type BetsPerLeagueChartProps = {
 export function BetsPerLeagueChart({ data }: BetsPerLeagueChartProps) {
   const sumOfPicks = data[0].totalPicks;
 
+  const transformedData = data.map(item => ({
+    ...item,
+    remainingPicks: item.totalPicks - item.pickCount,
+  }));
+
   return (
     <Card>
       <CardHeader>
@@ -47,60 +57,52 @@ export function BetsPerLeagueChart({ data }: BetsPerLeagueChartProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[550px] w-full pr-12">
+        <ChartContainer config={chartConfig} className="min-h-[550px] w-full">
           <BarChart
             accessibilityLayer
-            data={data}
+            data={transformedData}
             layout="vertical"
-            barSize={64}
-            margin={{ right: 32 }}
+            margin={{ right: 64 }}
+            maxBarSize={Infinity}
           >
-            <CartesianGrid horizontal={false} />
             <YAxis
               dataKey="leagueName"
               type="category"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              hide
+              width={144}
+              tick={{ fontSize: 12, textAnchor: 'end' }}
             />
-            <XAxis dataKey="pickCount" type="number" hide />
+            <XAxis dataKey="pickCount" type="number" hide allowDataOverflow />
             <ChartTooltip
-              cursor={false}
               content={
                 <ChartTooltipContent
-                  indicator="line"
-                  formatter={(value, name, item) => (
-                    <BetPerLeagueTooltip
-                      label={chartConfig.total.label}
-                      sumOfPicks={sumOfPicks}
-                      value={value}
-                      name={name}
-                      item={item}
-                    />
-                  )}
+                  className="min-w-[164px]"
+                  labelClassName="mb-2 text-sm"
                 />
               }
-              wrapperClassName="blue"
             />
+            <ChartLegend content={<ChartLegendContent />} />
             <Bar
               dataKey="pickCount"
               layout="vertical"
-              fill="var(--color-chart-1)"
-              radius={4}
+              stackId="a"
+              fill="var(--color-pickCount)"
+              radius={[4, 0, 0, 4]}
+            />
+            <Bar
+              dataKey="remainingPicks"
+              layout="vertical"
+              stackId="a"
+              fill="var(--color-remainingPicks)"
+              radius={[0, 4, 4, 0]}
             >
               <LabelList
-                dataKey="leagueName"
-                position="insideLeft"
+                dataKey={d => `${d.pickCount}/${d.totalPicks}`}
+                position="right"
                 offset={12}
                 className="fill-(--color-label)"
-                fontSize={12}
-              />
-              <LabelList
-                dataKey="pickCount"
-                position="right"
-                offset={16}
-                className="fill-foreground font-semibold"
                 fontSize={12}
               />
             </Bar>

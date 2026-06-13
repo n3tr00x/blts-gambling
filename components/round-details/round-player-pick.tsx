@@ -6,7 +6,7 @@ export function RoundPlayerPick({ pick }: RoundPlayerPickProps) {
   const { player, league, isHit, odd, isChosen } = pick;
 
   return (
-    <div className="bg-accent flex flex-col justify-between gap-0.5 rounded-md border p-2">
+    <div className="bg-card flex flex-col justify-between gap-0.5 rounded-md border p-2">
       <span className="font mb-2 font-semibold -tracking-wide">{player.username}</span>
       <div className="flex justify-between">
         <span>Liga</span>
