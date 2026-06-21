@@ -13,8 +13,8 @@ import { Field, FieldGroup, FieldLabel, FieldSet } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { useSendOtp } from '@/hooks/use-send-otp';
-import { getOtpResendCooldownSecondsLeft } from '@/lib/auth/otp-session';
 import { verifyOtpAction } from '@/lib/auth';
+import { getOtpResendCooldownSecondsLeft } from '@/lib/auth/otp-session';
 
 type OTPFormProps = {
   email: string;
