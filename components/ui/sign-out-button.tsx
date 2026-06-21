@@ -1,5 +1,5 @@
 import { AlertDialogAction } from '@/components/ui/alert-dialog';
-import { signOutAction } from '@/lib/supabase/actions/auth';
+import { signOutAction } from '@/lib/auth';
 
 export function SignOutButton() {
   return (
