@@ -1,3 +1,5 @@
+'use client';
+
 import { useActionState } from 'react';
 
 import { verifyOtpAction } from '@/lib/auth';

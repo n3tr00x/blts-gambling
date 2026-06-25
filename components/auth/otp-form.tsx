@@ -1,3 +1,5 @@
+'use client';
+
 import { useActionState, useEffect, useState } from 'react';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 
@@ -18,10 +20,10 @@ import { getOtpResendCooldownSecondsLeft } from '@/lib/auth/otp-session';
 
 type OTPFormProps = {
   email: string;
+  sentAt: number;
   onSuccess: () => void;
   onChangeEmail: () => void;
   onResendOtp: (newSentAt: number) => void;
-  sentAt: number;
 };
 
 const INITIAL_CREDENTIALS = { message: '', success: false };

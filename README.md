@@ -102,6 +102,7 @@ Create the following environment files in the root directory:
 
 - `NEXT_PUBLIC_SUPABASE_URL`: Supabase project URL (used for OTP authentication and database)
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase anonymous key (required for OTP sign-in and public API access)
+- `NEXT_PUBLIC_SUPABASE_PROJECT_ID`: Supabase project ref (used by `npm run config:push:staging`)
 
 **Email Service (Resend):**
 
@@ -153,11 +154,6 @@ RESEND_API_KEY=<staging-resend-api-key>
 RESEND_ADMIN_EMAIL=<staging-admin-email@example.com>
 RESEND_SENDER_NAME=Your App Name (staging)
 ```
-
-**Configuration**:
-
-- Ensure OTP email provider is configured in Supabase staging project
-- Use separate Resend workspace/API key for staging
 
 **Configuration**:
 
@@ -434,7 +430,7 @@ The application uses a passwordless authentication system with OTP (One-Time Pas
 
 **Important Notes:**
 
-- OTP tokens expire after 15 minutes
+- OTP tokens expire after 1 hour
 - Only registered users can receive OTP codes
 - The `shouldCreateUser: false` option prevents auto-registration
 
