@@ -102,7 +102,6 @@ Create the following environment files in the root directory:
 
 - `NEXT_PUBLIC_SUPABASE_URL`: Supabase project URL (used for OTP authentication and database)
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase anonymous key (required for OTP sign-in and public API access)
-- `NEXT_PUBLIC_SUPABASE_PROJECT_ID`: Supabase project ref (used by `npm run config:push:staging`)
 
 **Email Service (Resend):**
 
@@ -430,7 +429,7 @@ The application uses a passwordless authentication system with OTP (One-Time Pas
 
 **Important Notes:**
 
-- OTP tokens expire after 1 hour
+- OTP tokens expire after 15 minutes
 - Only registered users can receive OTP codes
 - The `shouldCreateUser: false` option prevents auto-registration
 
@@ -454,5 +453,4 @@ This project is private and proprietary.
 
 ---
 
-**Last Updated**: March 2026
-**Version**: 0.1.0
+**Last Updated**: July 2026
