@@ -1,5 +1,5 @@
 import { useActionState, useEffect, useState } from 'react';
-import { REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp';
+import { REGEXP_ONLY_DIGITS } from 'input-otp';
 
 import { OtpResendFeedback } from '@/components/auth/otp-resend-feedback';
 import { Button } from '@/components/ui/button';
@@ -87,7 +87,7 @@ export function OTPForm({
                 id="otp"
                 name="otp"
                 maxLength={OTP_LENGTH}
-                pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+                pattern={REGEXP_ONLY_DIGITS}
                 containerClassName="justify-center"
               >
                 <InputOTPGroup>

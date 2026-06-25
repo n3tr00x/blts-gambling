@@ -5,28 +5,6 @@ import { redirect } from 'next/navigation';
 
 import { createClient } from '@/lib/supabase/server';
 
-export async function signInAction(initialData: unknown, formData: FormData) {
-  const supabase = await createClient();
-
-  const rawFormData = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-  };
-
-  const { error } = await supabase.auth.signInWithPassword(rawFormData);
-
-  if (error) {
-    console.log(error);
-    return { message: error.message, success: false };
-  }
-
-  revalidatePath('/');
-  return {
-    message: 'Pomyślnie zalogowano.',
-    success: true,
-  };
-}
-
 export async function sendOtpAction(formData: FormData) {
   const email = formData.get('email') as string;
   const supabase = await createClient();
@@ -58,7 +36,7 @@ export async function sendOtpAction(formData: FormData) {
   };
 }
 
-export async function verifyOtpAction(initialData: unknown, formData: FormData) {
+export async function verifyOtpAction(_previousState: unknown, formData: FormData) {
   const supabase = await createClient();
   const email = formData.get('email') as string;
   const otp = formData.get('otp') as string;

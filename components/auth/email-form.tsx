@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { useSendOtp } from '@/hooks/use-send-otp';
 
 type EmailFormProps = {
-  onSuccess: (mail: string) => void;
+  onSuccess: (email: string) => void;
 };
 
 export function EmailForm({ onSuccess }: EmailFormProps) {
