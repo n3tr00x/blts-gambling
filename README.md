@@ -424,12 +424,12 @@ The application uses a passwordless authentication system with OTP (One-Time Pas
 - Auth actions are defined in `lib/auth/index.ts`
 - Email form component: `components/auth/email-form.tsx`
 - OTP form component: `components/auth/otp-form.tsx`
-- Sign-in page: `app/sign-in/page.tsx`
+- Sign-in modal: `app/@auth/(.)sign-in/page.tsx`
 - Auth routing uses intercepted routes via `@auth/` slot for modal display
 
 **Important Notes:**
 
-- OTP tokens expire after 15 minutes
+- OTP tokens expire after 60 minutes
 - Only registered users can receive OTP codes
 - The `shouldCreateUser: false` option prevents auto-registration
 

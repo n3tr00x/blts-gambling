@@ -212,7 +212,7 @@ subject = "Zostałeś zaproszony do konta w BLTS Gambling"
 content_path = "./supabase/templates/invite.html"
 
 [auth.email.template.magic_link]
-subject = "Potwierdzenie logowanie w BLTS Gambling"
+subject = "Potwierdzenie logowania w BLTS Gambling"
 content_path = "./supabase/templates/confirmation.html"
 
 [auth.sms]
