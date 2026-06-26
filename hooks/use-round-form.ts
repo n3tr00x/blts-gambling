@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from 'react';
 import { TZDate } from 'react-day-picker';
 import { DefaultValues, useForm } from 'react-hook-form';
