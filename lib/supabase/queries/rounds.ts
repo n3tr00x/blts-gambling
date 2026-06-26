@@ -71,6 +71,7 @@ export const getMatchdaysForSelection = async () => {
     .from('all_matchdays_for_selection')
     .select('*')
     .is('related_matchday_id', null)
+    .order('season_id', { ascending: false })
     .order('round_number', { ascending: false });
 
   if (error) {
