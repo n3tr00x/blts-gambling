@@ -18,7 +18,7 @@ A modern web application for tracking statistics and managing betting picks in a
 
 ## ✨ Features
 
-- **User Authentication**: Secure sign-in system with Supabase
+- **User Authentication**: Passwordless OTP (One-Time Password) authentication via email with Supabase
 - **Betting Rounds Management**: Create, view, and manage betting rounds with multiple picks
 - **Leaderboards**: Track player performance across different time periods (season, monthly)
 - **Analytics Dashboard**:
@@ -50,7 +50,7 @@ A modern web application for tracking statistics and managing betting picks in a
 ### Backend & Database
 
 - **Database**: Supabase (PostgreSQL)
-- **Authentication**: Supabase Auth
+- **Authentication**: Supabase Auth with OTP (One-Time Password via email)
 - **ORM/Query**: Supabase JavaScript client
 
 ### Development
@@ -96,28 +96,69 @@ Before you begin, ensure you have the following installed:
 
 Create the following environment files in the root directory:
 
+### Required Variables
+
+**Core Supabase (OTP Authentication):**
+
+- `NEXT_PUBLIC_SUPABASE_URL`: Supabase project URL (used for OTP authentication and database)
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Supabase anonymous key (required for OTP sign-in and public API access)
+
+**Email Service (Resend):**
+
+- `RESEND_API_KEY`: API key from Resend for sending OTP emails
+- `RESEND_ADMIN_EMAIL`: Admin email address for Resend
+- `RESEND_SENDER_NAME`: Display name for emails sent via Resend
+
+**Application URLs:**
+
+- `BASE_URL`: Base URL of the application (used for redirects after OTP verification)
+- `ADDITIONAL_REDIRECT_URLS`: Additional allowed redirect URLs (comma-separated)
+
+**Note**: Supabase URL and anonymous keys are public by design and should be included in the client-side code. Resend API key must be kept secret and only used server-side.
+
 ### `.env.development`
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
+NODE_ENV=development
+
+BASE_URL=http://localhost:3000
+ADDITIONAL_REDIRECT_URLS=https://localhost:3000
+
+NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-local-anon-key>
+
+RESEND_API_KEY=<your-resend-api-key>
+RESEND_ADMIN_EMAIL=<your-admin-email@example.com>
+RESEND_SENDER_NAME=Your App Name (development)
 ```
+
+**Local Setup**:
+
+- Run `npm run db:start` to start Supabase locally
+- Get the anon key from Supabase dashboard output or `supabase/.env.local`
+- Sign up for free Resend account at https://resend.com and get your API key
 
 ### `.env.staging`
 
 ```env
+NODE_ENV=staging
+
+BASE_URL=https://staging.example.com
+ADDITIONAL_REDIRECT_URLS=https://staging.example.com
+
 NEXT_PUBLIC_SUPABASE_URL=<staging-supabase-url>
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<staging-supabase-key>
+
+RESEND_API_KEY=<staging-resend-api-key>
+RESEND_ADMIN_EMAIL=<staging-admin-email@example.com>
+RESEND_SENDER_NAME=Your App Name (staging)
 ```
 
-### `.env.production`
+**Configuration**:
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=<production-supabase-url>
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<production-supabase-key>
-```
-
-**Note**: Supabase URL and anonymous keys are public by design and should be included in the client-side code.
+- Ensure OTP email provider is configured in Supabase production project
+- Verify Resend email templates and sender details
+- Use production Resend API key with verified domain for better deliverability
 
 ## 🗄️ Database
 
@@ -196,18 +237,25 @@ npm run lint
 blts-gambling/
 ├── app/                          # Next.js App Router
 │   ├── (charts)/                 # Charts dashboard layout with parallel routes
-│   ├── (home)/                   # Home page layout
-│   ├── @auth/                    # Auth slot (intercepted routes)
+│   ├── @auth/                    # Auth slot (intercepted routes for modal login)
+│   │   ├── default.tsx           # Default layout
+│   │   └── (.)sign-in/           # Intercepted sign-in modal
 │   ├── leaderboard/              # Leaderboard pages
 │   ├── rounds/                   # Rounds management pages
 │   │   ├── page.tsx              # Rounds list
 │   │   ├── [id]/                 # Round details
 │   │   └── new/                  # Create new round
-│   ├── sign-in/                  # Sign in page
+│   ├── sign-in/                  # Sign in page (full page)
 │   ├── layout.tsx                # Root layout
+│   ├── error.tsx                 # Error boundary
+│   ├── not-found.tsx             # 404 page
 │   └── globals.css               # Global styles
 │
 ├── components/                   # React components
+│   ├── auth/                     # Authentication components (OTP flow)
+│   │   ├── email-form.tsx        # Email input form (step 1)
+│   │   ├── otp-form.tsx          # OTP verification form (step 2)
+│   │   └── otp-resend-feedback.tsx # Resend OTP feedback
 │   ├── charts/                   # Data visualization components
 │   │   ├── bets-per-league-chart.tsx
 │   │   ├── league-effectiveness.tsx
@@ -230,10 +278,10 @@ blts-gambling/
 │   │   ├── round-votes-table.tsx
 │   │   └── ...
 │   ├── round-form/               # Round creation/editing form
-│   │   ├── round-form.tsx
 │   │   ├── add-picks-form.tsx
-│   │   ├── fields/               # Form field components
-│   │   └── votes/                # Vote field components
+│   │   ├── remove-round-button.tsx
+│   │   ├── remove-round-dialog.tsx
+│   │   └── ...
 │   ├── tables/                   # Data table components
 │   ├── ui/                       # Reusable UI primitives
 │   │   ├── button.tsx
@@ -241,16 +289,21 @@ blts-gambling/
 │   │   ├── card.tsx
 │   │   └── ... (shadcn/ui components)
 │   ├── alert-dialog.tsx
-│   ├── login-form.tsx
 │   └── theme-provider.tsx
 │
 ├── constants/                    # Application constants
 │   └── navigation.tsx
 │
 ├── hooks/                        # Custom React hooks
-│   └── use-round-form.ts
+│   ├── use-round-filter-form.ts
+│   ├── use-round-filters.ts
+│   ├── use-round-form.ts
+│   ├── use-send-otp.ts          # Hook for sending OTP
+│   └── use-verify-otp.ts        # Hook for OTP verification
 │
 ├── lib/                          # Utility functions and libraries
+│   ├── auth/                     # Authentication actions
+│   │   ├── index.ts              # sendOtpAction, verifyOtpAction, signOutAction
 │   ├── supabase/                 # Supabase client and utilities
 │   └── utilities/                # Helper functions
 │
@@ -270,6 +323,7 @@ blts-gambling/
 │
 ├── types/                        # TypeScript type definitions
 │   ├── actions.types.ts
+│   ├── filters.types.ts
 │   ├── index.ts
 │   └── utils.types.ts
 │
@@ -353,6 +407,32 @@ blts-gambling/
 - Use type-safe database types from `database.generated.ts`
 - Return only serializable data (no functions, dates must be strings)
 
+### Authentication (OTP via Email)
+
+The application uses a passwordless authentication system with OTP (One-Time Password) sent via email:
+
+**Flow:**
+
+1. User enters their email address
+2. `sendOtpAction()` sends a 6-digit OTP to the user's email
+3. User receives the code and enters it in the verification form
+4. `verifyOtpAction()` validates the OTP with Supabase
+5. On successful verification, user is authenticated and redirected to the dashboard
+
+**Implementation:**
+
+- Auth actions are defined in `lib/auth/index.ts`
+- Email form component: `components/auth/email-form.tsx`
+- OTP form component: `components/auth/otp-form.tsx`
+- Sign-in modal: `app/@auth/(.)sign-in/page.tsx`
+- Auth routing uses intercepted routes via `@auth/` slot for modal display
+
+**Important Notes:**
+
+- OTP tokens expire after 60 minutes
+- Only registered users can receive OTP codes
+- The `shouldCreateUser: false` option prevents auto-registration
+
 ### Styling
 
 - Use Tailwind CSS utilities
@@ -373,5 +453,4 @@ This project is private and proprietary.
 
 ---
 
-**Last Updated**: March 2026
-**Version**: 0.1.0
+**Last Updated**: July 2026
