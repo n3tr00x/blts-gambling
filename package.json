@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "config:push:staging": "dotenv -e .env.staging -- cross-var supabase config push --project-ref %NEXT_PUBLIC_SUPABASE_PROJECT_ID%",
+    "config:push:production": "dotenv -e .env.production -- cross-var supabase config push --project-ref %NEXT_PUBLIC_SUPABASE_PROJECT_ID%",
     "db:start": "supabase start",
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
