@@ -7,8 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { Field, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { useSendOtp } from '@/hooks/use-send-otp';
 
 type EmailFormProps = {
@@ -28,10 +28,15 @@ export function EmailForm({ onSuccess }: EmailFormProps) {
       </DialogHeader>
       <form action={formAction} id="sign-in-form">
         <div className="grid gap-4">
-          <div className="grid gap-3">
-            <Label htmlFor="email">Email</Label>
-            <Input type="email" id="email" name="email" required autoFocus />
-          </div>
+          <Field data-invalid={!state.success && !!state.message}>
+            <FieldLabel>Email</FieldLabel>
+            <Input
+              type="text"
+              name="email"
+              autoFocus
+              aria-invalid={!state.success && !!state.message}
+            />
+          </Field>
         </div>
       </form>
       <DialogFooter>
