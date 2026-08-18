@@ -1,4 +1,4 @@
-import z from 'zod';
+import * as z from 'zod';
 
 export const emailStepFormSchema = z
   .email({ message: 'Niepoprawny adres e-mail' })
