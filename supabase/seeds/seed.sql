@@ -4,7 +4,7 @@ SET session_replication_role = replica;
 -- PostgreSQL database dump
 --
 
--- \restrict BfccMI3UOgIFMzkKEaB9VJfrJLChMnzOJI3ehxMLCzgvyTaDdlEZ9YblThOwL3l
+-- \restrict U2G9EQcn3HQIA0i9Dxobif57MFQ7v0iQ0aAp7zd9cdZuzijG2bC9kiHEav1CxSD
 
 -- Dumped from database version 17.6
 -- Dumped by pg_dump version 17.6
@@ -20,166 +20,6 @@ SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Data for Name: audit_log_entries; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created_at", "ip_address") VALUES
-	('00000000-0000-0000-0000-000000000000', '59f624c1-6f1a-498d-bfaf-6f34dea0efb5', '{"action":"user_signedup","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","actor_via_sso":false,"log_type":"team","traits":{"provider":"email","user_email":"test@test.com","user_id":"12ba9fbc-f6dd-4c88-a185-2bff935cc718","user_phone":""}}', '2026-06-07 16:28:37.175995+00', ''),
-	('00000000-0000-0000-0000-000000000000', 'e12fadbe-734e-4f02-88df-da0edf21d904', '{"action":"login","actor_id":"12ba9fbc-f6dd-4c88-a185-2bff935cc718","actor_username":"test@test.com","actor_via_sso":false,"log_type":"account","traits":{"provider":"email"}}', '2026-06-07 16:29:48.921825+00', ''),
-	('00000000-0000-0000-0000-000000000000', 'f7b3b856-cc27-42a6-8bd0-380084314753', '{"action":"token_refreshed","actor_id":"12ba9fbc-f6dd-4c88-a185-2bff935cc718","actor_username":"test@test.com","actor_via_sso":false,"log_type":"token"}', '2026-06-07 17:32:51.401272+00', ''),
-	('00000000-0000-0000-0000-000000000000', 'd8d4dcdc-9def-4ca8-8d3b-616725f06eb3', '{"action":"token_revoked","actor_id":"12ba9fbc-f6dd-4c88-a185-2bff935cc718","actor_username":"test@test.com","actor_via_sso":false,"log_type":"token"}', '2026-06-07 17:32:51.403256+00', ''),
-	('00000000-0000-0000-0000-000000000000', 'c9f414f8-6ed7-4019-98a7-2bf41989f00c', '{"action":"token_refreshed","actor_id":"12ba9fbc-f6dd-4c88-a185-2bff935cc718","actor_username":"test@test.com","actor_via_sso":false,"log_type":"token"}', '2026-06-07 19:10:42.364817+00', ''),
-	('00000000-0000-0000-0000-000000000000', 'd153be53-ff12-4013-937c-c2511fc532a4', '{"action":"token_revoked","actor_id":"12ba9fbc-f6dd-4c88-a185-2bff935cc718","actor_username":"test@test.com","actor_via_sso":false,"log_type":"token"}', '2026-06-07 19:10:42.367055+00', '');
-
-
---
--- Data for Name: custom_oauth_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: flow_state; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: users; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at", "is_anonymous") VALUES
-	('00000000-0000-0000-0000-000000000000', '12ba9fbc-f6dd-4c88-a185-2bff935cc718', 'authenticated', 'authenticated', 'test@test.com', '$2a$10$z4rRgzIYKEi6aUHanUcHiewhnJjtXjLZo1ID/TN06iuc6LRCewrI.', '2026-06-07 16:28:37.17795+00', NULL, '', NULL, '', NULL, '', '', NULL, '2026-06-07 16:29:48.922786+00', '{"provider": "email", "providers": ["email"]}', '{"email_verified": true}', NULL, '2026-06-07 16:28:37.163057+00', '2026-06-07 19:10:42.370403+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false),
-	('00000000-0000-0000-0000-000000000000', 'a2b77f10-13a9-4f44-949f-69a6b256c992', 'authenticated', 'authenticated', 'admin@bltsgambling.com', '$2a$10$w1cV70ZZR9AeyUlMGBoIKuzw/cYRA97MaYNLLPoqeiQkYC55GXgnC', '2026-06-08 22:56:55.154896+00', NULL, '', NULL, '', NULL, '', '', NULL, '2026-06-08 22:59:34.813528+00', '{"provider": "email", "providers": ["email"]}', '{"email_verified": true}', NULL, '2026-06-08 22:56:55.134455+00', '2026-06-09 12:54:37.802271+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false);
-
-
---
--- Data for Name: identities; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-INSERT INTO "auth"."identities" ("provider_id", "user_id", "identity_data", "provider", "last_sign_in_at", "created_at", "updated_at", "id") VALUES
-	('12ba9fbc-f6dd-4c88-a185-2bff935cc718', '12ba9fbc-f6dd-4c88-a185-2bff935cc718', '{"sub": "12ba9fbc-f6dd-4c88-a185-2bff935cc718", "email": "test@test.com", "email_verified": false, "phone_verified": false}', 'email', '2026-06-07 16:28:37.174312+00', '2026-06-07 16:28:37.174342+00', '2026-06-07 16:28:37.174342+00', '71607148-05bd-49c7-b5b2-d9ed72339f66'),
-	('a2b77f10-13a9-4f44-949f-69a6b256c992', 'a2b77f10-13a9-4f44-949f-69a6b256c992', '{"sub": "a2b77f10-13a9-4f44-949f-69a6b256c992", "email": "admin@bltsgambling.com", "email_verified": false, "phone_verified": false}', 'email', '2026-06-08 22:56:55.152587+00', '2026-06-08 22:56:55.152652+00', '2026-06-08 22:56:55.152652+00', 'e58785eb-0d88-413a-afb3-d73c12bb5ec7');
-
-
---
--- Data for Name: instances; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: oauth_clients; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: sessions; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-INSERT INTO "auth"."sessions" ("id", "user_id", "created_at", "updated_at", "factor_id", "aal", "not_after", "refreshed_at", "user_agent", "ip", "tag", "oauth_client_id", "refresh_token_hmac_key", "refresh_token_counter", "scopes") VALUES
-	('438069a4-b960-4d78-8752-8863155e2b88', '12ba9fbc-f6dd-4c88-a185-2bff935cc718', '2026-06-07 16:29:48.922936+00', '2026-06-07 19:10:42.37447+00', NULL, 'aal1', NULL, '2026-06-07 19:10:42.374421', 'Next.js Middleware', '172.18.0.1', NULL, NULL, NULL, NULL, NULL),
-	('6e98d4ff-245a-48bd-abc6-fc887b55dc4d', 'a2b77f10-13a9-4f44-949f-69a6b256c992', '2026-06-08 22:59:34.815366+00', '2026-06-09 12:54:37.815942+00', NULL, 'aal1', NULL, '2026-06-09 12:54:37.815827', 'Vercel Edge Functions', '3.69.232.36', NULL, NULL, NULL, NULL, NULL);
-
-
---
--- Data for Name: mfa_amr_claims; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-INSERT INTO "auth"."mfa_amr_claims" ("session_id", "created_at", "updated_at", "authentication_method", "id") VALUES
-	('438069a4-b960-4d78-8752-8863155e2b88', '2026-06-07 16:29:48.927042+00', '2026-06-07 16:29:48.927042+00', 'password', 'fb8cbaab-dbfd-4dc5-9942-6018d8db5eb5'),
-	('6e98d4ff-245a-48bd-abc6-fc887b55dc4d', '2026-06-08 22:59:34.830775+00', '2026-06-08 22:59:34.830775+00', 'password', '636568d9-3a61-45e8-9366-ec4a718bd47c');
-
-
---
--- Data for Name: mfa_factors; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: mfa_challenges; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: oauth_authorizations; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: oauth_client_states; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: oauth_consents; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: one_time_tokens; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: refresh_tokens; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-INSERT INTO "auth"."refresh_tokens" ("instance_id", "id", "token", "user_id", "revoked", "created_at", "updated_at", "parent", "session_id") VALUES
-	('00000000-0000-0000-0000-000000000000', 295, 'tjup4bmrtecg', 'a2b77f10-13a9-4f44-949f-69a6b256c992', true, '2026-06-08 22:59:34.823825+00', '2026-06-09 00:10:38.756275+00', NULL, '6e98d4ff-245a-48bd-abc6-fc887b55dc4d'),
-	('00000000-0000-0000-0000-000000000000', 296, 'z44y5oxwkimp', 'a2b77f10-13a9-4f44-949f-69a6b256c992', true, '2026-06-09 00:10:38.785213+00', '2026-06-09 10:13:22.743785+00', 'tjup4bmrtecg', '6e98d4ff-245a-48bd-abc6-fc887b55dc4d'),
-	('00000000-0000-0000-0000-000000000000', 297, 'jpw4mya6cw6a', 'a2b77f10-13a9-4f44-949f-69a6b256c992', true, '2026-06-09 10:13:22.77007+00', '2026-06-09 11:24:01.423041+00', 'z44y5oxwkimp', '6e98d4ff-245a-48bd-abc6-fc887b55dc4d'),
-	('00000000-0000-0000-0000-000000000000', 298, 'ts2rdsbpmqc4', 'a2b77f10-13a9-4f44-949f-69a6b256c992', true, '2026-06-09 11:24:01.442952+00', '2026-06-09 12:54:37.775612+00', 'jpw4mya6cw6a', '6e98d4ff-245a-48bd-abc6-fc887b55dc4d'),
-	('00000000-0000-0000-0000-000000000000', 299, 'divwlbpbdfyr', 'a2b77f10-13a9-4f44-949f-69a6b256c992', false, '2026-06-09 12:54:37.791268+00', '2026-06-09 12:54:37.791268+00', 'ts2rdsbpmqc4', '6e98d4ff-245a-48bd-abc6-fc887b55dc4d'),
-	('00000000-0000-0000-0000-000000000000', 290, 'usjhbfdzbsgk', '12ba9fbc-f6dd-4c88-a185-2bff935cc718', true, '2026-06-07 16:29:48.92479+00', '2026-06-07 17:32:51.403894+00', NULL, '438069a4-b960-4d78-8752-8863155e2b88'),
-	('00000000-0000-0000-0000-000000000000', 291, 'gec7bf6wnyj4', '12ba9fbc-f6dd-4c88-a185-2bff935cc718', true, '2026-06-07 17:32:51.40572+00', '2026-06-07 19:10:42.367607+00', 'usjhbfdzbsgk', '438069a4-b960-4d78-8752-8863155e2b88'),
-	('00000000-0000-0000-0000-000000000000', 292, 'gmzgocim36ys', '12ba9fbc-f6dd-4c88-a185-2bff935cc718', false, '2026-06-07 19:10:42.369146+00', '2026-06-07 19:10:42.369146+00', 'gec7bf6wnyj4', '438069a4-b960-4d78-8752-8863155e2b88');
-
-
---
--- Data for Name: sso_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: saml_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: saml_relay_states; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: sso_domains; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: webauthn_challenges; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: webauthn_credentials; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
 
 --
 -- Data for Name: players; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -381,7 +221,8 @@ INSERT INTO "public"."leagues" ("id", "name", "country", "level", "code") VALUES
 	(160, 'Superpuchar Turcji', 'Turcja', 1, 'TURCJA_SUPERPUCHAR'),
 	(161, 'Conference North', 'Anglia', 6, 'ANGLIA 6'),
 	(162, '3. Liga', 'Niemcy', 3, 'NIEMCY 3'),
-	(163, 'Inne ligi piłkarskie', 'INNE', 1, 'INNE_LIGI_PILKARSKIE');
+	(163, 'Inne ligi piłkarskie', 'INNE', 1, 'INNE_LIGI_PILKARSKIE'),
+	(164, 'Mistrzostwa Świata', 'Świat', 1, 'MUNDIAL');
 
 
 --
@@ -723,12 +564,57 @@ INSERT INTO "public"."matchdays" ("id", "season_id", "related_matchday_id", "rou
 	(308, 1, NULL, 2, 303, '2026-05-10', false, NULL),
 	(310, 1, 309, 2, 305, '2026-05-11', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUk5ON1pNUEFTRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzc4NTE4MTE1fQ.JvqlpaDcSu_3dkYzo81JxZ2iJ79BuNc64vJWZdi-g5g&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUk5ON1pNUEFTRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzc4NTE4MTE1fQ.JvqlpaDcSu_3dkYzo81JxZ2iJ79BuNc64vJWZdi-g5g%26source%3DSB'),
 	(311, 1, NULL, 1, 306, '2026-05-16', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlIwUlJTRE1WQ0M0UjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzc4OTM4Mjg4fQ.qSdojdjygXJQWU90HfYA9iIDHIYO2R4VZhlGfx3luF0&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlIwUlJTRE1WQ0M0UjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzc4OTM4Mjg4fQ.qSdojdjygXJQWU90HfYA9iIDHIYO2R4VZhlGfx3luF0%26source%3DSB'),
-	(320, 2, NULL, 2, 2, '2026-06-04', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzUyVDE2RFdWRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwNTg4MjcyfQ.G1mctNxIrx2pQ6UCuS0Wt0R0Npvhjn74ycVP-oq4s9I&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzUyVDE2RFdWRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwNTg4MjcyfQ.G1mctNxIrx2pQ6UCuS0Wt0R0Npvhjn74ycVP-oq4s9I%26source%3DSB'),
-	(322, 2, NULL, 2, 4, '2026-06-07', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzZYN0tQNkQ0RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwODMzMzIyfQ.1lqJWt7rUHq62WWjwNVlkOvY4QMOAdKq9ZtwhaDc65Y&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzZYN0tQNkQ0RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwODMzMzIyfQ.1lqJWt7rUHq62WWjwNVlkOvY4QMOAdKq9ZtwhaDc65Y%26source%3DSB'),
+	(322, 2, 321, 2, 4, '2026-06-07', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzZYN0tQNkQ0RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwODMzMzIyfQ.1lqJWt7rUHq62WWjwNVlkOvY4QMOAdKq9ZtwhaDc65Y&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzZYN0tQNkQ0RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwODMzMzIyfQ.1lqJWt7rUHq62WWjwNVlkOvY4QMOAdKq9ZtwhaDc65Y%26source%3DSB'),
 	(321, 2, NULL, 1, 3, '2026-06-06', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzY5SlBCVE40RzAwIiwicHJmIjoiUFVCTElDIiwic3JjIjoiU0IiLCJpc3MiOiJmb3J0dW5hd2ViIn0.ScAOz4Uf1LR6acbXrdDVnkwSTqvEPmVs-683x2MIHm8&source=SB&deeplink=ftnpl%3A//betslip-history/detail?id%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzY5SlBCVE40RzAwIiwicHJmIjoiUFVCTElDIiwic3JjIjoiU0IiLCJpc3MiOiJmb3J0dW5hd2ViIn0.ScAOz4Uf1LR6acbXrdDVnkwSTqvEPmVs-683x2MIHm8%26source%3DSB'),
 	(319, 2, NULL, 1, 1, '2026-06-03', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzRFQ0pHOE1WUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwNTAyNjIzfQ.LWGTJRublGex-qrAAjXpsdM9cuXC1g0Rw4TojspsOFM&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzRFQ0pHOE1WUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwNTAyNjIzfQ.LWGTJRublGex-qrAAjXpsdM9cuXC1g0Rw4TojspsOFM%26source%3DSB'),
 	(323, 2, NULL, 1, 5, '2026-06-07', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzZYOEVCUUQ0UjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwODMzNDMxfQ.4xdw5kC62sZdzKsfGLgRsoFm4RCQ8LTgEFzffSyjz_g&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzZYOEVCUUQ0UjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwODMzNDMxfQ.4xdw5kC62sZdzKsfGLgRsoFm4RCQ8LTgEFzffSyjz_g%26source%3DSB'),
-	(324, 2, NULL, 2, 6, '2026-06-08', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzdORkY5QVg0RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwOTM1MDE2fQ.92ebIuH769z4F0RCet_o6OZUHcvlFAr8Fl_-JvK8SPc&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzdORkY5QVg0RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwOTM1MDE2fQ.92ebIuH769z4F0RCet_o6OZUHcvlFAr8Fl_-JvK8SPc%26source%3DSB');
+	(327, 2, 325, 2, 9, '2026-06-18', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0UzTTgzWjc3MDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgxNzk5NjY4fQ.S68fWWRg3EIOUdzKSPySpdEdcBv5xWawXE9jWUjjDu8&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0UzTTgzWjc3MDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgxNzk5NjY4fQ.S68fWWRg3EIOUdzKSPySpdEdcBv5xWawXE9jWUjjDu8%26source%3DSB'),
+	(325, 2, NULL, 1, 7, '2026-06-17', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0REQUFZU0VFMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgxNzA2MDk1fQ.FAbjeZwQD-njS_MGY02Dcsxu6esFbDuh9Niifm2umb4&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0REQUFZU0VFMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgxNzA2MDk1fQ.FAbjeZwQD-njS_MGY02Dcsxu6esFbDuh9Niifm2umb4%26source%3DSB'),
+	(326, 2, NULL, 2, 8, '2026-06-17', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0REVjFRUjZDODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgxNzA4Mjg2fQ.32q8GgEXzKqqmxulm8i6GnB3pF4EYGYZzx8P2jhLIuw&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0REVjFRUjZDODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgxNzA4Mjg2fQ.32q8GgEXzKqqmxulm8i6GnB3pF4EYGYZzx8P2jhLIuw%26source%3DSB'),
+	(328, 2, NULL, 1, 10, '2026-06-19', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0VTMDVYS0Y5UjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgxODg5MzEzfQ.HxLEZ2HCwsJtFs6VXqqDTMrK8DBGhHrAdHK_VnbW2M0&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0VTMDVYS0Y5UjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgxODg5MzEzfQ.HxLEZ2HCwsJtFs6VXqqDTMrK8DBGhHrAdHK_VnbW2M0%26source%3DSB'),
+	(329, 2, NULL, 1, 11, '2026-06-20', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0ZCTjdYMkY3UjAwIiwicHJmIjoiUFVCTElDIiwic3JjIjoiU0IiLCJpc3MiOiJmb3J0dW5hd2ViIn0.gNsWO8PqpckyIzYdtIDump1dwPQApTHtD34isVEV_yI&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0ZCTjdYMkY3UjAwIiwicHJmIjoiUFVCTElDIiwic3JjIjoiU0IiLCJpc3MiOiJmb3J0dW5hd2ViIn0.gNsWO8PqpckyIzYdtIDump1dwPQApTHtD34isVEV_yI%26source%3DSB'),
+	(334, 2, 333, 2, 16, '2026-06-23', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0g5WTIxRTc2RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMjI4Nzc0fQ.XUafbhSexq5MzAACUb0w5P3U2QSA3Ht_860hHbYTzpw&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0g5WTIxRTc2RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMjI4Nzc0fQ.XUafbhSexq5MzAACUb0w5P3U2QSA3Ht_860hHbYTzpw%26source%3DSB'),
+	(333, 2, NULL, 14, 15, '2026-06-22', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0dOVjQ3SDc3MDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMTQ0NTAzfQ.3wWTD-zcDCrlawgAOlqsxjhVvxOjCCLKYeD_ww0zJXo&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0dOVjQ3SDc3MDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMTQ0NTAzfQ.3wWTD-zcDCrlawgAOlqsxjhVvxOjCCLKYeD_ww0zJXo%26source%3DSB'),
+	(335, 2, NULL, 1, 17, '2026-06-23', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0g5V0ZBMFo3RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMjI4NTY2fQ.Qm2e8Uw2pzj1nOF9PQWH-4JEnir2CEl5Jz1gt6_N7tg&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0g5V0ZBMFo3RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMjI4NTY2fQ.Qm2e8Uw2pzj1nOF9PQWH-4JEnir2CEl5Jz1gt6_N7tg%26source%3DSB'),
+	(331, 2, NULL, 1, 13, '2026-06-21', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0ZYU1QxNkY3MDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMDQzNjY3fQ.z2A_SeCMjEBpWC_gDtKmBOmktn0S2sR7MI2gIQSfFTY&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0ZYU1QxNkY3MDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMDQzNjY3fQ.z2A_SeCMjEBpWC_gDtKmBOmktn0S2sR7MI2gIQSfFTY%26source%3DSB'),
+	(330, 2, 329, 2, 12, '2026-06-21', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0ZYUksyOFo4UjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMDQzNTA3fQ.2RXKqb5O7IMwL_uU2Cp_tKCTn2AMbhQ8YjWz-LXuys4&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0ZYUksyOFo4UjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMDQzNTA3fQ.2RXKqb5O7IMwL_uU2Cp_tKCTn2AMbhQ8YjWz-LXuys4%26source%3DSB'),
+	(332, 2, 331, 2, 14, '2026-06-22', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0dOU1JGOUY3RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMTQ0MzI0fQ.IbWUxBTdy2aV1b_idzuPxEUzkAoa9iQJqBET7pAnC68&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0dOU1JGOUY3RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMTQ0MzI0fQ.IbWUxBTdy2aV1b_idzuPxEUzkAoa9iQJqBET7pAnC68%26source%3DSB'),
+	(336, 2, 335, 2, 18, '2026-06-24', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0owVjRBVjdYMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMzI0ODU5fQ.1E9S_TAC-5-U8zeutygHWll4PwesyEN2sYkKdqKa_RQ&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0owVjRBVjdYMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMzI0ODU5fQ.1E9S_TAC-5-U8zeutygHWll4PwesyEN2sYkKdqKa_RQ%26source%3DSB'),
+	(337, 2, NULL, 14, 19, '2026-06-24', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0owV0VZOVFaRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMzI1MDMzfQ.ahr_I_Klibbpe4-l5dSWlmCHTGKBStHpsqMkNplh7WY&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0owV0VZOVFaRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyMzI1MDMzfQ.ahr_I_Klibbpe4-l5dSWlmCHTGKBStHpsqMkNplh7WY%26source%3DSB'),
+	(339, 2, NULL, 1, 21, '2026-06-25', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0pLRlk0NUZaMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNDAzMDgzfQ.qj56D6mYREJenhwz88HFoiTfa9wIwy2ofvrFFGTgRmY&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0pLRlk0NUZaMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNDAzMDgzfQ.qj56D6mYREJenhwz88HFoiTfa9wIwy2ofvrFFGTgRmY%26source%3DSB'),
+	(320, 2, 319, 2, 2, '2026-06-04', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzUyVDE2RFdWRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwNTg4MjcyfQ.G1mctNxIrx2pQ6UCuS0Wt0R0Npvhjn74ycVP-oq4s9I&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzUyVDE2RFdWRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwNTg4MjcyfQ.G1mctNxIrx2pQ6UCuS0Wt0R0Npvhjn74ycVP-oq4s9I%26source%3DSB'),
+	(324, 2, 323, 2, 6, '2026-06-08', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzdORkY5QVg0RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwOTM1MDE2fQ.92ebIuH769z4F0RCet_o6OZUHcvlFAr8Fl_-JvK8SPc&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwUzdORkY5QVg0RzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgwOTM1MDE2fQ.92ebIuH769z4F0RCet_o6OZUHcvlFAr8Fl_-JvK8SPc%26source%3DSB'),
+	(338, 2, 337, 2, 20, '2026-06-25', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0pLRTFEWTdaUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNDAyODM1fQ.RBdz6lQOL6WF6asi9tLFpqS_Abl8qkiFaD4xfJpJyWw&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0pLRTFEWTdaUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNDAyODM1fQ.RBdz6lQOL6WF6asi9tLFpqS_Abl8qkiFaD4xfJpJyWw%26source%3DSB'),
+	(340, 2, 339, 2, 22, '2026-06-26', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0s5MlE2VjdYMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNDkzNjI1fQ.LdiXjkEkAKA6YyKl76epV_0sn5NA9tlZYqfBCYC6r-E&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0s5MlE2VjdYMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNDkzNjI1fQ.LdiXjkEkAKA6YyKl76epV_0sn5NA9tlZYqfBCYC6r-E%26source%3DSB'),
+	(341, 2, NULL, 1, 23, '2026-06-26', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0s5M04xR1FaMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNDkzNzQ4fQ.DotvBdg2Or-T_xOBF9O0Ap5Kcp78PpgJhpi0vOPFjbU&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU0s5M04xR1FaMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNDkzNzQ4fQ.DotvBdg2Or-T_xOBF9O0Ap5Kcp78PpgJhpi0vOPFjbU%26source%3DSB'),
+	(342, 2, NULL, 1, 24, '2026-06-28', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU01GWVY3TjdZRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNjU2Njk1fQ.SEMpzo2TkKc-LGa4KwW11r0_pSYwjtdg5ZQJWQxTqok&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU01GWVY3TjdZRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNjU2Njk1fQ.SEMpzo2TkKc-LGa4KwW11r0_pSYwjtdg5ZQJWQxTqok%26source%3DSB'),
+	(343, 2, 342, 2, 25, '2026-06-29', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU042RlczNFpaODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNzUxMjAxfQ.896kgW4M9OyZy5apgs8Ccrcg4WqkEJUb1F8Us10Ift8&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU042RlczNFpaODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNzUxMjAxfQ.896kgW4M9OyZy5apgs8Ccrcg4WqkEJUb1F8Us10Ift8%26source%3DSB'),
+	(344, 2, NULL, 1, 26, '2026-06-29', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU04zMzFUU1FZUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNzM2OTM5fQ.3jmnRHUEznogJhLIoucWuDQ8ZUlhieZCBxBDSE5huzw&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU04zMzFUU1FZUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyNzM2OTM5fQ.3jmnRHUEznogJhLIoucWuDQ8ZUlhieZCBxBDSE5huzw%26source%3DSB'),
+	(345, 2, 344, 2, 27, '2026-06-30', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU05TWVQwQlpYUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyODMyODUyfQ.CCk4cf4c3gU4QtXGnHJxlgGuFDI7IABsFIS1Jkc5QRo&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU05TWVQwQlpYUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyODMyODUyfQ.CCk4cf4c3gU4QtXGnHJxlgGuFDI7IABsFIS1Jkc5QRo%26source%3DSB'),
+	(346, 2, NULL, 14, 28, '2026-06-30', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU05UMDJKNjdaUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyODMzMDE3fQ.Q4nzG17-2v_0igA0JtzzPNfA9ZkPDfmTqi-jJtAUKA8&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU05UMDJKNjdaUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyODMzMDE3fQ.Q4nzG17-2v_0igA0JtzzPNfA9ZkPDfmTqi-jJtAUKA8%26source%3DSB'),
+	(347, 2, NULL, 1, 29, '2026-07-01', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1BFUkZTWlpZODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyOTIwMTA0fQ.GFBjJ7K4fn21qMrDd3fHJycANE9s2bd6frNQW2lDOFY&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1BFUkZTWlpZODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyOTIwMTA0fQ.GFBjJ7K4fn21qMrDd3fHJycANE9s2bd6frNQW2lDOFY%26source%3DSB'),
+	(348, 2, 347, 2, 30, '2026-07-02', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1BaU1MwU1pYODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyOTkxNTc2fQ.DRYu7fKfm2YUR45MnAU7vlzevqcelqRg1fG7VLrbxsU&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1BaU1MwU1pYODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyOTkxNTc2fQ.DRYu7fKfm2YUR45MnAU7vlzevqcelqRg1fG7VLrbxsU%26source%3DSB'),
+	(349, 2, NULL, 1, 31, '2026-07-02', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1ExMTA3RVFaODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyOTk2NzE3fQ.XOn6rbfBMDMwe3421I3qkhe_zpprcD_tpVjq622CAMg&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1ExMTA3RVFaODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgyOTk2NzE3fQ.XOn6rbfBMDMwe3421I3qkhe_zpprcD_tpVjq622CAMg%26source%3DSB'),
+	(350, 2, 349, 2, 32, '2026-07-03', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1FRSDhGV1FaUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMDkxMTIzfQ.S1djp-rcyYkv5UrGZF5uCy0ObXbMRyAv_OvlkqJ4SmU&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1FRSDhGV1FaUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMDkxMTIzfQ.S1djp-rcyYkv5UrGZF5uCy0ObXbMRyAv_OvlkqJ4SmU%26source%3DSB'),
+	(351, 2, NULL, 14, 33, '2026-07-03', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1FRSFozS1FYUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMDkxMjE1fQ.vnBdsD4iPH7V91x5og2-G3nyWD3VKxFsDkvRTW769H4&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1FRSFozS1FYUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMDkxMjE1fQ.vnBdsD4iPH7V91x5og2-G3nyWD3VKxFsDkvRTW769H4%26source%3DSB'),
+	(352, 2, NULL, 1, 34, '2026-07-04', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1I5WDkwRzdYRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMTY4MTk1fQ.QtM5tXKZuklJlpentyegF8lITGUgTE4wPAGaBWLIMTs&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1I5WDkwRzdYRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMTY4MTk1fQ.QtM5tXKZuklJlpentyegF8lITGUgTE4wPAGaBWLIMTs%26source%3DSB'),
+	(353, 2, 352, 2, 35, '2026-07-05', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1JZR1E5NTdYODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMjU0NjMwfQ.FzaxUwcDUhF2UVVSwr9jQuUZfYlKJIO1CuKjej4zpEo&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1JZR1E5NTdYODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMjU0NjMwfQ.FzaxUwcDUhF2UVVSwr9jQuUZfYlKJIO1CuKjej4zpEo%26source%3DSB'),
+	(354, 2, NULL, 1, 36, '2026-07-05', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1JZSDcxS0ZZMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMjU0Njk0fQ.Ud-ecanOD4_RQ_pNTOS7mye0UczRKvnRK441ks8rgog&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1JZSDcxS0ZZMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMjU0Njk0fQ.Ud-ecanOD4_RQ_pNTOS7mye0UczRKvnRK441ks8rgog%26source%3DSB'),
+	(355, 2, 354, 2, 37, '2026-07-06', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1NNVEpRWDdYODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMzQ4MTk3fQ.qF4Rvtj7u_vpRX0Nw0zM-aw4I_BbGOHab2Fk42VZhic&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1NNVEpRWDdYODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMzQ4MTk3fQ.qF4Rvtj7u_vpRX0Nw0zM-aw4I_BbGOHab2Fk42VZhic%26source%3DSB'),
+	(356, 2, NULL, 1, 38, '2026-07-06', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1NNVjdURFpZUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMzQ4MjgzfQ.AcSEAI4GeeDwbmTkXbOiJ9YdaujNO_s71p4HQdY9SaE&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1NNVjdURFpZUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzMzQ4MjgzfQ.AcSEAI4GeeDwbmTkXbOiJ9YdaujNO_s71p4HQdY9SaE%26source%3DSB'),
+	(358, 2, NULL, 14, 40, '2026-07-07', true, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1Q4MVpRRVFaODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNDI4ODYwfQ.eeSCHGUZJiNpMoAAzvt2Sqndg_tdE28XA4zdTlzzuhw&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1Q4MVpRRVFaODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNDI4ODYwfQ.eeSCHGUZJiNpMoAAzvt2Sqndg_tdE28XA4zdTlzzuhw%26source%3DSB'),
+	(357, 2, 356, 2, 39, '2026-07-07', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1Q4MUE2NVpYUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNDI4NzcwfQ.wd_kWUxU3j8H6Z53j1Iq5YriR79aenlL_RfsaVcEyO0&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1Q4MUE2NVpYUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNDI4NzcwfQ.wd_kWUxU3j8H6Z53j1Iq5YriR79aenlL_RfsaVcEyO0%26source%3DSB'),
+	(359, 2, NULL, 1, 41, '2026-07-08', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1RZMEpLVjdXUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNTIwOTQ5fQ.xvbk3KIW5bDbib3s4Bgp307hNi31qgYWnbgTkJnlnYQ&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1RZMEpLVjdXUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNTIwOTQ5fQ.xvbk3KIW5bDbib3s4Bgp307hNi31qgYWnbgTkJnlnYQ%26source%3DSB'),
+	(361, 2, NULL, 14, 43, '2026-07-09', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1ZLTTFUWDdZRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNjExNTgyfQ.LpZwrUu0Zy7XD1DwhmgUWMZuegzjnCYUU5lIfsCclkQ&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1ZLTTFUWDdZRzAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNjExNTgyfQ.LpZwrUu0Zy7XD1DwhmgUWMZuegzjnCYUU5lIfsCclkQ%26source%3DSB'),
+	(362, 2, 361, 2, 44, '2026-07-10', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1c3RTI2TUZZODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNjk0NjgzfQ.Bu1jLG0P-K3GB2tUFK5-6N1xGF7mZZbcOWw9MhTuMrc&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1c3RTI2TUZZODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNjk0NjgzfQ.Bu1jLG0P-K3GB2tUFK5-6N1xGF7mZZbcOWw9MhTuMrc%26source%3DSB'),
+	(363, 2, NULL, 1, 45, '2026-07-10', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1c3RDZCVFFZUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNjk0NTcwfQ.Uu6XCHOkgKVjQBm7qqDN47N804R2JASJ65RYMungKVQ&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1c3RDZCVFFZUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNjk0NTcwfQ.Uu6XCHOkgKVjQBm7qqDN47N804R2JASJ65RYMungKVQ%26source%3DSB'),
+	(364, 2, NULL, 1, 46, '2026-07-11', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1dUUDlDRjdaODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNzc1NDUzfQ.a4NIjhokaQ1jLRvFAPc9bdtrUhQVi4oaMKRn1d217o8&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1dUUDlDRjdaODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNzc1NDUzfQ.a4NIjhokaQ1jLRvFAPc9bdtrUhQVi4oaMKRn1d217o8%26source%3DSB'),
+	(360, 2, 359, 2, 42, '2026-07-09', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1ZLSkQwNzdaMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNjExMzY1fQ.wVEprTFju8LA8Qaw-e1oRIiB2Dlc9zYAlk7euxVNU_4&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1ZLSkQwNzdaMDAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzNjExMzY1fQ.wVEprTFju8LA8Qaw-e1oRIiB2Dlc9zYAlk7euxVNU_4%26source%3DSB'),
+	(365, 2, 364, 2, 47, '2026-07-12', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1hFNkRaOTBUUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzODU3MjYwfQ.jHdE7JRLXKPSJQlwRCmVtlmi2JVNEJz0kTsiJGsrCTk&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwU1hFNkRaOTBUUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzgzODU3MjYwfQ.jHdE7JRLXKPSJQlwRCmVtlmi2JVNEJz0kTsiJGsrCTk%26source%3DSB'),
+	(366, 2, NULL, 14, 48, '2026-07-18', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwVDFCRUZaNDBWUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzg0MzgyNjA2fQ.TfHt8_1toK0GwNxcK1Ng0ibu87a5E70w0tMN4vK8Nt0&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwVDFCRUZaNDBWUjAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzg0MzgyNjA2fQ.TfHt8_1toK0GwNxcK1Ng0ibu87a5E70w0tMN4vK8Nt0%26source%3DSB'),
+	(367, 2, 366, 2, 49, '2026-07-19', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwVDFaTldWSkdXODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzg0NDY3NDYxfQ.dk_gSDVXaxfJ9XseGg3mWvzdGAKngQEumSXH2XBlrCM&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwVDFaTldWSkdXODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzg0NDY3NDYxfQ.dk_gSDVXaxfJ9XseGg3mWvzdGAKngQEumSXH2XBlrCM%26source%3DSB'),
+	(368, 2, NULL, 1, 50, '2026-07-19', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwVDFaTVowSzhXODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzg0NDY3MzQwfQ.w_nT_BiqoKWrAPHCcDg5osQEAvh4oJMVdRAnF2lwpaU&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwVDFaTVowSzhXODAwIiwicHJmIjoiUFVCTElDIiwiaXNzIjoiYmV0c2xpcC1zZXJ2aWNlIiwiaWF0IjoxNzg0NDY3MzQwfQ.w_nT_BiqoKWrAPHCcDg5osQEAvh4oJMVdRAnF2lwpaU%26source%3DSB'),
+	(369, 2, NULL, 4, 51, '2026-08-04', false, 'https://applink.efortuna.pl/ticketdetail?id=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwVENCNzQxU1Y1MDAwIiwicHJmIjoiUFVCTElDIiwic3JjIjoiU0IiLCJpc3MiOiJiZXRzbGlwLXNlcnZpY2UiLCJpYXQiOjE3ODU4NTgwMzR9.q4AUfjSTEWGfeN7mZOcyYiXUC3IfVHp_so2lsG64gwY&source=SB&deeplink=ftnpl%3A%2F%2Fbetslip-history%2Fdetail%3Fid%3DeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJQRlAwVENCNzQxU1Y1MDAwIiwicHJmIjoiUFVCTElDIiwic3JjIjoiU0IiLCJpc3MiOiJiZXRzbGlwLXNlcnZpY2UiLCJpYXQiOjE3ODU4NTgwMzR9.q4AUfjSTEWGfeN7mZOcyYiXUC3IfVHp_so2lsG64gwY%26source%3DSB');
 
 
 --
@@ -2355,21 +2241,15 @@ INSERT INTO "public"."picks" ("id", "player_id", "season_id", "matchday_id", "le
 	(2636, 3, 1, 315, 163, 1.57, true, 0, true),
 	(2637, 4, 1, 315, 35, 1.48, true, 0, true),
 	(2638, 7, 1, 315, 55, 1.5, false, 0, false),
-	(2685, 1, 2, 320, 145, 1.8, true, 0, true),
-	(2686, 3, 2, 320, 145, 2.08, true, 0, false),
-	(2682, 4, 2, 320, 145, 1.75, true, 0, false),
-	(2684, 5, 2, 320, 145, 1.59, true, 0, true),
-	(2683, 7, 2, 320, 145, 1.46, true, 0, true),
-	(2734, 1, 2, 324, 70, 1.52, true, 0, true),
-	(2735, 2, 2, 324, 145, 1.63, false, 0, false),
-	(2736, 3, 2, 324, 104, 1.65, false, 0, false),
-	(2737, 4, 2, 324, 145, 1.48, true, 0, true),
 	(2712, 1, 2, 322, 79, 1.46, true, 0, true),
 	(2713, 2, 2, 322, 145, 1.74, false, 0, false),
 	(2714, 3, 2, 322, 145, 2, true, 0, false),
 	(2715, 4, 2, 322, 55, 1.47, true, 0, true),
 	(2716, 5, 2, 322, 145, 1.66, true, 0, true),
-	(2717, 7, 2, 322, 163, 1.84, true, 0, false),
+	(2764, 1, 2, 327, 164, 1.48, true, 0, false),
+	(2765, 2, 2, 327, 106, 1.83, false, 0, false),
+	(2766, 3, 2, 327, 164, 1.56, false, 0, true),
+	(2767, 4, 2, 327, 164, 1.48, false, 0, false),
 	(2690, 1, 2, 321, 145, 1.48, true, 0, true),
 	(2691, 2, 2, 321, 145, 1.88, true, 0, false),
 	(2689, 3, 2, 321, 145, 1.68, false, 0, false),
@@ -2386,8 +2266,259 @@ INSERT INTO "public"."picks" ("id", "player_id", "season_id", "matchday_id", "le
 	(2731, 4, 2, 323, 71, 1.55, false, 0, false),
 	(2732, 5, 2, 323, 145, 1.46, true, 0, true),
 	(2733, 7, 2, 323, 145, 1.55, true, 0, true),
+	(2768, 5, 2, 327, 164, 1.47, true, 0, true),
+	(2769, 7, 2, 327, 80, 1.46, true, 0, true),
+	(2746, 1, 2, 325, 164, 1.46, true, 0, true),
+	(2747, 2, 2, 325, 35, 1.7, true, 0, false),
+	(2748, 3, 2, 325, 35, 1.46, true, 0, true),
+	(2749, 4, 2, 325, 35, 1.55, false, 0, false),
+	(2750, 5, 2, 325, 164, 1.5, false, 0, false),
+	(2751, 7, 2, 325, 35, 1.46, true, 0, true),
+	(2758, 1, 2, 326, 164, 1.48, false, 0, true),
+	(2759, 2, 2, 326, 35, 1.8, true, 0, false),
+	(2760, 3, 2, 326, 164, 1.73, true, 0, false),
+	(2761, 4, 2, 326, 51, 1.57, true, 0, true),
+	(2762, 5, 2, 326, 164, 2, false, 0, false),
+	(2763, 7, 2, 326, 164, 1.55, true, 0, true),
+	(2770, 1, 2, 328, 164, 1.46, true, 0, true),
+	(2771, 2, 2, 328, 44, 1.7, true, 0, false),
+	(2772, 3, 2, 328, 164, 1.57, false, 0, true),
+	(2773, 4, 2, 328, 44, 1.55, true, 0, false),
+	(2774, 5, 2, 328, 164, 1.55, false, 0, true),
+	(2775, 7, 2, 328, 44, 1.48, true, 0, false),
+	(2776, 1, 2, 329, 164, 1.42, false, 0, true),
+	(2777, 2, 2, 329, 104, 1.94, false, 0, false),
+	(2734, 1, 2, 324, 70, 1.52, true, 0, true),
+	(2735, 2, 2, 324, 145, 1.63, false, 0, false),
+	(2736, 3, 2, 324, 104, 1.65, false, 0, false),
+	(2737, 4, 2, 324, 145, 1.48, true, 0, true),
 	(2738, 5, 2, 324, 145, 1.53, false, 0, false),
-	(2739, 7, 2, 324, 145, 1.61, true, 0, true);
+	(2739, 7, 2, 324, 145, 1.61, true, 0, true),
+	(2778, 3, 2, 329, 55, 1.48, true, 0, true),
+	(2779, 4, 2, 329, 164, 1.55, true, 0, true),
+	(2780, 5, 2, 329, 77, 1.47, true, 0, false),
+	(2781, 7, 2, 329, 80, 1.6, true, 0, false),
+	(2836, 7, 2, 336, 164, 1.83, false, 0, true),
+	(2849, 1, 2, 338, 164, 1.57, false, 0, true),
+	(2850, 2, 2, 338, 36, 1.56, true, 0, false),
+	(2851, 3, 2, 338, 81, 1.82, true, 0, false),
+	(2852, 4, 2, 338, 145, 1.5, false, 0, false),
+	(2802, 1, 2, 333, 164, 1.84, false, 0, false),
+	(2803, 3, 2, 333, 164, 1.45, true, 0, true),
+	(2804, 4, 2, 333, 44, 1.48, true, 0, false),
+	(2805, 5, 2, 333, 164, 1.53, true, 0, true),
+	(2806, 7, 2, 333, 164, 1.53, false, 0, true),
+	(2853, 5, 2, 338, 164, 1.52, true, 0, true),
+	(2854, 7, 2, 338, 164, 1.5, true, 0, true),
+	(2911, 1, 2, 340, 164, 1.45, true, 0, true),
+	(2912, 2, 2, 340, 144, 1.41, false, 0, false),
+	(2913, 3, 2, 340, 145, 1.47, true, 0, true),
+	(2914, 4, 2, 340, 44, 1.47, false, 0, false),
+	(2786, 1, 2, 331, 164, 1.86, false, 0, false),
+	(2787, 2, 2, 331, 71, 1.5, false, 0, true),
+	(2788, 3, 2, 331, 104, 1.45, false, 0, true),
+	(2789, 4, 2, 331, 71, 1.53, false, 0, true),
+	(2790, 5, 2, 331, 164, 1.45, false, 0, false),
+	(2791, 7, 2, 331, 164, 1.57, true, 0, false),
+	(2825, 1, 2, 335, 35, 1.44, true, 0, true),
+	(2826, 2, 2, 335, 35, 1.5, true, 0, true),
+	(2827, 3, 2, 335, 164, 1.48, false, 0, true),
+	(2828, 4, 2, 335, 35, 1.48, false, 0, false),
+	(2829, 5, 2, 335, 164, 1.5, false, 0, false),
+	(2830, 7, 2, 335, 164, 1.57, false, 0, false),
+	(2837, 1, 2, 337, 164, 1.45, true, 0, false),
+	(2838, 2, 2, 337, 80, 1.57, false, 0, false),
+	(2839, 3, 2, 337, 164, 1.62, false, 0, true),
+	(2840, 4, 2, 337, 164, 1.85, true, 0, true),
+	(2841, 5, 2, 337, 164, 1.57, true, 0, false),
+	(2842, 7, 2, 337, 164, 1.5, true, 0, true),
+	(2855, 1, 2, 339, 164, 1.48, false, 0, true),
+	(2856, 2, 2, 339, 81, 1.55, true, 0, false),
+	(2857, 3, 2, 339, 163, 1.51, true, 0, false),
+	(2858, 4, 2, 339, 164, 1.6, true, 0, true),
+	(2859, 5, 2, 339, 164, 1.44, false, 0, false),
+	(2860, 7, 2, 339, 164, 1.53, false, 0, true),
+	(2685, 1, 2, 320, 145, 1.8, true, 0, true),
+	(2686, 3, 2, 320, 145, 2.08, true, 0, false),
+	(2682, 4, 2, 320, 145, 1.75, true, 0, false),
+	(2684, 5, 2, 320, 145, 1.59, true, 0, true),
+	(2683, 7, 2, 320, 145, 1.46, true, 0, true),
+	(2717, 7, 2, 322, 163, 1.84, true, 0, false),
+	(2782, 2, 2, 330, 36, 1.45, false, 0, true),
+	(2783, 3, 2, 330, 164, 1.46, false, 0, false),
+	(2784, 4, 2, 330, 70, 1.44, true, 0, true),
+	(2785, 7, 2, 330, 71, 1.45, true, 0, true),
+	(2792, 1, 2, 332, 164, 1.5, true, 0, false),
+	(2793, 3, 2, 332, 44, 1.58, true, 0, true),
+	(2794, 4, 2, 332, 164, 1.67, true, 0, false),
+	(2795, 5, 2, 332, 164, 1.55, true, 0, true),
+	(2796, 7, 2, 332, 164, 1.47, true, 0, true),
+	(2819, 1, 2, 334, 164, 1.45, false, 0, true),
+	(2820, 2, 2, 334, 163, 1.52, false, 0, false),
+	(2821, 3, 2, 334, 164, 1.54, true, 0, false),
+	(2822, 4, 2, 334, 164, 1.49, true, 0, false),
+	(2823, 5, 2, 334, 35, 1.44, true, 0, true),
+	(2824, 7, 2, 334, 164, 1.6, false, 0, true),
+	(2831, 1, 2, 336, 164, 1.73, true, 0, true),
+	(2832, 2, 2, 336, 163, 1.46, true, 0, false),
+	(2833, 3, 2, 336, 163, 1.48, false, 0, false),
+	(2834, 4, 2, 336, 164, 1.5, false, 0, true),
+	(2835, 5, 2, 336, 164, 1.86, true, 0, false),
+	(2915, 5, 2, 340, 164, 1.7, true, 0, true),
+	(2916, 7, 2, 340, 44, 1.5, true, 0, false),
+	(2917, 1, 2, 341, 164, 1.53, true, 0, true),
+	(2918, 2, 2, 341, 164, 2.05, false, 0, false),
+	(2919, 3, 2, 341, 44, 1.55, true, 0, true),
+	(2920, 4, 2, 341, 44, 1.5, true, 0, true),
+	(2921, 5, 2, 341, 164, 1.45, false, 0, false),
+	(2922, 7, 2, 341, 44, 1.44, true, 0, false),
+	(2923, 1, 2, 342, 163, 1.52, true, 0, true),
+	(2924, 3, 2, 342, 145, 1.58, true, 0, true),
+	(2925, 4, 2, 342, 70, 1.52, true, 0, true),
+	(2926, 5, 2, 342, 164, 1.56, false, 0, false),
+	(2927, 7, 2, 342, 70, 1.59, false, 0, false),
+	(2928, 3, 2, 343, 164, 1.66, true, 0, true),
+	(2929, 4, 2, 343, 164, 1.86, true, 0, true),
+	(2930, 5, 2, 343, 164, 2.01, true, 0, true),
+	(2931, 7, 2, 343, 37, 1.55, true, 0, false),
+	(2932, 1, 2, 344, 164, 1.45, true, 0, true),
+	(2933, 3, 2, 344, 79, 1.5, true, 0, true),
+	(2934, 4, 2, 344, 164, 1.46, false, 0, true),
+	(2935, 7, 2, 344, 79, 1.45, true, 0, false),
+	(2936, 1, 2, 345, 164, 1.46, true, 0, true),
+	(2937, 2, 2, 345, 145, 1.6, false, 0, false),
+	(2938, 3, 2, 345, 164, 1.6, true, 0, true),
+	(2939, 4, 2, 345, 163, 1.78, true, 0, false),
+	(2940, 5, 2, 345, 164, 1.69, false, 0, false),
+	(2941, 7, 2, 345, 79, 1.47, true, 0, true),
+	(2942, 1, 2, 346, 164, 1.48, true, 0, true),
+	(2943, 2, 2, 346, 163, 1.92, true, 0, false),
+	(2944, 3, 2, 346, 164, 1.62, true, 0, false),
+	(2945, 4, 2, 346, 80, 1.57, true, 0, true),
+	(2946, 5, 2, 346, 164, 1.75, false, 0, false),
+	(2947, 7, 2, 346, 164, 1.53, true, 0, true),
+	(2954, 1, 2, 347, 164, 1.5, true, 0, true),
+	(2955, 2, 2, 347, 163, 1.6, true, 0, true),
+	(2956, 3, 2, 347, 81, 2.11, false, 0, true),
+	(2957, 4, 2, 347, 164, 1.5, true, 0, false),
+	(2958, 5, 2, 347, 164, 1.73, true, 0, false),
+	(2959, 7, 2, 347, 79, 1.45, true, 0, false),
+	(2966, 1, 2, 348, 164, 1.55, true, 0, false),
+	(2967, 2, 2, 348, 71, 1.48, false, 0, true),
+	(2968, 3, 2, 348, 149, 1.53, false, 0, true),
+	(2969, 4, 2, 348, 163, 1.46, true, 0, false),
+	(2970, 5, 2, 348, 164, 1.62, false, 0, true),
+	(2971, 7, 2, 348, 79, 1.58, true, 0, false),
+	(2972, 1, 2, 349, 164, 1.48, true, 0, false),
+	(2973, 2, 2, 349, 163, 1.5, false, 0, false),
+	(2974, 3, 2, 349, 164, 1.53, false, 0, true),
+	(2975, 4, 2, 349, 164, 1.7, true, 0, true),
+	(2976, 5, 2, 349, 164, 1.53, false, 0, true),
+	(2977, 7, 2, 349, 79, 1.44, true, 0, false),
+	(2978, 1, 2, 350, 164, 1.6, false, 0, false),
+	(2979, 2, 2, 350, 145, 1.8, true, 0, false),
+	(2980, 3, 2, 350, 145, 1.45, true, 0, true),
+	(2981, 4, 2, 350, 34, 1.63, true, 0, true),
+	(2982, 5, 2, 350, 164, 1.45, true, 0, true),
+	(2983, 7, 2, 350, 79, 1.59, true, 0, false),
+	(2984, 1, 2, 351, 164, 1.48, true, 0, true),
+	(2985, 2, 2, 351, 163, 1.5, true, 0, false),
+	(2986, 3, 2, 351, 164, 1.57, false, 0, false),
+	(2987, 4, 2, 351, 164, 1.46, true, 0, true),
+	(2988, 5, 2, 351, 79, 1.44, true, 0, true),
+	(2989, 7, 2, 351, 79, 1.57, false, 0, false),
+	(2990, 1, 2, 352, 164, 1.46, false, 0, true),
+	(2991, 2, 2, 352, 34, 1.66, false, 0, true),
+	(2992, 3, 2, 352, 145, 1.53, true, 0, false),
+	(2993, 4, 2, 352, 71, 1.5, true, 0, false),
+	(2994, 7, 2, 352, 79, 1.53, false, 0, true),
+	(2995, 1, 2, 353, 163, 1.8, false, 0, false),
+	(2996, 2, 2, 353, 71, 1.57, true, 0, true),
+	(2997, 3, 2, 353, 164, 1.73, true, 0, true),
+	(2998, 4, 2, 353, 34, 1.48, true, 0, false),
+	(2999, 7, 2, 353, 79, 1.54, true, 0, true),
+	(3000, 1, 2, 354, 48, 1.42, false, 0, true),
+	(3001, 2, 2, 354, 163, 1.7, true, 0, false),
+	(3002, 3, 2, 354, 164, 1.47, true, 0, true),
+	(3003, 4, 2, 354, 164, 1.64, true, 0, false),
+	(3004, 7, 2, 354, 80, 1.48, true, 0, true),
+	(3005, 1, 2, 355, 164, 1.46, false, 0, true),
+	(3006, 2, 2, 355, 104, 1.58, true, 0, false),
+	(3007, 3, 2, 355, 145, 1.5, true, 0, true),
+	(3008, 4, 2, 355, 104, 1.53, true, 0, true),
+	(3009, 7, 2, 355, 164, 1.5, false, 0, false),
+	(3010, 1, 2, 356, 164, 1.45, true, 0, false),
+	(3011, 2, 2, 356, 34, 1.5, true, 0, false),
+	(3012, 3, 2, 356, 34, 1.57, true, 0, true),
+	(3013, 4, 2, 356, 80, 1.55, true, 0, true),
+	(3014, 7, 2, 356, 79, 1.5, true, 0, true),
+	(3020, 1, 2, 358, 164, 1.46, true, 0, true),
+	(3021, 3, 2, 358, 163, 1.5, true, 0, true),
+	(3022, 4, 2, 358, 164, 1.55, true, 0, false),
+	(3023, 5, 2, 358, 164, 1.7, false, 0, false),
+	(3024, 7, 2, 358, 79, 1.62, true, 0, true),
+	(3015, 1, 2, 357, 164, 1.57, true, 0, true),
+	(3016, 3, 2, 357, 164, 1.61, false, 0, false),
+	(3017, 4, 2, 357, 141, 1.52, false, 0, true),
+	(3018, 5, 2, 357, 102, 1.49, true, 0, true),
+	(3019, 7, 2, 357, 79, 1.66, false, 0, false),
+	(3030, 1, 2, 359, 141, 1.42, true, 0, false),
+	(3031, 2, 2, 359, 145, 1.49, true, 0, true),
+	(3032, 3, 2, 359, 145, 1.7, true, 0, true),
+	(3033, 4, 2, 359, 143, 1.64, false, 0, true),
+	(3034, 5, 2, 359, 141, 1.48, false, 0, false),
+	(3035, 7, 2, 359, 79, 1.77, false, 0, false),
+	(3042, 1, 2, 361, 164, 1.5, false, 0, true),
+	(3043, 2, 2, 361, 163, 1.73, false, 0, false),
+	(3044, 3, 2, 361, 80, 1.55, false, 0, false),
+	(3045, 4, 2, 361, 80, 1.57, false, 0, true),
+	(3046, 5, 2, 361, 164, 1.46, true, 0, true),
+	(3047, 7, 2, 361, 79, 1.48, false, 0, false),
+	(3048, 1, 2, 362, 145, 1.42, false, 0, false),
+	(3049, 2, 2, 362, 35, 1.49, false, 0, true),
+	(3050, 3, 2, 362, 163, 1.5, true, 0, true),
+	(3051, 4, 2, 362, 163, 1.48, false, 0, true),
+	(3052, 5, 2, 362, 79, 1.54, false, 0, false),
+	(3053, 7, 2, 362, 80, 1.5, true, 0, false),
+	(3054, 1, 2, 363, 164, 1.42, false, 0, false),
+	(3055, 2, 2, 363, 164, 6.75, false, 0, true),
+	(3056, 3, 2, 363, 35, 1.57, true, 0, false),
+	(3057, 4, 2, 363, 35, 1.5, false, 0, true),
+	(3058, 5, 2, 363, 164, 1.5, true, 0, false),
+	(3059, 7, 2, 363, 79, 1.53, false, 0, true),
+	(3060, 1, 2, 364, 164, 1.57, true, 0, false),
+	(3061, 2, 2, 364, 164, 1.7, true, 0, false),
+	(3062, 3, 2, 364, 35, 1.6, false, 0, true),
+	(3063, 4, 2, 364, 33, 1.45, true, 0, true),
+	(3064, 7, 2, 364, 34, 1.6, false, 0, true),
+	(3036, 1, 2, 360, 164, 1.48, true, 0, true),
+	(3037, 2, 2, 360, 142, 1.52, true, 0, false),
+	(3038, 3, 2, 360, 145, 1.42, false, 0, true),
+	(3039, 4, 2, 360, 143, 1.47, true, 0, true),
+	(3040, 5, 2, 360, 142, 1.43, true, 0, false),
+	(3041, 7, 2, 360, 79, 1.45, true, 0, false),
+	(3071, 1, 2, 365, 33, 1.41, false, 0, true),
+	(3072, 3, 2, 365, 145, 1.67, false, 0, true),
+	(3073, 4, 2, 365, 34, 1.59, true, 0, false),
+	(3074, 7, 2, 365, 33, 1.47, true, 0, true),
+	(3075, 1, 2, 366, 35, 1.46, false, 0, true),
+	(3076, 3, 2, 366, 164, 1.73, false, 0, true),
+	(3077, 4, 2, 366, 24, 1.5, false, 0, false),
+	(3078, 5, 2, 366, 33, 1.46, true, 0, false),
+	(3079, 7, 2, 366, 164, 1.5, true, 0, true),
+	(3080, 1, 2, 367, 35, 1.4, false, 0, true),
+	(3081, 2, 2, 367, 36, 1.47, true, 0, true),
+	(3082, 4, 2, 367, 164, 1.46, false, 0, true),
+	(3083, 7, 2, 367, 79, 1.47, false, 0, false),
+	(3084, 1, 2, 368, 35, 1.46, false, 0, true),
+	(3085, 2, 2, 368, 34, 1.67, false, 0, true),
+	(3086, 4, 2, 368, 34, 1.5, true, 0, true),
+	(3087, 7, 2, 368, 164, 1.78, false, 0, false),
+	(3088, 1, 2, 369, 141, 1.72, true, 0, false),
+	(3089, 2, 2, 369, 141, 1.75, true, 0, false),
+	(3090, 3, 2, 369, 141, 1.72, false, 0, true),
+	(3091, 4, 2, 369, 141, 1.75, true, 0, true),
+	(3092, 7, 2, 369, 141, 1.75, true, 0, true);
 
 
 --
@@ -5425,28 +5556,6 @@ INSERT INTO "public"."votes" ("id", "player_id", "pick_id") VALUES
 	(4887, 5, 2652),
 	(4888, 7, 2652),
 	(4889, 7, 2653),
-	(4936, 1, 2684),
-	(4937, 1, 2683),
-	(4938, 3, 2685),
-	(4939, 3, 2683),
-	(4940, 4, 2685),
-	(4941, 4, 2684),
-	(4942, 5, 2685),
-	(4943, 5, 2683),
-	(4944, 7, 2685),
-	(4945, 7, 2686),
-	(4954, 1, 2714),
-	(4955, 1, 2715),
-	(4956, 2, 2715),
-	(4957, 2, 2716),
-	(4958, 3, 2712),
-	(4959, 3, 2716),
-	(4960, 4, 2712),
-	(4961, 4, 2713),
-	(4962, 5, 2712),
-	(4963, 5, 2715),
-	(4964, 7, 2712),
-	(4965, 7, 2714),
 	(4966, 1, 2689),
 	(4967, 1, 2687),
 	(4968, 2, 2687),
@@ -5477,65 +5586,480 @@ INSERT INTO "public"."votes" ("id", "player_id", "pick_id") VALUES
 	(4993, 5, 2733),
 	(4994, 7, 2728),
 	(4995, 7, 2732),
-	(4996, 1, 2736),
-	(4997, 1, 2737),
-	(4998, 3, 2735),
-	(4999, 3, 2739),
-	(5000, 4, 2734),
-	(5001, 4, 2735),
-	(5002, 5, 2737),
-	(5003, 5, 2739),
-	(5004, 7, 2734),
-	(5005, 7, 2737);
-
-
---
--- Data for Name: buckets; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Data for Name: buckets_analytics; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Data for Name: buckets_vectors; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Data for Name: objects; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Data for Name: s3_multipart_uploads; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Data for Name: s3_multipart_uploads_parts; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Data for Name: vector_indexes; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: supabase_auth_admin
---
-
-SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 299, true);
+	(5018, 1, 2748),
+	(5019, 1, 2749),
+	(5020, 2, 2746),
+	(5021, 2, 2748),
+	(5022, 3, 2746),
+	(5023, 3, 2751),
+	(5024, 4, 2747),
+	(5025, 4, 2751),
+	(5026, 5, 2746),
+	(5027, 5, 2751),
+	(5028, 7, 2746),
+	(5029, 7, 2748),
+	(5030, 1, 2761),
+	(5031, 1, 2763),
+	(5032, 2, 2760),
+	(5033, 2, 2763),
+	(5034, 3, 2758),
+	(5035, 3, 2759),
+	(5036, 4, 2758),
+	(5037, 4, 2763),
+	(5038, 5, 2758),
+	(5039, 5, 2763),
+	(5040, 7, 2758),
+	(5041, 7, 2761),
+	(5052, 1, 2772),
+	(5053, 1, 2774),
+	(5054, 2, 2772),
+	(5055, 2, 2773),
+	(5056, 3, 2770),
+	(5057, 3, 2774),
+	(5058, 4, 2770),
+	(5059, 4, 2772),
+	(5060, 5, 2770),
+	(5061, 5, 2775),
+	(5062, 7, 2770),
+	(5063, 7, 2774),
+	(5064, 2, 2779),
+	(5065, 2, 2780),
+	(5066, 3, 2776),
+	(5067, 3, 2779),
+	(5068, 4, 2777),
+	(5069, 4, 2778),
+	(5070, 5, 2778),
+	(5071, 5, 2776),
+	(5072, 7, 2778),
+	(5073, 7, 2776),
+	(5114, 1, 2803),
+	(5115, 1, 2806),
+	(5116, 3, 2804),
+	(5117, 3, 2805),
+	(5118, 4, 2803),
+	(5119, 4, 2805),
+	(5120, 5, 2802),
+	(5121, 5, 2806),
+	(5122, 7, 2803),
+	(5123, 7, 2805),
+	(5136, 1, 2787),
+	(5137, 1, 2788),
+	(5138, 2, 2786),
+	(5139, 2, 2789),
+	(5140, 3, 2787),
+	(5141, 3, 2789),
+	(5142, 4, 2787),
+	(5143, 4, 2788),
+	(5144, 5, 2789),
+	(5145, 5, 2791),
+	(5146, 7, 2788),
+	(5147, 7, 2789),
+	(5160, 1, 2827),
+	(5161, 1, 2829),
+	(5162, 2, 2825),
+	(5163, 2, 2828),
+	(5164, 3, 2826),
+	(5165, 3, 2830),
+	(5166, 4, 2825),
+	(5167, 4, 2826),
+	(5168, 5, 2827),
+	(5169, 5, 2830),
+	(5170, 7, 2825),
+	(5171, 7, 2826),
+	(5196, 1, 2840),
+	(5197, 1, 2842),
+	(5198, 2, 2840),
+	(5199, 2, 2842),
+	(5200, 3, 2838),
+	(5201, 3, 2841),
+	(5202, 4, 2838),
+	(5203, 4, 2839),
+	(5204, 5, 2837),
+	(5205, 5, 2839),
+	(5206, 7, 2837),
+	(5207, 7, 2840),
+	(5220, 1, 2858),
+	(5221, 1, 2859),
+	(5222, 2, 2858),
+	(5223, 2, 2860),
+	(5224, 3, 2859),
+	(5225, 3, 2860),
+	(5226, 4, 2855),
+	(5227, 4, 2857),
+	(5228, 5, 2855),
+	(5229, 5, 2860),
+	(5230, 7, 2855),
+	(5231, 7, 2858),
+	(5232, 1, 2684),
+	(5233, 1, 2683),
+	(5234, 3, 2685),
+	(5235, 3, 2683),
+	(5236, 4, 2685),
+	(5237, 4, 2684),
+	(5238, 5, 2685),
+	(5239, 5, 2683),
+	(5240, 7, 2685),
+	(5241, 7, 2686),
+	(5242, 1, 2714),
+	(5243, 1, 2715),
+	(5244, 2, 2715),
+	(5245, 2, 2716),
+	(5246, 3, 2712),
+	(5247, 3, 2716),
+	(5248, 4, 2712),
+	(5249, 4, 2713),
+	(5250, 5, 2712),
+	(5251, 5, 2715),
+	(5252, 7, 2712),
+	(5253, 7, 2714),
+	(5254, 1, 2736),
+	(5255, 1, 2737),
+	(5256, 3, 2735),
+	(5257, 3, 2739),
+	(5258, 4, 2734),
+	(5259, 4, 2735),
+	(5260, 5, 2737),
+	(5261, 5, 2739),
+	(5262, 7, 2734),
+	(5263, 7, 2737),
+	(5264, 1, 2766),
+	(5265, 1, 2768),
+	(5266, 2, 2766),
+	(5267, 2, 2768),
+	(5268, 3, 2768),
+	(5269, 3, 2769),
+	(5270, 4, 2766),
+	(5271, 4, 2768),
+	(5272, 7, 2764),
+	(5273, 7, 2768),
+	(5274, 2, 2784),
+	(5275, 2, 2785),
+	(5276, 3, 2782),
+	(5277, 3, 2784),
+	(5278, 4, 2782),
+	(5279, 4, 2783),
+	(5280, 7, 2782),
+	(5281, 7, 2783),
+	(5282, 1, 2794),
+	(5283, 1, 2795),
+	(5284, 3, 2795),
+	(5285, 3, 2796),
+	(5286, 4, 2793),
+	(5287, 4, 2796),
+	(5288, 5, 2793),
+	(5289, 5, 2794),
+	(5290, 7, 2793),
+	(5291, 7, 2795),
+	(5292, 1, 2820),
+	(5293, 1, 2824),
+	(5294, 2, 2822),
+	(5295, 2, 2823),
+	(5296, 3, 2820),
+	(5297, 3, 2824),
+	(5298, 4, 2821),
+	(5299, 4, 2823),
+	(5300, 5, 2819),
+	(5301, 5, 2822),
+	(5302, 7, 2819),
+	(5303, 7, 2823),
+	(5304, 1, 2834),
+	(5305, 1, 2836),
+	(5306, 2, 2833),
+	(5307, 2, 2834),
+	(5308, 3, 2832),
+	(5309, 3, 2834),
+	(5310, 4, 2831),
+	(5311, 4, 2832),
+	(5312, 5, 2834),
+	(5313, 5, 2836),
+	(5314, 7, 2831),
+	(5315, 7, 2835),
+	(5316, 1, 2853),
+	(5317, 1, 2854),
+	(5318, 2, 2851),
+	(5319, 2, 2853),
+	(5320, 3, 2849),
+	(5321, 3, 2853),
+	(5322, 4, 2849),
+	(5323, 4, 2853),
+	(5324, 5, 2852),
+	(5325, 5, 2854),
+	(5326, 7, 2849),
+	(5327, 7, 2852),
+	(5328, 1, 2914),
+	(5329, 1, 2916),
+	(5330, 2, 2914),
+	(5331, 2, 2915),
+	(5332, 3, 2911),
+	(5333, 3, 2915),
+	(5334, 4, 2911),
+	(5335, 4, 2913),
+	(5336, 5, 2914),
+	(5337, 5, 2916),
+	(5338, 7, 2911),
+	(5339, 7, 2913),
+	(5340, 1, 2919),
+	(5341, 1, 2920),
+	(5342, 2, 2919),
+	(5343, 2, 2920),
+	(5344, 3, 2921),
+	(5345, 3, 2922),
+	(5346, 4, 2917),
+	(5347, 4, 2919),
+	(5348, 5, 2917),
+	(5349, 5, 2922),
+	(5350, 7, 2917),
+	(5351, 7, 2920),
+	(5352, 1, 2925),
+	(5353, 1, 2926),
+	(5354, 3, 2923),
+	(5355, 3, 2925),
+	(5356, 4, 2923),
+	(5357, 4, 2927),
+	(5358, 5, 2923),
+	(5359, 5, 2924),
+	(5360, 7, 2923),
+	(5361, 7, 2925),
+	(5362, 3, 2929),
+	(5363, 3, 2931),
+	(5364, 4, 2928),
+	(5365, 4, 2930),
+	(5366, 7, 2929),
+	(5367, 7, 2930),
+	(5368, 1, 2933),
+	(5369, 1, 2934),
+	(5370, 3, 2934),
+	(5371, 3, 2935),
+	(5372, 4, 2932),
+	(5373, 4, 2933),
+	(5374, 7, 2932),
+	(5375, 7, 2934),
+	(5376, 1, 2938),
+	(5377, 1, 2940),
+	(5378, 3, 2939),
+	(5379, 3, 2941),
+	(5380, 4, 2936),
+	(5381, 4, 2938),
+	(5382, 5, 2936),
+	(5383, 5, 2941),
+	(5384, 7, 2936),
+	(5385, 7, 2938),
+	(5396, 1, 2944),
+	(5397, 1, 2947),
+	(5398, 3, 2942),
+	(5399, 3, 2945),
+	(5400, 4, 2942),
+	(5401, 4, 2947),
+	(5402, 5, 2944),
+	(5403, 5, 2945),
+	(5404, 7, 2942),
+	(5405, 7, 2945),
+	(5416, 1, 2955),
+	(5417, 1, 2957),
+	(5418, 2, 2956),
+	(5419, 2, 2957),
+	(5420, 3, 2957),
+	(5421, 3, 2959),
+	(5422, 4, 2954),
+	(5423, 4, 2956),
+	(5424, 7, 2954),
+	(5425, 7, 2955),
+	(5426, 1, 2967),
+	(5427, 1, 2970),
+	(5428, 2, 2968),
+	(5429, 2, 2969),
+	(5430, 3, 2967),
+	(5431, 3, 2970),
+	(5432, 4, 2966),
+	(5433, 4, 2968),
+	(5434, 5, 2969),
+	(5435, 5, 2971),
+	(5436, 7, 2968),
+	(5437, 7, 2970),
+	(5438, 1, 2974),
+	(5439, 1, 2975),
+	(5440, 2, 2975),
+	(5441, 2, 2976),
+	(5442, 3, 2973),
+	(5443, 3, 2976),
+	(5444, 4, 2973),
+	(5445, 4, 2974),
+	(5446, 5, 2972),
+	(5447, 5, 2975),
+	(5448, 7, 2972),
+	(5449, 7, 2975),
+	(5450, 1, 2980),
+	(5451, 1, 2982),
+	(5452, 2, 2980),
+	(5453, 2, 2981),
+	(5454, 3, 2981),
+	(5455, 3, 2982),
+	(5456, 4, 2978),
+	(5457, 4, 2980),
+	(5458, 5, 2978),
+	(5459, 5, 2983),
+	(5460, 7, 2980),
+	(5461, 7, 2982),
+	(5462, 1, 2985),
+	(5463, 1, 2986),
+	(5464, 2, 2987),
+	(5465, 2, 2984),
+	(5466, 3, 2987),
+	(5467, 3, 2988),
+	(5468, 4, 2984),
+	(5469, 4, 2988),
+	(5470, 5, 2984),
+	(5471, 5, 2987),
+	(5472, 7, 2984),
+	(5473, 7, 2987),
+	(5474, 1, 2993),
+	(5475, 1, 2994),
+	(5476, 2, 2990),
+	(5477, 2, 2993),
+	(5478, 3, 2993),
+	(5479, 3, 2994),
+	(5480, 4, 2990),
+	(5481, 4, 2991),
+	(5482, 7, 2990),
+	(5483, 7, 2991),
+	(5484, 4, 2997),
+	(5485, 4, 2999),
+	(5486, 7, 2996),
+	(5487, 7, 2997),
+	(5488, 1, 3008),
+	(5489, 1, 3009),
+	(5490, 3, 3005),
+	(5491, 3, 3008),
+	(5492, 4, 3007),
+	(5493, 4, 3009),
+	(5494, 7, 3005),
+	(5495, 7, 3007),
+	(5496, 1, 3013),
+	(5497, 1, 3014),
+	(5498, 3, 3013),
+	(5499, 3, 3014),
+	(5500, 4, 3012),
+	(5501, 4, 3014),
+	(5502, 7, 3010),
+	(5503, 7, 3012),
+	(5514, 1, 3022),
+	(5515, 1, 3023),
+	(5516, 3, 3020),
+	(5517, 3, 3024),
+	(5518, 4, 3020),
+	(5519, 4, 3021),
+	(5520, 5, 3020),
+	(5521, 5, 3024),
+	(5522, 7, 3020),
+	(5523, 7, 3021),
+	(5524, 1, 3017),
+	(5525, 1, 3018),
+	(5526, 3, 3017),
+	(5527, 3, 3018),
+	(5528, 4, 3015),
+	(5529, 4, 3016),
+	(5530, 5, 3015),
+	(5531, 5, 3017),
+	(5532, 7, 3017),
+	(5533, 7, 3018),
+	(5534, 1, 3032),
+	(5535, 1, 3034),
+	(5536, 2, 3032),
+	(5537, 2, 3033),
+	(5538, 3, 3031),
+	(5539, 3, 3033),
+	(5540, 4, 3031),
+	(5541, 4, 3032),
+	(5542, 5, 3030),
+	(5543, 5, 3031),
+	(5544, 7, 3031),
+	(5545, 7, 3033),
+	(5558, 1, 3043),
+	(5559, 1, 3045),
+	(5560, 2, 3045),
+	(5561, 2, 3046),
+	(5562, 3, 3043),
+	(5563, 3, 3045),
+	(5564, 4, 3042),
+	(5565, 4, 3044),
+	(5566, 5, 3042),
+	(5567, 5, 3045),
+	(5568, 7, 3042),
+	(5569, 7, 3046),
+	(5570, 1, 3050),
+	(5571, 1, 3051),
+	(5572, 2, 3048),
+	(5573, 2, 3051),
+	(5574, 3, 3051),
+	(5575, 3, 3052),
+	(5576, 4, 3049),
+	(5577, 4, 3050),
+	(5578, 5, 3049),
+	(5579, 5, 3051),
+	(5580, 1, 3057),
+	(5581, 1, 3059),
+	(5582, 2, 3057),
+	(5583, 2, 3058),
+	(5584, 3, 3055),
+	(5585, 3, 3059),
+	(5586, 4, 3054),
+	(5587, 4, 3055),
+	(5588, 5, 3057),
+	(5589, 5, 3059),
+	(5590, 1, 3062),
+	(5591, 1, 3063),
+	(5592, 2, 3062),
+	(5593, 2, 3063),
+	(5594, 3, 3063),
+	(5595, 3, 3064),
+	(5596, 4, 3062),
+	(5597, 4, 3064),
+	(5598, 7, 3060),
+	(5599, 7, 3063),
+	(5600, 1, 3038),
+	(5601, 1, 3040),
+	(5602, 2, 3036),
+	(5603, 2, 3039),
+	(5604, 3, 3037),
+	(5605, 3, 3039),
+	(5606, 4, 3036),
+	(5607, 4, 3037),
+	(5608, 5, 3038),
+	(5609, 5, 3039),
+	(5610, 7, 3036),
+	(5611, 7, 3039),
+	(5612, 1, 3076),
+	(5613, 1, 3079),
+	(5614, 3, 3077),
+	(5615, 3, 3078),
+	(5616, 4, 3075),
+	(5617, 4, 3076),
+	(5618, 7, 3076),
+	(5619, 7, 3077),
+	(5620, 1, 3081),
+	(5621, 1, 3082),
+	(5622, 2, 3080),
+	(5623, 2, 3082),
+	(5624, 4, 3081),
+	(5625, 4, 3083),
+	(5626, 7, 3080),
+	(5627, 7, 3081),
+	(5628, 1, 3085),
+	(5629, 1, 3086),
+	(5630, 2, 3086),
+	(5631, 2, 3087),
+	(5632, 4, 3084),
+	(5633, 4, 3085),
+	(5634, 7, 3084),
+	(5635, 7, 3085),
+	(5636, 1, 3091),
+	(5637, 1, 3089),
+	(5638, 3, 3092),
+	(5639, 3, 3088),
+	(5640, 4, 3092),
+	(5641, 4, 3090),
+	(5642, 7, 3091),
+	(5643, 7, 3090);
 
 
 --
@@ -5549,21 +6073,21 @@ SELECT pg_catalog.setval('"public"."ako_coupons_id_seq"', 4, true);
 -- Name: leagues_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"public"."leagues_id_seq"', 163, true);
+SELECT pg_catalog.setval('"public"."leagues_id_seq"', 164, true);
 
 
 --
 -- Name: matchdays_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"public"."matchdays_id_seq"', 324, true);
+SELECT pg_catalog.setval('"public"."matchdays_id_seq"', 369, true);
 
 
 --
 -- Name: picks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"public"."picks_id_seq"', 2745, true);
+SELECT pg_catalog.setval('"public"."picks_id_seq"', 3092, true);
 
 
 --
@@ -5591,13 +6115,13 @@ SELECT pg_catalog.setval('"public"."seasons_id_seq"', 2, true);
 -- Name: votes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"public"."votes_id_seq"', 5005, true);
+SELECT pg_catalog.setval('"public"."votes_id_seq"', 5643, true);
 
 
 --
 -- PostgreSQL database dump complete
 --
 
--- \unrestrict BfccMI3UOgIFMzkKEaB9VJfrJLChMnzOJI3ehxMLCzgvyTaDdlEZ9YblThOwL3l
+-- \unrestrict U2G9EQcn3HQIA0i9Dxobif57MFQ7v0iQ0aAp7zd9cdZuzijG2bC9kiHEav1CxSD
 
 RESET ALL;
