@@ -1,8 +1,4 @@
-import { PickFormValues } from './pick-form.schema';
-import { VotesTableFormValues } from './votes-form.schema';
-
-export * from './pick-form.schema';
-
-export * from './votes-form.schema';
-
+export * from './auth.schema';
 export * from './new-round.schema';
+export * from './pick-form.schema';
+export * from './votes-form.schema';
