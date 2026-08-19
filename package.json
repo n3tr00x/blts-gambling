@@ -13,6 +13,7 @@
     "db:start": "supabase start",
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset",
+    "db:seed:pull": "supabase link && supabase db dump -f supabase/seeds/seed.sql --data-only --schema public",
     "db:types": "supabase gen types typescript --local > lib/supabase/database/database.generated.ts"
   },
   "dependencies": {
