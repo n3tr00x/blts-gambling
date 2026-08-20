@@ -1,4 +1,4 @@
-import { emailStepFormSchema } from '@/schemas';
+import { emailStepFormSchema, otpStepFormSchema } from '@/schemas';
 
 export function getEmailValidationError(email: string) {
   const validation = emailStepFormSchema.safeParse(email);
@@ -15,5 +15,22 @@ export function getEmailValidationError(email: string) {
     if (invalidEmailIssue) {
       return invalidEmailIssue.message;
     }
+
+    return issues[0].message;
+  }
+}
+
+export function getOtpValidationError(otp: string) {
+  const validation = otpStepFormSchema.safeParse(otp);
+
+  if (!validation.success) {
+    const issues = validation.error.issues;
+    const tooSmallIssue = issues.find(issue => issue.code === 'too_small');
+
+    if (tooSmallIssue) {
+      return tooSmallIssue.message;
+    }
+
+    return issues[0].message;
   }
 }
