@@ -26,6 +26,7 @@ type OTPFormProps = {
   onResendOtp: (newSentAt: number) => void;
 };
 
+const OTP_LENGTH = 6;
 const INITIAL_CREDENTIALS = { message: '', success: false };
 
 export function OTPForm({
@@ -35,8 +36,6 @@ export function OTPForm({
   onResendOtp,
   sentAt,
 }: OTPFormProps) {
-  const OTP_LENGTH = 6;
-
   const [state, formAction, pending] = useActionState(
     verifyOtpAction,
     INITIAL_CREDENTIALS,

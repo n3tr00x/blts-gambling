@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 import { createClient } from '@/lib/supabase/server';
+import { getOtpValidationError } from '@/lib/utilities';
 
 export async function sendOtpAction(formData: FormData) {
   const email = formData.get('email') as string;
@@ -40,6 +41,11 @@ export async function verifyOtpAction(_previousState: unknown, formData: FormDat
   const supabase = await createClient();
   const email = formData.get('email') as string;
   const otp = formData.get('otp') as string;
+  const otpValidationError = getOtpValidationError(otp);
+
+  if (otpValidationError) {
+    return { success: false, message: otpValidationError };
+  }
 
   const { error } = await supabase.auth.verifyOtp({
     email,
