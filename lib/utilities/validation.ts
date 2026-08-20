@@ -15,6 +15,8 @@ export function getEmailValidationError(email: string) {
     if (invalidEmailIssue) {
       return invalidEmailIssue.message;
     }
+
+    return issues[0].message;
   }
 }
 
@@ -28,5 +30,7 @@ export function getOtpValidationError(otp: string) {
     if (tooSmallIssue) {
       return tooSmallIssue.message;
     }
+
+    return issues[0].message;
   }
 }

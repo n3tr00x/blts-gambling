@@ -29,9 +29,10 @@ export function EmailForm({ onSuccess }: EmailFormProps) {
       <form action={formAction} id="sign-in-form">
         <div className="grid gap-4">
           <Field data-invalid={!state.success && !!state.message}>
-            <FieldLabel>Email</FieldLabel>
+            <FieldLabel htmlFor="email">Email</FieldLabel>
             <Input
-              type="text"
+              type="email"
+              id="email"
               name="email"
               autoFocus
               aria-invalid={!state.success && !!state.message}
