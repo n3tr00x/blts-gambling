@@ -11,6 +11,16 @@ WITH active_season AS (
       )
     ) AS id
 ),
+all_rounds AS (
+    SELECT DISTINCT m.round_number
+    FROM matchdays m
+    WHERE m.season_id = (SELECT id FROM active_season)
+    ORDER BY m.round_number
+),
+all_players AS (
+    SELECT DISTINCT p.username
+    FROM players p
+),
 player_round_stats AS (
     SELECT 
         m.round_number,
@@ -23,13 +33,29 @@ player_round_stats AS (
     WHERE m.season_id = (SELECT id FROM active_season)
     GROUP BY m.round_number, p.username
 ),
+all_combinations AS (
+    SELECT 
+        ar.round_number,
+        ap.username
+    FROM all_rounds ar
+    CROSS JOIN all_players ap
+),
+player_round_with_nulls AS (
+    SELECT 
+        ac.round_number,
+        ac.username,
+        COALESCE(prs.total_picks, 0) AS total_picks,
+        COALESCE(prs.hit_picks, 0) AS hit_picks
+    FROM all_combinations ac
+    LEFT JOIN player_round_stats prs ON ac.round_number = prs.round_number AND ac.username = prs.username
+),
 cumulative_stats AS (
     SELECT 
-        prs.username,
-        prs.round_number,
-        SUM(prs.hit_picks) OVER (PARTITION BY prs.username ORDER BY prs.round_number) AS cumulative_hits,
-        SUM(prs.total_picks) OVER (PARTITION BY prs.username ORDER BY prs.round_number) AS cumulative_total
-    FROM player_round_stats prs
+        prwn.username,
+        prwn.round_number,
+        SUM(prwn.hit_picks) OVER (PARTITION BY prwn.username ORDER BY prwn.round_number) AS cumulative_hits,
+        SUM(prwn.total_picks) OVER (PARTITION BY prwn.username ORDER BY prwn.round_number) AS cumulative_total
+    FROM player_round_with_nulls prwn
 )
 SELECT 
     c.round_number,

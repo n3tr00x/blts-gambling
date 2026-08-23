@@ -27,8 +27,8 @@ const generateConfig = (players: string[]) => {
     'var(--color-chart-6)',
   ];
 
-  return players.reduce((config, key, index) => {
-    config[key] = { color: colors[index] };
+  return players.reduce((config, player, index) => {
+    config[player] = { color: colors[index] };
     return config;
   }, {} as ChartConfig);
 };
@@ -44,7 +44,6 @@ export function PlayersEffectivenessProgressChart({
     key => key !== 'round_number' && key !== 'roundNumber',
   );
   const config = generateConfig(players);
-  // const yAxisDomain = calculateYAxisDomain(data, players);
 
   return (
     <Card>
