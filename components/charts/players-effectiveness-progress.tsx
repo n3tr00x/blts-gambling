@@ -28,7 +28,7 @@ const generateConfig = (players: string[]) => {
   ];
 
   return players.reduce((config, player, index) => {
-    config[player] = { color: colors[index] };
+    config[player] = { color: colors[index % colors.length] };
     return config;
   }, {} as ChartConfig);
 };
